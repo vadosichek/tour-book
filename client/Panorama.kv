@@ -1,0 +1,94 @@
+#:kivy 1.0
+
+<Post>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.5
+            Button:
+                text: 'usr'
+                size_hint_x: 0.5
+            Label:
+                text: root.username
+                padding_x: 5
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                size_hint_x: 3
+                font_size: self.width/10
+            Button:
+                text: '-'
+                size_hint_x: 0.5
+        Button:
+            size_hint_y: 4
+            size_hint_x: 4
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.5
+            Button:
+                text: 'like'
+                size_hint_x: 2
+            Button:
+                text: 'comment'
+                size_hint_x: 2
+        Button:
+            size_hint_y: 1
+            size_hint_x: 4
+            on_press: root.openPost()
+
+<PostWithComments>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.5
+            Button:
+                text: 'usr'
+                size_hint_x: 0.5
+            Label:
+                text: root.username
+                padding_x: 5
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                size_hint_x: 3
+                font_size: self.width/10
+            Button:
+                text: '-'
+                size_hint_x: 0.5
+        Button:
+            size_hint_y: 4
+            size_hint_x: 4
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.5
+            Button:
+                text: 'like'
+                size_hint_x: 2
+            Button:
+                text: 'comment'
+                size_hint_x: 2
+        Button:
+            size_hint_y: 4
+            size_hint_x: 4
+
+<ProfileHeader>
+    orientation: 'horizontal'
+
+    Button:
+        text: 'userpic'
+        size_hint: 1, 1
+    BoxLayout:
+        size_hint: 2, 1
+        orientation: 'vertical'
+        Button:
+            text: '1111'
+            size_hint: 1, 1
+        Button:
+            text: '2222'
+            size_hint: 1, 1
+        Button:
+            text: '3333'
+            size_hint: 1,1
+

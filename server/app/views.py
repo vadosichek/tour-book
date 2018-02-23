@@ -1,4 +1,5 @@
-from app import app, models
+from app import app, models, db
+from flask import request
 import json
 from datetime import date, datetime
 def json_serial(obj):
@@ -24,13 +25,26 @@ def get_comments(tour_id):
 
 @app.route('/get_profile/<int:user_id>')
 def get_profile(user_id):
-    user = models.User.quety.get(user_id)
+    user = db.session.query(models.User).get(user_id)
     userData = user.get().append(user.profile)
     subscriptions = models.Subscription.query.filter_by(subcriber_id=user_id)
     subscribers = models.Subscription.query.filter_by(user_id=user_id)
-    tours = models.Tour.query.filter_by(user_id=user_id)
+    tours = db.session.query(models.Tour).filter_by(user_id=user_id)
     data = {'user':userData,
             'subscriptions':len(subscriptions),
             'subscribers':len(subscribers),
             'tours':len(tours)}
     return json.dump(data)
+
+
+@app.route('/create_profile', methods=['POST', 'GET'])
+def create_profile():
+    reqData = request.args
+    models.create_user(
+        reqData.get('login'), 
+        reqData.get('password'), 
+        reqData.get('name'), 
+        reqData.get('bio'), 
+        reqData.get('url'), 
+        reqData.get('pic'))
+    return "OK"

@@ -17,6 +17,12 @@ class User(db.Model):
         return {'bio':self.bio,
                 'url':self.url}
 
+def create_user(login, password, name, bio, url, pic):
+        newUser = User(login=login, password=password, name=name, bio=bio, url=url, pic=pic)
+        db.session.add(newUser)
+        db.session.commit()
+
+
 
 class Tour(db.Model):
     id = db.Column(db.Integer, primary_key = True)

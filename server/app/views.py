@@ -20,7 +20,16 @@ def index():
 def get_tour(tour_id):
     tour = models.Tour.query.get(tour_id)
     user = models.User.query.get(tour.user_id)
-    return json.dumps({'user': user.get(), 'tour': tour.get()}, separators=(',', ':'), default=json_serial)
+    userData = user.get()
+    tourData = tour.get()
+    data = {'name': userData['name'],
+            'pic': userData['pic'],
+            'preview': tourData['pic'],
+            'description': tourData['desc'],
+            'tags': tourData['tags'],
+            'geotag': tourData['geotag'],
+            'date': tourData['date']}
+    return json.dumps(data, separators=(',', ':'), default=json_serial)
 
 
 @app.route('/get_comments/<int:tour_id>')

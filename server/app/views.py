@@ -31,10 +31,10 @@ def get_comments(tour_id):
 
 @app.route('/get_profile/<int:user_id>')
 def get_profile(user_id):
-    user = models.User.quety.get(user_id)
+    user = models.User.query.get(user_id)
     userData = user.get()
     userProfile = user.profile()
-    subscriptions = models.Subscription.query.filter_by(subcriber_id=user_id)
+    subscriptions = models.Subscription.query.filter_by(subscriber_id=user_id)
     subscribers = models.Subscription.query.filter_by(user_id=user_id)
     tours = models.Tour.query.filter_by(user_id=user_id)
     data = {'id': userData["id"],
@@ -42,10 +42,10 @@ def get_profile(user_id):
             'pic': userData['pic'],
             'bio': userProfile['bio'],
             'url': userProfile['url'],
-            'subscriptions': len(subscriptions),
-            'subscribers': len(subscribers),
-            'tours': len(tours)}
-    return json.dump(data)
+            'subscriptions': subscriptions.count(),
+            'subscribers': subscribers.count(),
+            'tours': tours.count()}
+    return json.dumps(data)
 
 
 @app.route('/create_profile', methods=['POST', 'GET'])

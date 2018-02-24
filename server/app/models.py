@@ -19,14 +19,15 @@ class User(db.Model):
         return {'bio': self.bio,
                 'url': self.url}
 
+    def posts(self):
+        posts = Tour.query.filter_by(user_id=self.id)
+        return list(map(lambda x: {'id': x.id, 'pic': x.pic}, posts))
+
+
 def create_user(login, password, name, bio, url, pic):
         newUser = User(login=login, password=password, name=name, bio=bio, url=url, pic=pic)
         db.session.add(newUser)
         db.session.commit()
-
-    def posts(self):
-        posts = Tour.query.filter_by(user_id=self.id)
-        return list(map(lambda x: {'id': x.id, 'pic': x.pic}, posts))
 
 
 class Tour(db.Model):
@@ -47,12 +48,18 @@ class Tour(db.Model):
         return {'pic': self.pic,
                 'desc': self.desc,
                 'tags': self.tags,
-                'date': self.date,
+                'time': self.date,
                 'geotag': self.geotag}
 
     def comments(self):
         comments = Comment.query.filter_by(tour_id=self.id)
         return list(map(lambda x: {'user': x.user_id, 'text': x.text}, comments))
+
+
+def create_tour(path, user_id, geotag, desc, tags, size, date, pic):
+    newTour = Tour(path=path, user_id=user_id, geotag=geotag, desc=desc, tags=tags, size=size, date=date, pic=pic)
+    db.session.add(newTour)
+    db.session.commit()
 
 
 class Comment(db.Model):

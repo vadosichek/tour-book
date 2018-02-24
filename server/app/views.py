@@ -28,7 +28,7 @@ def get_tour(tour_id):
             'description': tourData['desc'],
             'tags': tourData['tags'],
             'geotag': tourData['geotag'],
-            'date': tourData['date']}
+            'time': tourData['time']}
     return json.dumps(data, separators=(',', ':'), default=json_serial)
 
 
@@ -57,6 +57,12 @@ def get_profile(user_id):
     return json.dumps(data)
 
 
+@app.route('/get_posts/<int:user_id>')
+def get_posts(user_id):
+    user = models.User.query.get(user_id)
+    return json.dumps(user.posts())
+
+
 @app.route('/create_profile', methods=['POST', 'GET'])
 def create_profile():
     reqData = request.args
@@ -69,7 +75,17 @@ def create_profile():
         reqData.get('pic'))
     return "OK"
 
-@app.route('/get_posts/<int:user_id>')
-def get_posts(user_id):
-    user = models.User.query.get(user_id)
-    return json.dump(user.posts)
+
+@app.route('/create_tour', methods=['POST', 'GET'])
+def create_tour():
+    reqData = request.args
+    models.create_tour(
+        reqData.get('path'), 
+        reqData.get('user_id'), 
+        reqData.get('geotag'), 
+        reqData.get('desc'), 
+        reqData.get('tags'), 
+        reqData.get('size'),
+        reqData.get('date'),
+        reqData.get('pic'))
+    return "OK"

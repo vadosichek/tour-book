@@ -68,3 +68,8 @@ def create_profile():
         reqData.get('url'), 
         reqData.get('pic'))
     return "OK"
+
+@app.route('/get_posts/<int:user_id>')
+def get_posts(user_id):
+    user = models.User.query.get(user_id)
+    return json.dump(user.posts)

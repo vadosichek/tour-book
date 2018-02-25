@@ -10,12 +10,6 @@ def json_serial(obj):
     raise TypeError("Type %s is not JSON serializable" % type(obj))
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return "Hello world!"
-
-
 @app.route('/get_tour/<int:tour_id>')
 def get_tour(tour_id):
     tour = models.Tour.query.get(tour_id)
@@ -30,7 +24,6 @@ def get_tour(tour_id):
             'geotag': tourData['geotag'],
             'time': tourData['time']}
     return json.dumps(data, separators=(',', ':'), default=json_serial)
-
 
 @app.route('/get_comments/<int:tour_id>')
 def get_comments(tour_id):

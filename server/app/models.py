@@ -48,12 +48,12 @@ class Tour(db.Model):
         return {'pic': self.pic,
                 'desc': self.desc,
                 'tags': self.tags,
-                'time': self.date,
+                'date': self.date,
                 'geotag': self.geotag}
 
     def comments(self):
         comments = Comment.query.filter_by(tour_id=self.id)
-        return list(map(lambda x: {'user': x.user_id, 'text': x.text}, comments))
+        return list(map(lambda x: {'user_name': User.query.get(x.user_id).name, 'text': x.text}, comments))
 
 
 def create_tour(path, user_id, geotag, desc, tags, size, date, pic):

@@ -82,3 +82,13 @@ def create_tour():
         reqData.get('date'),
         reqData.get('pic'))
     return "OK"
+
+
+@app.route('/create_comment', methods=['POST', 'GET'])
+def create_comment():
+    reqData = request.args
+    models.create_comment(
+        reqData.get('user_id'), 
+        reqData.get('tour_id'), 
+        reqData.get('text'))
+    return "OK"

@@ -69,6 +69,12 @@ class Comment(db.Model):
     text = db.Column(db.String(128))
 
 
+def create_comment(user_id, tour_id, text):
+    newComment = Comment(user_id=user_id, tour_id=tour_id, text=text)
+    db.session.add(newComment)
+    db.session.commit()
+
+
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

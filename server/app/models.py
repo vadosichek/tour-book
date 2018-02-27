@@ -25,9 +25,10 @@ class User(db.Model):
 
 
 def create_user(login, password, name, bio, url, pic):
-        newUser = User(login=login, password=password, name=name, bio=bio, url=url, pic=pic)
-        db.session.add(newUser)
-        db.session.commit()
+    newUser = User(login=login, password=password,
+                   name=name, bio=bio, url=url, pic=pic)
+    db.session.add(newUser)
+    db.session.commit()
 
 
 class Tour(db.Model):
@@ -57,7 +58,8 @@ class Tour(db.Model):
 
 
 def create_tour(path, user_id, geotag, desc, tags, size, date, pic):
-    newTour = Tour(path=path, user_id=user_id, geotag=geotag, desc=desc, tags=tags, size=size, date=date, pic=pic)
+    newTour = Tour(path=path, user_id=user_id, geotag=geotag,
+                   desc=desc, tags=tags, size=size, date=date, pic=pic)
     db.session.add(newTour)
     db.session.commit()
 
@@ -81,7 +83,28 @@ class Like(db.Model):
     tour_id = db.Column(db.Integer, db.ForeignKey('tour.id'))
 
 
+def create_like(user_id, tour_id):
+    newLike = Like(user_id=user_id, tour_id=tour_id)
+    db.session.add(newLike)
+    db.session.commit()
+
+
 class Subscription(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     subscriber_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+def create_subscription(user_id, subscriber_id):
+    newSub = Subscription(user_id=user_id, subscriber_id=subscriber_id)
+    db.session.add(newSub)
+    db.session.commit()
+
+
+def generate_feed(user_id):
+    postsList = []
+    subscriptions = Subscription.query.filter_by(subscriber_id=user_id)
+    for subscription in subscriptions:
+        posts = Tour.query.filter_by(user_id=subscription.user_id)
+        map(lambda x: postsList.append(x.id), posts)
+    return postsList

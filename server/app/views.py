@@ -25,6 +25,7 @@ def get_tour(tour_id):
             'time': tourData['time']}
     return json.dumps(data, separators=(',', ':'), default=json_serial)
 
+
 @app.route('/get_comments/<int:tour_id>')
 def get_comments(tour_id):
     tour = models.Tour.query.get(tour_id)
@@ -56,15 +57,21 @@ def get_posts(user_id):
     return json.dumps(user.posts())
 
 
+@app.route('/get_feed/<int:user_id>')
+def get_feed(user_id):
+    feed = models.generate_feed(user_id)
+    return json.dumps(feed)
+
+
 @app.route('/create_profile', methods=['POST', 'GET'])
 def create_profile():
     reqData = request.args
     models.create_user(
-        reqData.get('login'), 
-        reqData.get('password'), 
-        reqData.get('name'), 
-        reqData.get('bio'), 
-        reqData.get('url'), 
+        reqData.get('login'),
+        reqData.get('password'),
+        reqData.get('name'),
+        reqData.get('bio'),
+        reqData.get('url'),
         reqData.get('pic'))
     return "OK"
 
@@ -73,11 +80,11 @@ def create_profile():
 def create_tour():
     reqData = request.args
     models.create_tour(
-        reqData.get('path'), 
-        reqData.get('user_id'), 
-        reqData.get('geotag'), 
-        reqData.get('desc'), 
-        reqData.get('tags'), 
+        reqData.get('path'),
+        reqData.get('user_id'),
+        reqData.get('geotag'),
+        reqData.get('desc'),
+        reqData.get('tags'),
         reqData.get('size'),
         reqData.get('date'),
         reqData.get('pic'))
@@ -88,7 +95,25 @@ def create_tour():
 def create_comment():
     reqData = request.args
     models.create_comment(
-        reqData.get('user_id'), 
-        reqData.get('tour_id'), 
+        reqData.get('user_id'),
+        reqData.get('tour_id'),
         reqData.get('text'))
+    return "OK"
+
+
+@app.route('/create_like', methods=['POST', 'GET'])
+def create_like():
+    reqData = request.args
+    models.create_like(
+        reqData.get('user_id'),
+        reqData.get('tour_id'))
+    return "OK"
+
+
+@app.route('/create_subscription', methods=['POST', 'GET'])
+def create_subscription():
+    reqData = request.args
+    models.create_subscription(
+        reqData.get('user_id'),
+        reqData.get('subscriber_id'))
     return "OK"

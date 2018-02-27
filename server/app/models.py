@@ -31,6 +31,23 @@ def create_user(login, password, name, bio, url, pic):
     db.session.commit()
 
 
+def search_user(key):
+    foundByLogin = User.query.filter(User.login.ilike(key))
+    foundByName = User.query.filter(User.name.ilike(key))
+    foundByBio = User.query.filter(User.bio.ilike(key))
+    foundByUrl = User.query.filter(User.url.ilike(key))
+    result = []
+    map(lambda x: result.append(
+        {'id': x.id, 'login': x.login, 'name': x.name, 'pic': x.pic}), foundByLogin)
+    map(lambda x: result.append(
+        {'id': x.id, 'login': x.login, 'name': x.name, 'pic': x.pic}), foundByName)
+    map(lambda x: result.append(
+        {'id': x.id, 'login': x.login, 'name': x.name, 'pic': x.pic}), foundByBio)
+    map(lambda x: result.append(
+        {'id': x.id, 'login': x.login, 'name': x.name, 'pic': x.pic}), foundByUrl)
+    return result
+
+
 class Tour(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String(32), unique=True)

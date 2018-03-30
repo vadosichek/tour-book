@@ -7,13 +7,39 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 
-from blocks import Post, ProfileHeader, PostWithComments
+
+class ScreenController():
+
+    def __init__(self):
+        self.currentScreen = FloatLayout()
+
+    def getCurrentScreen(self):
+        return self.currentScreen
+
+    def setCurrentScreen(self, newScreen):
+        self.currentScreen.clear_widgets()
+        self.currentScreen.add_widget(newScreen)
+
+screenController = ScreenController()
 
 
 class Screen():
 
     def layout(self):
         return None
+
+
+class OpenedPost(Screen):
+
+    def layout(self):
+        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+        layout.bind(minimum_height=layout.setter('height'))
+        layout.add_widget(
+            Post().layout("username", "desc", 4, 9 / 4))
+        mainWidget = ScrollView(size_hint=(
+            1, None), size=(Window.width, Window.height))
+        mainWidget.add_widget(layout)
+        return mainWidget
 
 
 class Feed(Screen):
@@ -23,8 +49,7 @@ class Feed(Screen):
         layout.bind(minimum_height=layout.setter('height'))
         for i in range(100):
             layout.add_widget(
-                Post(username="username " + str(i), description="desc", size=(Window.width, Window.width * 1.5),
-                     size_hint_y=None))
+                Post().layout("username " + str(i), "desc", 1, 1.5))
         root = ScrollView(size_hint=(1, None), size=(
             Window.width, Window.height))
         root.add_widget(layout)
@@ -38,20 +63,6 @@ class Feed(Screen):
         return mainWidget
 
 
-class OpenedPost(Screen):
-
-    def layout(self):
-        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
-        layout.bind(minimum_height=layout.setter('height'))
-        layout.add_widget(
-            PostWithComments(username="username ", description="desc", size=(Window.width, Window.width * 9 / 4),
-                             size_hint_y=None))
-        mainWidget = ScrollView(size_hint=(
-            1, None), size=(Window.width, Window.height))
-        mainWidget.add_widget(layout)
-        return mainWidget
-
-
 class Profile(Screen):
     username = StringProperty()
     subscribers = NumericProperty()
@@ -60,9 +71,7 @@ class Profile(Screen):
     def layout(self):
         mainWidget = FloatLayout()
         profileLayout = BoxLayout(orientation='vertical')
-        profileHeader = ProfileHeader(
-            size=(Window.width, Window.width / 3), size_hint=(None, None))
-
+        profileHeader = ProfileHeader().layout()
         galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
         galleryLayout.bind(minimum_height=galleryLayout.setter('height'))
         for i in range(100):
@@ -81,20 +90,5 @@ class Profile(Screen):
 
         return mainWidget
 
-
-class ScreenController():
-
-    def __init__(self):
-        self.currentScreen = FloatLayout()
-
-    def getCurrentScreen(self):
-        return self.currentScreen
-
-    def setCurrentScreen(self, newScreen):
-        self.currentScreen.clear_widgets()
-        self.currentScreen.add_widget(newScreen)
-
-screenController = ScreenController()
-
-
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
+from blocks import Post, ProfileHeader

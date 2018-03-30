@@ -10,8 +10,8 @@ def json_serial(obj):
     raise TypeError("Type %s is not JSON serializable" % type(obj))
 
 
-@app.route('/get_tour/<int:tour_id>')
-def get_tour(tour_id):
+@app.route('/get_post/<int:tour_id>')
+def get_post(tour_id):
     tour = models.Tour.query.get(tour_id)
     user = models.User.query.get(tour.user_id)
     userData = user.get()
@@ -86,7 +86,7 @@ def create_tour():
         reqData.get('desc'),
         reqData.get('tags'),
         reqData.get('size'),
-        reqData.get('date'),
+        reqData.get('time'),
         reqData.get('pic'))
     return "OK"
 

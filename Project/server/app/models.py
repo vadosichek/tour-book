@@ -39,7 +39,7 @@ class Tour(db.Model):
     desc = db.Column(db.Text)
     tags = db.Column(db.String(64))
     size = db.Column(db.Integer)
-    date = db.Column(db.Date)
+    time = db.Column(db.DateTime)
     pic = db.Column(db.String(32))
 
     def __repr__(self):
@@ -49,7 +49,7 @@ class Tour(db.Model):
         return {'pic': self.pic,
                 'desc': self.desc,
                 'tags': self.tags,
-                'date': self.date,
+                'time': self.time,
                 'geotag': self.geotag}
 
     def comments(self):
@@ -57,9 +57,9 @@ class Tour(db.Model):
         return list(map(lambda x: {'user_name': User.query.get(x.user_id).name, 'text': x.text}, comments))
 
 
-def create_tour(path, user_id, geotag, desc, tags, size, date, pic):
+def create_tour(path, user_id, geotag, desc, tags, size, time, pic):
     newTour = Tour(path=path, user_id=user_id, geotag=geotag,
-                   desc=desc, tags=tags, size=size, date=date, pic=pic)
+                   desc=desc, tags=tags, size=size, time=time, pic=pic)
     db.session.add(newTour)
     db.session.commit()
 

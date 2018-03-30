@@ -18,5 +18,11 @@ class Server():
     def get_post(self, post_id):
         return self.get('/get_post/' + str(post_id))
 
+    def get_comments(self, tour_id):
+        return self.get('/get_comments/' + str(post_id))
+
+    def get_posts(self, user_id):
+        return self.get('/get_posts/' + str(post_id))
+
 
 server = Server()

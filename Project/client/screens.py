@@ -6,7 +6,7 @@ from kivy.core.window import Window
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-
+from server import server
 
 class ScreenController():
 
@@ -21,6 +21,7 @@ class ScreenController():
         self.currentScreen.add_widget(newScreen)
 
 screenController = ScreenController()
+user_id = 372
 
 
 class Screen():
@@ -47,9 +48,12 @@ class Feed(Screen):
     def layout(self):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
-        for i in range(100):
+        feed = server.get_feed(user_id)
+        for post in feed:
+            data = server.get_post(post)
+            print(data)
             layout.add_widget(
-                Post().layout("username " + str(i), "desc", 1, 1.5))
+                Post().layout(data['name'], data['description'], 1, 1.5))
         root = ScrollView(size_hint=(1, None), size=(
             Window.width, Window.height))
         root.add_widget(layout)

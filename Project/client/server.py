@@ -22,7 +22,7 @@ class Server():
         return self.get('/get_comments/' + str(post_id))
 
     def get_posts(self, user_id):
-        return self.get('/get_posts/' + str(post_id))
+        return self.get('/get_posts/' + str(user_id))
 
     def create_profile(self, login, password, name, bio, url, pic):
         return self.get(

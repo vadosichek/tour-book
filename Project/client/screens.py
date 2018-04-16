@@ -7,6 +7,8 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from server import server
+from config import USER_ID
+
 
 class ScreenController():
 
@@ -21,7 +23,6 @@ class ScreenController():
         self.currentScreen.add_widget(newScreen)
 
 screenController = ScreenController()
-user_id = 372
 
 
 class Screen():
@@ -44,14 +45,12 @@ class OpenedPost(Screen):
 
 
 class Feed(Screen):
-
     def layout(self):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
-        feed = server.get_feed(user_id)
+        feed = server.get_feed(USER_ID)
         for post in feed:
             data = server.get_post(post)
-            print(data)
             layout.add_widget(
                 Post().layout(data['name'], data['description'], 1, 1.5))
         root = ScrollView(size_hint=(1, None), size=(
@@ -72,15 +71,21 @@ class Profile(Screen):
     subscribers = NumericProperty()
     subscriptions = NumericProperty()
 
-    def layout(self):
+
+    def generate_posts(self, user_id, layout):
+        widgets = list()
+        posts = server.get_posts(user_id)
+        for post in posts:
+            layout.add_widget(Button(text='img', size_hint=(
+                None, None), size=(Window.width / 3, Window.width / 3)))
+
+    def layout(self, user_id):
         mainWidget = FloatLayout()
         profileLayout = BoxLayout(orientation='vertical')
         profileHeader = ProfileHeader().layout()
         galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
         galleryLayout.bind(minimum_height=galleryLayout.setter('height'))
-        for i in range(100):
-            galleryLayout.add_widget(Button(text='img', size_hint=(
-                None, None), size=(Window.width / 3, Window.width / 3)))
+        self.generate_posts(user_id, galleryLayout)
         galleryRoot = ScrollView(size_hint=(1, None), size=(
             Window.width, Window.height - Window.width / 3))
         galleryRoot.add_widget(galleryLayout)
@@ -94,5 +99,6 @@ class Profile(Screen):
 
         return mainWidget
 
+    
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
 from blocks import Post, ProfileHeader

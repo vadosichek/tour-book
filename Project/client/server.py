@@ -1,6 +1,6 @@
 import urllib.request
 import json
-
+USER_ID = 372
 
 class Server():
     base_url = 'https://tour-book.herokuapp.com'

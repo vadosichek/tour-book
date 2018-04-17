@@ -7,7 +7,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from server import server
-from config import USER_ID
+from server import USER_ID
 
 
 class ScreenController():
@@ -37,7 +37,7 @@ class OpenedPost(Screen):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         layout.add_widget(
-            Post().layout("username", "desc", 4, 9 / 4))
+            Post().layout(USER_ID, "username", "desc", 4, 9 / 4))
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
         mainWidget.add_widget(layout)
@@ -52,7 +52,7 @@ class Feed(Screen):
         for post in feed:
             data = server.get_post(post)
             layout.add_widget(
-                Post().layout(data['name'], data['description'], 1, 1.5))
+                Post().layout(data['id'], data['name'], data['description'], 1, 1.5))
         root = ScrollView(size_hint=(1, None), size=(
             Window.width, Window.height))
         root.add_widget(layout)
@@ -71,29 +71,39 @@ class Profile(Screen):
     subscribers = NumericProperty()
     subscriptions = NumericProperty()
 
+    def get_posts(self, user_id):
+        return server.get_posts(user_id)
 
-    def generate_posts(self, user_id, layout):
-        widgets = list()
-        posts = server.get_posts(user_id)
-        for post in posts:
-            layout.add_widget(Button(text='img', size_hint=(
-                None, None), size=(Window.width / 3, Window.width / 3)))
-
-    def layout(self, user_id):
-        mainWidget = FloatLayout()
-        profileLayout = BoxLayout(orientation='vertical')
-        profileHeader = ProfileHeader().layout()
+    def generate_posts(self, posts):
         galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
         galleryLayout.bind(minimum_height=galleryLayout.setter('height'))
-        self.generate_posts(user_id, galleryLayout)
+        for post in posts:
+            galleryLayout.add_widget(Button(text='img', size_hint=(
+                None, None), size=(Window.width / 3, Window.width / 3)))
+        return galleryLayout
+
+    def generate_profile_header(self):
+        return ProfileHeader().layout()
+
+    def generate_gallery_root(self, galleryLayout):
         galleryRoot = ScrollView(size_hint=(1, None), size=(
             Window.width, Window.height - Window.width / 3))
         galleryRoot.add_widget(galleryLayout)
-        profileLayout.add_widget(profileHeader)
-        profileLayout.add_widget(galleryRoot)
+        return galleryRoot
+
+    def layout(self, user_id):
+        mainWidget = FloatLayout()
+
+        profileLayout = BoxLayout(orientation='vertical')
+
+        posts = self.get_posts(user_id)
+        galleryLayout = self.generate_posts(posts)
+
+        profileLayout.add_widget(self.generate_profile_header())
+        profileLayout.add_widget(self.generate_gallery_root(galleryLayout))
 
         mainWidget.add_widget(profileLayout)
-        actionButtons = []
+
         floatingButton = ProfileFloatingButtonLayout('-', []).layout()
         mainWidget.add_widget(floatingButton)
 

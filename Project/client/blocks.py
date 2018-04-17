@@ -4,15 +4,18 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.properties import StringProperty
 from kivy.core.window import Window
-from screens import screenController, OpenedPost
+from screens import screenController, OpenedPost, Profile
 
 
 class Post(BoxLayout):
 
-    def openPost(self):
+    def open_post(self):
         screenController.setCurrentScreen(OpenedPost().layout())
 
-    def layout(self, username, description, commentsSize, size):
+    def open_user(self, user_id):
+        screenController.setCurrentScreen(Profile().layout(user_id))
+
+    def layout(self, user_id, username, description, commentsSize, size):
         layout = BoxLayout()
         layout.size = (Window.width, Window.width * size)
         layout.size_hint_y = None
@@ -20,10 +23,12 @@ class Post(BoxLayout):
         header = BoxLayout(
             orientation='horizontal',
             size_hint_y=0.5)
-        header.add_widget(
-            Button(
-                text='usr',
-                size_hint_x=0.5))
+        user_button = Button(
+            text='usr',
+            size_hint_x=0.5)
+        user_button_callback = lambda:self.open_user(user_id)
+        user_button.on_press = user_button_callback
+        header.add_widget(user_button)
         header.add_widget(
             Label(
                 text=username,
@@ -53,7 +58,7 @@ class Post(BoxLayout):
                 size_hint_x=2))
         layout.add_widget(interaction)
         comments = Button(size_hint_y=commentsSize, size_hint_x=4)
-        comments.on_press = self.openPost
+        comments.on_press = self.open_post
         layout.add_widget(comments)
         return layout
 

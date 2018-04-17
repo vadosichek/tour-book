@@ -5,7 +5,7 @@ from kivy.properties import NumericProperty
 from kivy.core.window import Window
 
 from screens import Feed, OpenedPost, Profile, screenController
-from config import USER_ID
+from server import USER_ID
 
 
 class HoverButton(Button):

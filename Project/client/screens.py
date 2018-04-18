@@ -33,11 +33,11 @@ class Screen():
 
 class OpenedPost(Screen):
 
-    def layout(self):
+    def layout(self, user_id, username, description, likes_count, comments_count):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         layout.add_widget(
-            Post().layout(USER_ID, "username", "desc", 9 / 4))
+            Post().layout(user_id, username, description, likes_count, comments_count, 9 / 4))
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
         mainWidget.add_widget(layout)
@@ -52,11 +52,15 @@ class Feed(Screen):
     def generate_posts(self, feed):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
+        print(feed)
         for post in feed:
             data = server.get_post(post)
+            comments = server.get_comments(post)
+            print(post)
             print(data)
+            print(len(comments))
             layout.add_widget(
-                Post().layout(data['id'], data['name'], data['description'], 0, 0, 5/4))
+                Post().layout(data['id'], data['name'], data['description'], 0, len(comments), 5/4))
         return layout
 
     def generate_root(self, layout):

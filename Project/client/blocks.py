@@ -9,13 +9,13 @@ from screens import screenController, OpenedPost, Profile
 
 class Post(BoxLayout):
 
-    def open_post(self):
-        screenController.setCurrentScreen(OpenedPost().layout())
+    def open_post(self, user_id, username, description, likes_count, comments_count):
+        screenController.setCurrentScreen(OpenedPost().layout(user_id, username, description, likes_count, comments_count))
 
     def open_user(self, user_id):
         screenController.setCurrentScreen(Profile().layout(user_id))
 
-    def layout(self, user_id, username, description, likes, comments, size):
+    def layout(self, user_id, username, description, likes_count, comments_count, size):
         layout = BoxLayout()
         layout.size = (Window.width, Window.width * size)
         layout.size_hint_y = None
@@ -59,11 +59,12 @@ class Post(BoxLayout):
         comments = Button(
                 text='comment',
                 size_hint_x=0.5)
-        comments.on_press = self.open_post
+        comments_callback = lambda:self.open_post(user_id, username, description, likes_count, comments_count)
+        comments.on_press = comments_callback
         interaction.add_widget(comments)
         interaction.add_widget(
             Label(
-                text='0',
+                text=str(comments_count),
                 size_hint_x=0.5))
         layout.add_widget(interaction)
         return layout

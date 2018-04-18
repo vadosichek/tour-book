@@ -1,6 +1,6 @@
 import urllib.request
 import json
-USER_ID = 372
+
 
 class Server():
     base_url = 'https://tour-book.herokuapp.com'
@@ -49,4 +49,5 @@ class Server():
             '/create_subscription?user_id={0}&subscriber_id={1}'.format(
             user_id, subscriber_id))
 
+USER_ID = 372
 server = Server()

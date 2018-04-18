@@ -37,7 +37,7 @@ class OpenedPost(Screen):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         layout.add_widget(
-            Post().layout(USER_ID, "username", "desc", 4, 9 / 4))
+            Post().layout(USER_ID, "username", "desc", 9 / 4))
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
         mainWidget.add_widget(layout)
@@ -45,23 +45,39 @@ class OpenedPost(Screen):
 
 
 class Feed(Screen):
-    def layout(self):
+
+    def get_feed(self):
+        return server.get_feed(USER_ID)
+
+    def generate_posts(self, feed):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
-        feed = server.get_feed(USER_ID)
         for post in feed:
             data = server.get_post(post)
+            print(data)
             layout.add_widget(
-                Post().layout(data['id'], data['name'], data['description'], 1, 1.5))
+                Post().layout(data['id'], data['name'], data['description'], 0, 0, 5/4))
+        return layout
+
+    def generate_root(self, layout):
         root = ScrollView(size_hint=(1, None), size=(
             Window.width, Window.height))
         root.add_widget(layout)
+        return root
+
+    def generate_floating_button(self):
+        actionButtons = [GotoProfile(), GotoProfile(), GotoProfile()]
+        return FeedFloatingButtonLayout('-', actionButtons).layout()
+
+    def layout(self):
+        feed = self.get_feed()
+        layout = self.generate_posts(feed)
+        root = self.generate_root(layout)
 
         mainWidget = FloatLayout()
         mainWidget.add_widget(root)
-        actionButtons = [GotoProfile(), GotoProfile(), GotoProfile()]
-        floatingButton = FeedFloatingButtonLayout('-', actionButtons).layout()
-        mainWidget.add_widget(floatingButton)
+        
+        mainWidget.add_widget(self.generate_floating_button())
 
         return mainWidget
 
@@ -91,6 +107,9 @@ class Profile(Screen):
         galleryRoot.add_widget(galleryLayout)
         return galleryRoot
 
+    def generate_floating_button(self):
+        return ProfileFloatingButtonLayout('-', []).layout()
+
     def layout(self, user_id):
         mainWidget = FloatLayout()
 
@@ -104,8 +123,7 @@ class Profile(Screen):
 
         mainWidget.add_widget(profileLayout)
 
-        floatingButton = ProfileFloatingButtonLayout('-', []).layout()
-        mainWidget.add_widget(floatingButton)
+        mainWidget.add_widget(self.generate_floating_button())
 
         return mainWidget
 

@@ -15,7 +15,7 @@ class Post(BoxLayout):
     def open_user(self, user_id):
         screenController.setCurrentScreen(Profile().layout(user_id))
 
-    def layout(self, user_id, username, description, commentsSize, size):
+    def layout(self, user_id, username, description, likes, comments, size):
         layout = BoxLayout()
         layout.size = (Window.width, Window.width * size)
         layout.size_hint_y = None
@@ -33,13 +33,9 @@ class Post(BoxLayout):
             Label(
                 text=username,
                 halign='left',
-                valign='middle',
-                size_hint_x=3,
-                font_size=self.width / 4))
-        header.add_widget(
-            Button(
-                text='-',
-                size_hint_x=0.5))
+                valign='top',
+                size_hint_x=3.5,
+                font_size=header.width/3))
         layout.add_widget(header)
         layout.add_widget(
             Button(
@@ -51,15 +47,25 @@ class Post(BoxLayout):
         interaction.add_widget(
             Button(
                 text='like',
-                size_hint_x=2))
+                size_hint_x=0.5))
         interaction.add_widget(
-            Button(
-                text='comment',
+            Label(
+                text='0',
+                size_hint_x=0.5))
+        interaction.add_widget(
+            Label(
+                text='',
                 size_hint_x=2))
-        layout.add_widget(interaction)
-        comments = Button(size_hint_y=commentsSize, size_hint_x=4)
+        comments = Button(
+                text='comment',
+                size_hint_x=0.5)
         comments.on_press = self.open_post
-        layout.add_widget(comments)
+        interaction.add_widget(comments)
+        interaction.add_widget(
+            Label(
+                text='0',
+                size_hint_x=0.5))
+        layout.add_widget(interaction)
         return layout
 
 

@@ -33,11 +33,17 @@ class Screen():
 
 class OpenedPost(Screen):
 
-    def layout(self, user_id, username, description, likes_count, comments_count):
-        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+    def layout(self, post, user_id, username, description, likes_count, comments_count):
+        layout = GridLayout(cols=1, spacing=20, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         layout.add_widget(
-            Post().layout(user_id, username, description, likes_count, comments_count, 9 / 4))
+            Post().layout(post, user_id, username, description, likes_count, comments_count, 5/4))
+
+        comments = server.get_comments(post)
+        print(comments)
+        for comment in comments:
+            layout.add_widget(Comment().layout(comment['user_name'], comment['text']))
+        
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
         mainWidget.add_widget(layout)
@@ -60,7 +66,7 @@ class Feed(Screen):
             print(data)
             print(len(comments))
             layout.add_widget(
-                Post().layout(data['id'], data['name'], data['description'], 0, len(comments), 5/4))
+                Post().layout(post, data['id'], data['name'], data['description'], 0, len(comments), 5/4))
         return layout
 
     def generate_root(self, layout):
@@ -133,4 +139,4 @@ class Profile(Screen):
 
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
-from blocks import Post, ProfileHeader
+from blocks import Post, ProfileHeader, Comment

@@ -9,13 +9,13 @@ from screens import screenController, OpenedPost, Profile
 
 class Post(BoxLayout):
 
-    def open_post(self, user_id, username, description, likes_count, comments_count):
-        screenController.setCurrentScreen(OpenedPost().layout(user_id, username, description, likes_count, comments_count))
+    def open_post(self, post, user_id, username, description, likes_count, comments_count):
+        screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count, comments_count))
 
     def open_user(self, user_id):
         screenController.setCurrentScreen(Profile().layout(user_id))
 
-    def layout(self, user_id, username, description, likes_count, comments_count, size):
+    def layout(self, post, user_id, username, description, likes_count, comments_count, size):
         layout = BoxLayout()
         layout.size = (Window.width, Window.width * size)
         layout.size_hint_y = None
@@ -35,7 +35,7 @@ class Post(BoxLayout):
                 halign='left',
                 valign='top',
                 size_hint_x=3.5,
-                font_size=header.width/3))
+                text_size=(Window.width/1.2, None)))
         layout.add_widget(header)
         layout.add_widget(
             Button(
@@ -59,7 +59,7 @@ class Post(BoxLayout):
         comments = Button(
                 text='comment',
                 size_hint_x=0.5)
-        comments_callback = lambda:self.open_post(user_id, username, description, likes_count, comments_count)
+        comments_callback = lambda:self.open_post(post, user_id, username, description, likes_count, comments_count)
         comments.on_press = comments_callback
         interaction.add_widget(comments)
         interaction.add_widget(
@@ -98,3 +98,8 @@ class ProfileHeader(BoxLayout):
                 size_hint=(1, 1)))
         layout.add_widget(data)
         return layout
+
+class Comment():
+
+    def layout(self, user, text):
+        return Label(text="[b]{0}:[/b] {1}".format(user, text), markup=True, text_size=(Window.width, None), halign='left')

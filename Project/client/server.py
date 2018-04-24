@@ -1,4 +1,4 @@
-import urllib.request
+import urllib2
 import json
 
 
@@ -6,7 +6,7 @@ class Server():
     base_url = 'https://tour-book.herokuapp.com'
 
     def get(self, path):
-        content = urllib.request.urlopen(self.base_url + path)
+        content = urllib2.urlopen(self.base_url + path)
         return json.loads(content.read())
 
     def get_profile(self, user_id):

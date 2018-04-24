@@ -2,3 +2,5 @@
 Project/client/__pycache__/blocks.cpython-36.pyc
 *.pyc
 *.code-workspace
+.DS_Store
+Project/.vscode/settings.json

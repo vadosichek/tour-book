@@ -15,10 +15,12 @@ class Post(BoxLayout):
     def open_user(self, user_id):
         screenController.setCurrentScreen(Profile().layout(user_id))
 
-    def layout(self, post, user_id, username, description, likes_count, comments_count, size):
+    def layout(self, post, user_id, username, description, likes_count, comments_count):
         layout = BoxLayout()
-        layout.size = (Window.width, Window.width * size)
         layout.size_hint_y = None
+        #layout.size_hint_x = None
+        layout.size = (Window.width, Window.width * 5/4)
+        print(Window.width, Window.width * 5/4)
         layout.orientation = 'vertical'
         header = BoxLayout(
             orientation='horizontal',
@@ -102,4 +104,9 @@ class ProfileHeader(BoxLayout):
 class Comment():
 
     def layout(self, user, text):
-        return Label(text="[b]{0}:[/b] {1}".format(user, text), markup=True, text_size=(Window.width, None), halign='left')
+        comment_label = Label(text="[b]{0}:[/b] {1}".format(user, text), markup=True, size_hint_y=None, text_size=(Window.width/1.2, None), halign='left')
+        comment_label.texture_update()
+        comment_label.height=comment_label.texture_size[1] 
+        comment_label.texture_update()
+        print(comment_label.texture_size)
+        return comment_label

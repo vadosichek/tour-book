@@ -37,7 +37,8 @@ class Post(BoxLayout):
                 halign='left',
                 valign='top',
                 size_hint_x=3.5,
-                text_size=(Window.width/1.2, None)))
+                text_size=(Window.width/1.2, None),
+                font_size=header.height))
         layout.add_widget(header)
         layout.add_widget(
             Button(

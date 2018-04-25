@@ -7,4 +7,4 @@ from server import server
 server.create_comment(452, 122, 'asasdasda')
 server.create_comment(452, 122, 'asasdasda2')
 server.create_comment(452, 122, 'asasdasda3')
-server.create_comment(452, 132, 'asasdasda')
+server.create_comment(452, 132, 'asasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')

@@ -7,14 +7,18 @@ from kivy.core.window import Window
 from screens import Feed, OpenedPost, Profile, screenController
 from server import USER_ID
 
+block = Window.width/5
+margin = block/4
 
 class HoverButton(Button):
-    text = StringProperty()
     size_hint = (None, None)
-    size = (100, 100)
-    x = NumericProperty(Window.width - 125)
-    y = NumericProperty(40)
-
+    size = (block, block)
+    x = NumericProperty(Window.width - block - margin)
+    y = NumericProperty(margin)
+    # on_size = self.reposition
+    # on_pos = self.reposition
+    right = Window.width - margin
+    top = Window.height - margin
 
 class GotoButton(HoverButton):
 
@@ -40,12 +44,12 @@ class FloatingButtonLayout():
 
     def generateActionButtonsLayout(self, actionButtons):
         actionButtonsBlockLayout = FloatLayout()
-        y = 150
+        y = (block * 3)/2
         for actionButton in actionButtons:
-            actionButton.x = Window.width - 125
+            actionButton.x = Window.width - block - margin
             actionButton.y = y
             actionButtonsBlockLayout.add_widget(actionButton)
-            y += 110
+            y += block + margin
         return actionButtonsBlockLayout
 
     def __init__(self, floatingButtonText, actionButtons):

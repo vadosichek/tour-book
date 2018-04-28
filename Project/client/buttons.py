@@ -18,7 +18,7 @@ class HoverButton(Button):
     # on_size = self.reposition
     # on_pos = self.reposition
     right = Window.width - margin
-    top = Window.height - margin
+    top = block + margin
 
 class GotoButton(HoverButton):
 

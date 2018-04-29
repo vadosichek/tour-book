@@ -5,7 +5,7 @@ from kivy.uix.label import Label
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 from screens import screenController, OpenedPost, Profile
-
+from server import server, USER_ID
 
 class Post(BoxLayout):
 
@@ -18,7 +18,6 @@ class Post(BoxLayout):
     def layout(self, post, user_id, username, description, likes_count, comments_count):
         layout = BoxLayout()
         layout.size_hint_y = None
-        #layout.size_hint_x = None
         layout.size = (Window.width, Window.width * 5/4)
         print(Window.width, Window.width * 5/4)
         layout.orientation = 'vertical'
@@ -47,13 +46,15 @@ class Post(BoxLayout):
         interaction = BoxLayout(
             orientation='horizontal',
             size_hint_y=0.5)
-        interaction.add_widget(
-            Button(
+        like = Button(
                 text='like',
-                size_hint_x=0.5))
+                size_hint_x=0.5)
+        like_callback = lambda:server.create_like(USER_ID, post)
+        like.on_press = like_callback
+        interaction.add_widget(like)
         interaction.add_widget(
             Label(
-                text='0',
+                text=str(likes_count),
                 size_hint_x=0.5))
         interaction.add_widget(
             Label(

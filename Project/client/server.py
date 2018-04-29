@@ -40,6 +40,7 @@ class Server():
             user_id, tour_id, text))
 
     def create_like(self, user_id, tour_id):
+        print 'liked'
         return self.get(
             '/create_like?user_id={0}&tour_id={1}'.format(
             user_id, tour_id))

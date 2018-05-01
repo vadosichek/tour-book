@@ -29,6 +29,8 @@ def create_user(login, password, name, bio, url, pic):
                    name=name, bio=bio, url=url, pic=pic)
     db.session.add(newUser)
     db.session.commit()
+    db.session.refresh(newUser)
+    return newUser.id
 
 
 class Tour(db.Model):
@@ -54,14 +56,19 @@ class Tour(db.Model):
 
     def comments(self):
         comments = Comment.query.filter_by(tour_id=self.id)
-        return list(map(lambda x: {'user_name': User.query.get(x.user_id).name, 'text': x.text}, comments))
+        return [{'user_name': User.query.get(comment.user_id).name, 'text': comment.text} for comment in comments]
 
+    def likes(self):
+        likes = Like.query.filter_by(tour_id=self.id)
+        return [like.user_id for like in likes]
 
 def create_tour(path, user_id, geotag, desc, tags, size, time, pic):
     newTour = Tour(path=path, user_id=user_id, geotag=geotag,
                    desc=desc, tags=tags, size=size, time=time, pic=pic)
     db.session.add(newTour)
     db.session.commit()
+    db.session.refresh(newTour)
+    return newTour.id
 
 
 class Comment(db.Model):
@@ -75,6 +82,8 @@ def create_comment(user_id, tour_id, text):
     newComment = Comment(user_id=user_id, tour_id=tour_id, text=text)
     db.session.add(newComment)
     db.session.commit()
+    db.session.refresh(newComment)
+    return newComment.id
 
 
 class Like(db.Model):
@@ -87,6 +96,8 @@ def create_like(user_id, tour_id):
     newLike = Like(user_id=user_id, tour_id=tour_id)
     db.session.add(newLike)
     db.session.commit()
+    db.session.refresh(newLike)
+    return newLike.id
 
 
 class Subscription(db.Model):
@@ -99,6 +110,8 @@ def create_subscription(user_id, subscriber_id):
     newSub = Subscription(user_id=user_id, subscriber_id=subscriber_id)
     db.session.add(newSub)
     db.session.commit()
+    db.session.refresh(newSub)
+    return newSub.id
 
 
 def generate_feed(user_id):

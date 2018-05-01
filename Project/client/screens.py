@@ -62,11 +62,12 @@ class Feed(Screen):
         for post in feed:
             data = server.get_post(post)
             comments = server.get_comments(post)
+            likes = server.get_likes(post)
             print(post)
             print(data)
             print(len(comments))
             layout.add_widget(
-                Post().layout(post, data['id'], data['name'], data['description'], 0, len(comments)))
+                Post().layout(post, data['id'], data['name'], data['description'], len(likes), len(comments)))
         return layout
 
     def generate_root(self, layout):

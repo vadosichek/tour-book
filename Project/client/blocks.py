@@ -10,8 +10,8 @@ from server import server, USER_ID
 
 class Post(BoxLayout):
 
-    def open_post(self, post, user_id, username, description, likes_count, comments_count):
-        screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count, comments_count))
+    def open_post(self, post, user_id, username, description, likes_count):
+        screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count))
 
     def open_user(self, user_id):
         screenController.setCurrentScreen(Profile().layout(user_id))
@@ -64,7 +64,7 @@ class Post(BoxLayout):
         comments = Button(
                 text='comment',
                 size_hint_x=0.5)
-        comments_callback = lambda:self.open_post(post, user_id, username, description, likes_count, comments_count)
+        comments_callback = lambda:self.open_post(post, user_id, username, description, likes_count)
         comments.on_press = comments_callback
         interaction.add_widget(comments)
         interaction.add_widget(
@@ -116,7 +116,7 @@ class Comment():
 
 class CommentEditor():
 
-    def layout(self, post, user_id, username, description, likes_count, comments_count):
+    def layout(self, post, user_id, username, description, likes_count):
         layout = BoxLayout()
         layout.size_hint_y = None
         layout.size = (Window.width, Window.width / 8)
@@ -127,7 +127,7 @@ class CommentEditor():
 
         def refresh():
             server.create_comment(USER_ID, post, text.text)
-            screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count, comments_count))
+            screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count))
 
         send.on_press = refresh
 

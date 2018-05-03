@@ -36,19 +36,19 @@ class OpenedPost(Screen):
     def generate_post(self, post, user_id, username, description, likes_count, comments_count):
         return Post().layout(post, user_id, username, description, likes_count, comments_count)
 
-    def generate_comment_editor(self, post, user_id, username, description, likes_count, comments_count):
-        return CommentEditor().layout(post, user_id, username, description, likes_count, comments_count)
+    def generate_comment_editor(self, post, user_id, username, description, likes_count):
+        return CommentEditor().layout(post, user_id, username, description, likes_count)
 
     def generate_comments(self, post):
         return server.get_comments(post)
 
-    def layout(self, post, user_id, username, description, likes_count, comments_count):
+    def layout(self, post, user_id, username, description, likes_count):
         layout = GridLayout(cols=1, spacing=0, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         comments = self.generate_comments(post)
         layout.add_widget(self.generate_post(post, user_id, username, description, likes_count, len(comments)))
         
-        layout.add_widget(self.generate_comment_editor(post, user_id, username, description, likes_count, comments_count))
+        layout.add_widget(self.generate_comment_editor(post, user_id, username, description, likes_count))
         
         for comment in comments:
             layout.add_widget(Comment().layout(comment['user_name'], comment['text']))

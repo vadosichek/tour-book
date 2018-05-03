@@ -33,17 +33,26 @@ class Screen():
 
 class OpenedPost(Screen):
 
-    def layout(self, post, user_id, username, description, likes_count, comments_count):
-        layout = GridLayout(cols=1, spacing=30, size_hint_y=None)
-        layout.bind(minimum_height=layout.setter('height'))
-        layout.add_widget(
-            Post().layout(post, user_id, username, description, likes_count, comments_count))
+    def generate_post(self, post, user_id, username, description, likes_count, comments_count):
+        return Post().layout(post, user_id, username, description, likes_count, comments_count)
 
-        comments = server.get_comments(post)
-        print(comments)
+    def generate_comment_editor(self, post, user_id, username, description, likes_count, comments_count):
+        return CommentEditor().layout(post, user_id, username, description, likes_count, comments_count)
+
+    def generate_comments(self, post):
+        return server.get_comments(post)
+
+    def layout(self, post, user_id, username, description, likes_count, comments_count):
+        layout = GridLayout(cols=1, spacing=0, size_hint_y=None)
+        layout.bind(minimum_height=layout.setter('height'))
+        comments = self.generate_comments(post)
+        layout.add_widget(self.generate_post(post, user_id, username, description, likes_count, len(comments)))
+        
+        layout.add_widget(self.generate_comment_editor(post, user_id, username, description, likes_count, comments_count))
+        
         for comment in comments:
             layout.add_widget(Comment().layout(comment['user_name'], comment['text']))
-        
+
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
         mainWidget.add_widget(layout)
@@ -140,4 +149,4 @@ class Profile(Screen):
 
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment
+from blocks import Post, ProfileHeader, Comment, CommentEditor

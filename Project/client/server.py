@@ -1,4 +1,8 @@
 import urllib2
+import httplib
+
+import requests
+
 import json
 
 
@@ -6,8 +10,9 @@ class Server():
     base_url = 'https://tour-book.herokuapp.com'
 
     def get(self, path):
-        content = urllib2.urlopen(self.base_url + path)
-        return json.loads(content.read())
+        content = requests.get(self.base_url + path)
+        print(content.text)
+        return json.loads(content.text)
 
     def get_profile(self, user_id):
         return self.get('/get_profile/' + str(user_id))
@@ -39,7 +44,7 @@ class Server():
 
     def create_comment(self, user_id, tour_id, text):
         return self.get(
-            '/create_comment?user_id={0}&tour_id={1}&text={2}'.format(
+            '/create_comment?user_id={0}&tour_id={1}&text=\"{2}\"'.format(
             user_id, tour_id, text))
 
     def create_like(self, user_id, tour_id):

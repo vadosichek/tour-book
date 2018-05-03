@@ -2,6 +2,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 from screens import screenController, OpenedPost, Profile
@@ -112,3 +113,25 @@ class Comment():
         comment_label.texture_update()
         print(comment_label.texture_size)
         return comment_label
+
+class CommentEditor():
+
+    def layout(self, post, user_id, username, description, likes_count, comments_count):
+        layout = BoxLayout()
+        layout.size_hint_y = None
+        layout.size = (Window.width, Window.width / 8)
+        layout.orientation = 'horizontal'
+
+        text = TextInput(text="", size_hint_x=.875)
+        send = Button(text="send", size_hint_x=.125)
+
+        def refresh():
+            server.create_comment(USER_ID, post, text.text)
+            screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count, comments_count))
+
+        send.on_press = refresh
+
+        layout.add_widget(text)
+        layout.add_widget(send)
+
+        return layout

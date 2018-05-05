@@ -1,3 +1,4 @@
+from kivy.clock import Clock
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import StringProperty
@@ -9,6 +10,7 @@ from kivy.uix.button import Button
 from server import server
 from server import USER_ID
 
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 class ScreenController():
 
@@ -22,13 +24,13 @@ class ScreenController():
         self.currentScreen.clear_widgets()
         self.currentScreen.add_widget(newScreen)
 
-screenController = ScreenController()
+#screenController = ScreenController()
+screenManager = ScreenManager()
 
+# class Screen():
 
-class Screen():
-
-    def layout(self):
-        return None
+#     def layout(self):
+#         return None
 
 
 class OpenedPost(Screen):
@@ -42,7 +44,8 @@ class OpenedPost(Screen):
     def generate_comments(self, post):
         return server.get_comments(post)
 
-    def layout(self, post, user_id, username, description, likes_count):
+    def __init__(self, post, user_id, username, description, likes_count):
+        #super(OpenedPost, self).__init__(**kwargs)
         layout = GridLayout(cols=1, spacing=0, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         comments = self.generate_comments(post)
@@ -56,28 +59,27 @@ class OpenedPost(Screen):
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
         mainWidget.add_widget(layout)
-        return mainWidget
+        self.add_widget(mainWidget)
 
 
 class Feed(Screen):
+    loaded_posts = []
+    posts_layout = None
+    posts_scroll = None
 
     def get_feed(self):
         return server.get_feed(USER_ID)
 
     def generate_posts(self, feed):
-        layout = GridLayout(cols=1, spacing=20, size_hint_y=None)
-        layout.bind(minimum_height=layout.setter('height'))
-        print(feed)
-        for post in feed:
-            data = server.get_post(post)
-            comments = server.get_comments(post)
-            likes = server.get_likes(post)
-            print(post)
-            print(data)
-            print(len(comments))
-            layout.add_widget(
-                Post().layout(post, data['id'], data['name'], data['description'], len(likes), len(comments)))
-        return layout
+        self.loaded_posts = []
+        for post_id in feed:
+            post = Post()
+            self.loaded_posts.append([post_id,post])
+            self.posts_layout.add_widget(post)
+
+    def load_posts(self, pd):
+        for post in self.loaded_posts:
+            post[1].load(post[0])
 
     def generate_root(self, layout):
         root = ScrollView(size_hint=(1, None), size=(
@@ -89,17 +91,30 @@ class Feed(Screen):
         actionButtons = [GotoProfile(), GotoProfile(), GotoProfile()]
         return FeedFloatingButtonLayout('-', actionButtons).layout()
 
-    def layout(self):
+    def refresh(self):
+        for post in self.loaded_posts:
+            self.posts_layout.remove_widget(post[1])
+        self.load()
+
+    def load(self):
         feed = self.get_feed()
-        layout = self.generate_posts(feed)
-        root = self.generate_root(layout)
+        self.generate_posts(feed)
+
+    def __init__(self, **kwargs):
+        super(Feed, self).__init__(**kwargs)
+        self.posts_layout = GridLayout(cols=1, spacing=20, size_hint_y=None)
+        self.posts_layout.bind(minimum_height=self.posts_layout.setter('height'))
+        self.posts_scroll = self.generate_root(self.posts_layout)
 
         mainWidget = FloatLayout()
-        mainWidget.add_widget(root)
+        mainWidget.add_widget(self.posts_scroll)
         
         mainWidget.add_widget(self.generate_floating_button())
 
-        return mainWidget
+        self.add_widget(mainWidget)
+        self.load()
+        Clock.schedule_once(self.load_posts, 1.5)
+        #self.load_posts()
 
 
 class Profile(Screen):
@@ -150,3 +165,6 @@ class Profile(Screen):
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
 from blocks import Post, ProfileHeader, Comment, CommentEditor
+
+feed = Feed(name='Feed')
+#openedPost = OpenedPost(name='OpenedPost')

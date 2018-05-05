@@ -4,7 +4,7 @@ from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.core.window import Window
 
-from screens import Feed, OpenedPost, Profile, screenController
+from screens import Feed, OpenedPost, Profile, screenManager
 from server import USER_ID
 
 block = Window.width/5
@@ -29,7 +29,8 @@ class GotoButton(HoverButton):
 class GotoProfile(GotoButton):
 
     def go(self):
-        screenController.setCurrentScreen(Profile().layout(USER_ID))
+        pass
+        #screenController.setCurrentScreen(Profile().layout(USER_ID))
     on_press = go
 
 

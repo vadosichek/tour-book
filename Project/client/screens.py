@@ -24,41 +24,62 @@ class ScreenController():
         self.currentScreen.clear_widgets()
         self.currentScreen.add_widget(newScreen)
 
-#screenController = ScreenController()
 screenManager = ScreenManager()
 
-# class Screen():
+class ScreenController():
+    openedPost = None
+    screens = []
 
-#     def layout(self):
-#         return None
+    def save_last(self, name):
+        self.screens.append(name)
+        print('saved', name)
 
+    def open_post(self, post):
+        openedPost.load(post)
+        screenManager.current = 'OpenedPost'
+        self.save_last('OpenedPost')
+
+    def go_back(self):
+        screenManager.current = self.screens[-2]
+        self.screens.pop(-1)
+        
+
+screenController = ScreenController()
 
 class OpenedPost(Screen):
+    base_layout = None
 
-    def generate_post(self, post, user_id, username, description, likes_count, comments_count):
-        return Post().layout(post, user_id, username, description, likes_count, comments_count)
+    def load(self, post):
+        self.base_layout.clear_widgets()
 
-    def generate_comment_editor(self, post, user_id, username, description, likes_count):
-        return CommentEditor().layout(post, user_id, username, description, likes_count)
+        self.base_layout.add_widget(GoBack())
+        self.base_layout.add_widget(self.generate_post(post))
+        self.base_layout.add_widget(self.generate_comment_editor(post.post) )
+        comments = self.generate_comments(post.post)
+
+        for comment in comments:
+            loaded_comment = Comment().layout(comment['user_name'], comment['text'])
+            self.base_layout.add_widget(loaded_comment)
+        
+    def generate_post(self, post):
+        opened_post = Post()
+        opened_post.copy(post)
+        return opened_post
+
+    def generate_comment_editor(self, post):
+        return CommentEditor().layout(post)
 
     def generate_comments(self, post):
         return server.get_comments(post)
 
-    def __init__(self, post, user_id, username, description, likes_count):
-        #super(OpenedPost, self).__init__(**kwargs)
-        layout = GridLayout(cols=1, spacing=0, size_hint_y=None)
-        layout.bind(minimum_height=layout.setter('height'))
-        comments = self.generate_comments(post)
-        layout.add_widget(self.generate_post(post, user_id, username, description, likes_count, len(comments)))
+    def __init__(self, **kwargs):
+        super(OpenedPost, self).__init__(**kwargs)
+        self.base_layout = GridLayout(cols=1, spacing=0, size_hint_y=None)
+        self.base_layout.bind(minimum_height=self.base_layout.setter('height'))
         
-        layout.add_widget(self.generate_comment_editor(post, user_id, username, description, likes_count))
-        
-        for comment in comments:
-            layout.add_widget(Comment().layout(comment['user_name'], comment['text']))
-
         mainWidget = ScrollView(size_hint=(
             1, None), size=(Window.width, Window.height))
-        mainWidget.add_widget(layout)
+        mainWidget.add_widget(self.base_layout)
         self.add_widget(mainWidget)
 
 
@@ -114,7 +135,6 @@ class Feed(Screen):
         self.add_widget(mainWidget)
         self.load()
         Clock.schedule_once(self.load_posts, 1.5)
-        #self.load_posts()
 
 
 class Profile(Screen):
@@ -164,7 +184,8 @@ class Profile(Screen):
 
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment, CommentEditor
+from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack
 
 feed = Feed(name='Feed')
-#openedPost = OpenedPost(name='OpenedPost')
+openedPost = OpenedPost(name='OpenedPost')
+screenController.openedPost = openedPost

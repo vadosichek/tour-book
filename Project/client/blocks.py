@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.properties import StringProperty
 from kivy.core.window import Window
-from screens import screenManager, OpenedPost, Profile
+from screens import screenManager, screenController, OpenedPost, Profile
 from server import server, USER_ID
 
 class Post(BoxLayout):
@@ -15,11 +15,16 @@ class Post(BoxLayout):
     name_label = None
     post = None
 
-    def open_post(self, post):
-        screenManager.current = 'OpenedPost'
+    def open_post(self):
+        screenController.open_post(self)
 
     def open_user(self, user_id):
         screenController.setCurrentScreen(Profile().layout(user_id))
+
+    def copy(self, post):
+        self.likes_label.text = post.likes_label.text
+        self.comments_label.text = post.comments_label.text
+        self.name_label.text = post.name_label.text
 
     def load(self, post):
         self.post = post
@@ -77,8 +82,7 @@ class Post(BoxLayout):
         comments = Button(
                 text='comment',
                 size_hint_x=0.5)
-        comments_callback = lambda:self.open_post(post, user_id, username, description, likes_count)
-        comments.on_press = comments_callback
+        comments.on_press = self.open_post
         interaction.add_widget(comments)
         self.comments_label = Label(
                 text='',
@@ -129,7 +133,7 @@ class Comment():
 
 class CommentEditor():
 
-    def layout(self, post, user_id, username, description, likes_count):
+    def layout(self, post):
         layout = BoxLayout()
         layout.size_hint_y = None
         layout.size = (Window.width, Window.width / 8)
@@ -140,7 +144,7 @@ class CommentEditor():
 
         def refresh():
             server.create_comment(USER_ID, post, text.text)
-            screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count))
+            #screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count))
 
         send.on_press = refresh
 
@@ -148,3 +152,14 @@ class CommentEditor():
         layout.add_widget(send)
 
         return layout
+
+class GoBack(Button):
+
+    def press_callback(self):
+        screenController.go_back()
+
+    def __init__(self, **kwargs):
+        super(GoBack, self).__init__(**kwargs)
+        self.size_hint_y = None
+        self.size = (Window.width, Window.width / 8)
+        self.on_press = self.press_callback

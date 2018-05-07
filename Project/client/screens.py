@@ -12,22 +12,11 @@ from server import USER_ID
 
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-class ScreenController():
-
-    def __init__(self):
-        self.currentScreen = FloatLayout()
-
-    def getCurrentScreen(self):
-        return self.currentScreen
-
-    def setCurrentScreen(self, newScreen):
-        self.currentScreen.clear_widgets()
-        self.currentScreen.add_widget(newScreen)
-
 screenManager = ScreenManager()
 
 class ScreenController():
-    openedPost = None
+    opened_post = None
+    opened_profile = None
     screens = []
 
     def save_last(self, name):
@@ -35,14 +24,18 @@ class ScreenController():
         print('saved', name)
 
     def open_post(self, post):
-        openedPost.load(post)
+        self.opened_post.load(post)
         screenManager.current = 'OpenedPost'
         self.save_last('OpenedPost')
 
+    def open_user(self, user):
+        self.opened_profile.load(user)
+        screenManager.current = 'Profile'
+        self.save_last('Profile')
+
     def go_back(self):
-        screenManager.current = self.screens[-2]
         self.screens.pop(-1)
-        
+        screenManager.current = self.screens[-1] 
 
 screenController = ScreenController()
 
@@ -142,45 +135,54 @@ class Profile(Screen):
     subscribers = NumericProperty()
     subscriptions = NumericProperty()
 
+    galleryLayout = None
+    profileHeaded = None
+
     def get_posts(self, user_id):
         return server.get_posts(user_id)
 
     def generate_posts(self, posts):
-        galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
-        galleryLayout.bind(minimum_height=galleryLayout.setter('height'))
+        self.galleryLayout.bind(minimum_height=self.galleryLayout.setter('height'))
         for post in posts:
-            galleryLayout.add_widget(Button(text='img', size_hint=(
+            self.galleryLayout.add_widget(Button(text='img', size_hint=(
                 None, None), size=(Window.width / 3, Window.width / 3)))
-        return galleryLayout
 
     def generate_profile_header(self):
         return ProfileHeader().layout()
 
     def generate_gallery_root(self, galleryLayout):
         galleryRoot = ScrollView(size_hint=(1, None), size=(
-            Window.width, Window.height - Window.width / 3))
+            Window.width, Window.height - Window.width / 3 - Window.width / 8))
         galleryRoot.add_widget(galleryLayout)
         return galleryRoot
 
     def generate_floating_button(self):
         return ProfileFloatingButtonLayout('-', []).layout()
 
-    def layout(self, user_id):
+    def load(self, user_id):
+        self.galleryLayout.clear_widgets()
+        posts = self.get_posts(user_id)
+        self.generate_posts(posts)
+
+    def __init__(self, **kwargs):
+        super(Profile, self).__init__(**kwargs)
         mainWidget = FloatLayout()
 
         profileLayout = BoxLayout(orientation='vertical')
+        
+        self.galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
 
-        posts = self.get_posts(user_id)
-        galleryLayout = self.generate_posts(posts)
-
-        profileLayout.add_widget(self.generate_profile_header())
-        profileLayout.add_widget(self.generate_gallery_root(galleryLayout))
+        self.profileHeaded = self.generate_profile_header()
+        
+        profileLayout.add_widget(GoBack())
+        profileLayout.add_widget(self.profileHeaded)
+        profileLayout.add_widget(self.generate_gallery_root(self.galleryLayout))
 
         mainWidget.add_widget(profileLayout)
 
         mainWidget.add_widget(self.generate_floating_button())
 
-        return mainWidget
+        self.add_widget(mainWidget)
 
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
@@ -188,4 +190,6 @@ from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack
 
 feed = Feed(name='Feed')
 openedPost = OpenedPost(name='OpenedPost')
-screenController.openedPost = openedPost
+openedUser = Profile(name='Profile')
+screenController.opened_post = openedPost
+screenController.opened_profile = openedUser

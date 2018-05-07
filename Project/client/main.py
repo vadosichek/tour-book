@@ -4,10 +4,11 @@ import config
 from kivy.app import App
 from kivy.core.window import Window
 from screens import Feed, OpenedPost, Profile, screenManager, screenController
-from screens import feed, openedPost
+from screens import feed, openedPost, openedUser
 
 screenManager.add_widget(feed)
 screenManager.add_widget(openedPost)
+screenManager.add_widget(openedUser)
 screenController.save_last('Feed')
 
 class PanoramaApp(App):

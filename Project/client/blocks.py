@@ -14,17 +14,19 @@ class Post(BoxLayout):
     comments_label = None
     name_label = None
     post = None
+    user = None
 
     def open_post(self):
         screenController.open_post(self)
 
-    def open_user(self, user_id):
-        screenController.setCurrentScreen(Profile().layout(user_id))
+    def open_user(self):
+        screenController.open_user(self.user)
 
     def copy(self, post):
         self.likes_label.text = post.likes_label.text
         self.comments_label.text = post.comments_label.text
         self.name_label.text = post.name_label.text
+        self.user = post.user
 
     def load(self, post):
         self.post = post
@@ -34,6 +36,7 @@ class Post(BoxLayout):
         self.likes_label.text = str(len(likes))
         self.comments_label.text = str(len(comments))
         self.name_label.text = data['name']
+        self.user = data['id']
 
     def __init__(self, **kwargs):
         super(Post, self).__init__(**kwargs)
@@ -46,8 +49,7 @@ class Post(BoxLayout):
         user_button = Button(
             text='usr',
             size_hint_x=0.5)
-        user_button_callback = lambda:self.open_user(user_id)
-        user_button.on_press = user_button_callback
+        user_button.on_press = self.open_user
         header.add_widget(user_button)
         self.name_label = Label(
                 text='',
@@ -68,7 +70,7 @@ class Post(BoxLayout):
         like = Button(
                 text='like',
                 size_hint_x=0.5)
-        like_callback = lambda:server.create_like(USER_ID, post)
+        like_callback = lambda:server.create_like(USER_ID, self.post)
         like.on_press = like_callback
         interaction.add_widget(like)
         self.likes_label = Label(

@@ -42,13 +42,24 @@ screenController = ScreenController()
 class OpenedPost(Screen):
     base_layout = None
 
+    def download_post(self, post):
+        downloaded_post = Post()
+        downloaded_post.load(post)
+        return downloaded_post
+
     def load(self, post):
+        print(type(post))
         self.base_layout.clear_widgets()
 
         self.base_layout.add_widget(GoBack())
-        self.base_layout.add_widget(self.generate_post(post))
-        self.base_layout.add_widget(self.generate_comment_editor(post.post) )
-        comments = self.generate_comments(post.post)
+        if type(post) is int:
+            self.base_layout.add_widget(self.download_post(post))
+            self.base_layout.add_widget(self.generate_comment_editor(post))
+            comments = self.generate_comments(post)
+        else:
+            self.base_layout.add_widget(self.generate_post(post))
+            self.base_layout.add_widget(self.generate_comment_editor(post.post))
+            comments = self.generate_comments(post.post)
 
         for comment in comments:
             loaded_comment = Comment().layout(comment['user_name'], comment['text'])
@@ -144,8 +155,9 @@ class Profile(Screen):
     def generate_posts(self, posts):
         self.galleryLayout.bind(minimum_height=self.galleryLayout.setter('height'))
         for post in posts:
-            self.galleryLayout.add_widget(Button(text='img', size_hint=(
-                None, None), size=(Window.width / 3, Window.width / 3)))
+            loaded_post = PostMinimized()
+            self.galleryLayout.add_widget(loaded_post)
+            loaded_post.load(post)
 
     def generate_profile_header(self):
         return ProfileHeader().layout()
@@ -161,6 +173,7 @@ class Profile(Screen):
 
     def load(self, user_id):
         self.galleryLayout.clear_widgets()
+
         posts = self.get_posts(user_id)
         self.generate_posts(posts)
 
@@ -186,7 +199,7 @@ class Profile(Screen):
 
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack
+from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized
 
 feed = Feed(name='Feed')
 openedPost = OpenedPost(name='OpenedPost')

@@ -165,3 +165,19 @@ class GoBack(Button):
         self.size_hint_y = None
         self.size = (Window.width, Window.width / 8)
         self.on_press = self.press_callback
+
+class PostMinimized(Button):
+    post = None
+
+    def load(self, post):
+        self.post = post
+        self.text = str(post['id'])
+
+    def open(self):
+        screenController.open_post(self.post['id'])
+
+    def __init__(self, **kwargs):
+        super(PostMinimized, self).__init__(**kwargs)
+        self.on_press = self.open
+        self.size = (Window.width / 3, Window.width / 3)
+        self.size_hint = (None, None)

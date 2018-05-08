@@ -23,7 +23,9 @@ def get_post(tour_id):
             'description': tourData['desc'],
             'tags': tourData['tags'],
             'geotag': tourData['geotag'],
-            'time': tourData['time']}
+            'time': tourData['time'],
+            'comments': tourData['comments'],
+            'likes': tourData['likes']}
     return json.dumps(data, separators=(',', ':'), default=json_serial)
 
 
@@ -69,6 +71,10 @@ def get_feed(user_id):
     feed = models.generate_feed(user_id)
     return json.dumps(feed)
 
+@app.route('/search_user/<string:key>')
+def search_user(key):
+    res = models.search(key)
+    return json.dumps(res)
 
 @app.route('/create_profile', methods=['POST', 'GET'])
 def create_profile():

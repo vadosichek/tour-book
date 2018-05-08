@@ -10,8 +10,9 @@ from kivy.uix.button import Button
 from server import server
 from server import USER_ID
 
-from kivy.uix.screenmanager import ScreenManager, Screen
+from threading import Thread
 
+from kivy.uix.screenmanager import ScreenManager, Screen
 screenManager = ScreenManager()
 
 class ScreenController():
@@ -24,7 +25,7 @@ class ScreenController():
         print('saved', name)
 
     def open_post(self, post):
-        self.opened_post.load(post)
+        self.opened_post.p_load(post)
         screenManager.current = 'OpenedPost'
         self.save_last('OpenedPost')
 
@@ -46,6 +47,12 @@ class OpenedPost(Screen):
         downloaded_post = Post()
         downloaded_post.load(post)
         return downloaded_post
+
+    def p_load(self, post):
+        # loading = Thread(target=self.load, args=(post,))
+        # loading.daemon = True
+        # loading.start()
+        self.load(post)
 
     def load(self, post):
         print(type(post))
@@ -102,7 +109,7 @@ class Feed(Screen):
             self.loaded_posts.append([post_id,post])
             self.posts_layout.add_widget(post)
 
-    def load_posts(self, pd):
+    def load_posts(self):
         for post in self.loaded_posts:
             post[1].load(post[0])
 
@@ -138,7 +145,9 @@ class Feed(Screen):
 
         self.add_widget(mainWidget)
         self.load()
-        Clock.schedule_once(self.load_posts, 1.5)
+        loading = Thread(target=self.load_posts)
+        loading.start()
+        #Clock.schedule_once(self.load_posts, 1.5)
 
 
 class Profile(Screen):
@@ -197,6 +206,10 @@ class Profile(Screen):
 
         self.add_widget(mainWidget)
 
+
+class Search(Screen):
+    def __init__(self, **kwargs):
+        super(Search, self).__init__(**kwargs)
     
 from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
 from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized

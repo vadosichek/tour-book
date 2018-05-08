@@ -31,10 +31,8 @@ class Post(BoxLayout):
     def load(self, post):
         self.post = post
         data = server.get_post(self.post)
-        comments = server.get_comments(self.post)
-        likes = server.get_likes(self.post)
-        self.likes_label.text = str(len(likes))
-        self.comments_label.text = str(len(comments))
+        self.likes_label.text = str(data['likes'])
+        self.comments_label.text = str(data['comments'])
         self.name_label.text = data['name']
         self.user = data['id']
 
@@ -146,7 +144,6 @@ class CommentEditor():
 
         def refresh():
             server.create_comment(USER_ID, post, text.text)
-            #screenController.setCurrentScreen(OpenedPost().layout(post, user_id, username, description, likes_count))
 
         send.on_press = refresh
 

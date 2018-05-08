@@ -23,7 +23,7 @@ class User(db.Model):
         posts = Tour.query.filter_by(user_id=self.id)
         return list(map(lambda x: {'id': x.id, 'pic': x.pic}, posts))
 
-def search(key):
+def search_user(key):
     tours = User.query.filter(User.name.like('%'+key+'%')).all()
     return [x.id for x in tours]
 
@@ -67,6 +67,9 @@ class Tour(db.Model):
         likes = Like.query.filter_by(tour_id=self.id)
         return [like.user_id for like in likes]
 
+def search_post(key):
+    tours = Tour.query.filter(Tour.desc.like('%'+key+'%')).all()
+    return [x.id for x in tours]
 
 def create_tour(path, user_id, geotag, desc, tags, size, time, pic):
     newTour = Tour(path=path, user_id=user_id, geotag=geotag,

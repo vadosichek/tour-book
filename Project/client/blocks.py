@@ -121,15 +121,20 @@ class ProfileHeader(BoxLayout):
         layout.add_widget(data)
         return layout
 
-class Comment():
+class Comment(Label):
+    def __init__(self, **kwargs):
+        super(Comment, self).__init__(**kwargs)
+        self.markup = True
+        self.size_hint_y=None
+        self.text_size=(Window.width/1.2, None)
+        self.halign='left'
 
-    def layout(self, user, text):
-        comment_label = Label(text="[b]{0}:[/b] {1}".format(user, text), markup=True, size_hint_y=None, text_size=(Window.width/1.2, None), halign='left')
-        comment_label.texture_update()
-        comment_label.height=comment_label.texture_size[1] 
-        comment_label.texture_update()
-        print(comment_label.texture_size)
-        return comment_label
+    def load(self, user, text):
+        self.text="[b]{0}:[/b] {1}".format(user, text)
+        self.texture_update()
+        self.height=self.texture_size[1] 
+        self.texture_update()
+        print(self.texture_size)
 
 class CommentEditor():
 

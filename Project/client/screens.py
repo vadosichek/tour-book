@@ -42,6 +42,7 @@ screenController = ScreenController()
 
 class OpenedPost(Screen):
     base_layout = None
+    loaded_comments = None
 
     def download_post(self, post):
         downloaded_post = Post()
@@ -49,10 +50,10 @@ class OpenedPost(Screen):
         return downloaded_post
 
     def p_load(self, post):
-        # loading = Thread(target=self.load, args=(post,))
-        # loading.daemon = True
-        # loading.start()
-        self.load(post)
+        loading = Thread(target=self.load, args=(post,))
+        #loading.daemon = True
+        loading.start()
+        #self.load(post)
 
     def load(self, post):
         print(type(post))
@@ -69,7 +70,9 @@ class OpenedPost(Screen):
             comments = self.generate_comments(post.post)
 
         for comment in comments:
-            loaded_comment = Comment().layout(comment['user_name'], comment['text'])
+            loaded_comment = Comment()
+            
+            #loaded_comment.load(comment['user_name'], comment['text'])
             self.base_layout.add_widget(loaded_comment)
         
     def generate_post(self, post):

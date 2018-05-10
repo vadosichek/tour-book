@@ -1,4 +1,4 @@
-from kivy.clock import Clock
+from kivy.clock import mainthread
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
@@ -129,12 +129,15 @@ class Comment(Label):
         self.text_size=(Window.width/1.2, None)
         self.halign='left'
 
-    def load(self, user, text):
-        self.text="[b]{0}:[/b] {1}".format(user, text)
+    @mainthread
+    def upd_texture(self):
         self.texture_update()
         self.height=self.texture_size[1] 
         self.texture_update()
-        print(self.texture_size)
+
+    def load(self, user, text):
+        self.text="[b]{0}:[/b] {1}".format(user, text)
+        self.upd_texture()
 
 class CommentEditor():
 

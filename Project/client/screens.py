@@ -50,15 +50,13 @@ class OpenedPost(Screen):
         return downloaded_post
 
     def p_load(self, post):
+        self.base_layout.clear_widgets()
+        self.base_layout.add_widget(GoBack())
         loading = Thread(target=self.load, args=(post,))
-        #loading.daemon = True
         loading.start()
-        #self.load(post)
 
     def load(self, post):
-        print(type(post))
         self.base_layout.clear_widgets()
-
         self.base_layout.add_widget(GoBack())
         if type(post) is int:
             self.base_layout.add_widget(self.download_post(post))
@@ -71,8 +69,7 @@ class OpenedPost(Screen):
 
         for comment in comments:
             loaded_comment = Comment()
-            
-            #loaded_comment.load(comment['user_name'], comment['text'])
+            loaded_comment.load(comment['user_name'], comment['text'])
             self.base_layout.add_widget(loaded_comment)
         
     def generate_post(self, post):
@@ -150,7 +147,6 @@ class Feed(Screen):
         self.load()
         loading = Thread(target=self.load_posts)
         loading.start()
-        #Clock.schedule_once(self.load_posts, 1.5)
 
 
 class Profile(Screen):

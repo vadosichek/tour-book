@@ -34,6 +34,10 @@ class ScreenController():
         screenManager.current = 'Profile'
         self.save_last('Profile')
 
+    def open_search(self):
+        screenManager.current = 'Search'
+        self.save_last('Search')
+
     def go_back(self):
         self.screens.pop(-1)
         screenManager.current = self.screens[-1] 
@@ -120,7 +124,7 @@ class Feed(Screen):
         return root
 
     def generate_floating_button(self):
-        actionButtons = [GotoProfile(), GotoProfile(), GotoProfile()]
+        actionButtons = [GotoProfile(), GotoSearch(), GotoProfile()]
         return FeedFloatingButtonLayout('-', actionButtons).layout()
 
     def refresh(self):
@@ -207,14 +211,69 @@ class Profile(Screen):
 
 
 class Search(Screen):
+    galleryLayout = None
+    searchField = None
+
+    def get_posts(self, key):
+        return server.search_post(key)
+
+    def generate_posts(self, posts):
+        self.galleryLayout.bind(minimum_height=self.galleryLayout.setter('height'))
+        for post in posts:
+            loaded_post = PostMinimized()
+            self.galleryLayout.add_widget(loaded_post)
+            loaded_post.load(post)
+
+    def generate_gallery_root(self, galleryLayout):
+        galleryRoot = ScrollView(size_hint=(1, None), size=(
+            Window.width, Window.height - Window.width / 4))
+        galleryRoot.add_widget(galleryLayout)
+        return galleryRoot
+
+    def generate_floating_button(self):
+        return ProfileFloatingButtonLayout('-', []).layout()
+
+    def load(self):
+        self.galleryLayout.clear_widgets()
+        print(self.searchField.search.text)
+        posts = self.get_posts(
+            self.searchField.text.text
+        )
+        self.generate_posts(posts)
+
+    def p_load(self):
+        loading = Thread(target=self.load)
+        loading.start()
+
     def __init__(self, **kwargs):
         super(Search, self).__init__(**kwargs)
+        mainWidget = FloatLayout()
+
+        profileLayout = BoxLayout(orientation='vertical')
+        
+        self.galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
+
+        self.searchField = SearchField()
+        
+        profileLayout.add_widget(GoBack())
+        profileLayout.add_widget(self.searchField)
+        profileLayout.add_widget(self.generate_gallery_root(self.galleryLayout))
+
+        mainWidget.add_widget(profileLayout)
+
+        mainWidget.add_widget(self.generate_floating_button())
+
+        self.add_widget(mainWidget)
+        self.searchField.search.on_press = self.p_load
+        #self.load()
+        
     
-from buttons import GotoButton, GotoProfile, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized
+from buttons import GotoButton, GotoProfile, GotoSearch, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
+from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField
 
 feed = Feed(name='Feed')
 openedPost = OpenedPost(name='OpenedPost')
 openedUser = Profile(name='Profile')
 screenController.opened_post = openedPost
 screenController.opened_profile = openedUser
+search = Search(name='Search')

@@ -30,6 +30,12 @@ class GotoProfile(GotoButton):
         screenController.open_user(USER_ID)
     on_press = go
 
+class GotoSearch(GotoButton):
+
+    def go(self):
+        screenController.open_search()
+    on_press = go
+
 
 class FloatingButtonLayout():
     actionButtons = None

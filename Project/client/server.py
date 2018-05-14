@@ -48,7 +48,6 @@ class Server():
             user_id, tour_id, text))
 
     def create_like(self, user_id, tour_id):
-        print 'liked'
         return self.get(
             '/create_like?user_id={0}&tour_id={1}'.format(
             user_id, tour_id))
@@ -57,6 +56,16 @@ class Server():
         return self.get(
             '/create_subscription?user_id={0}&subscriber_id={1}'.format(
             user_id, subscriber_id))
+
+    def search_user(self, key):
+        return self.get(
+            '/search_user/{0}'.format(
+            key))
+            
+    def search_post(self, key):
+        return self.get(
+            '/search_post/{0}'.format(
+            key))
 
 USER_ID = 2
 server = Server()

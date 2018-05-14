@@ -186,3 +186,18 @@ class PostMinimized(Button):
         self.on_press = self.open
         self.size = (Window.width / 3, Window.width / 3)
         self.size_hint = (None, None)
+
+class SearchField(BoxLayout):
+    text = None
+    search = None
+    def __init__(self, **kwargs):
+        super(SearchField, self).__init__(**kwargs)
+        self.size_hint_y = None
+        self.size = (Window.width, Window.width / 8)
+        self.orientation = 'horizontal'
+
+        self.text = TextInput(text="", size_hint_x=.875)
+        self.search = Button(text="search", size_hint_x=.125)
+
+        self.add_widget(self.text)
+        self.add_widget(self.search)

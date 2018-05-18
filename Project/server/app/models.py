@@ -24,8 +24,8 @@ class User(db.Model):
         return [{'id': x.id, 'pic': x.pic} for x in posts]
 
 def search_user(key):
-    tours = User.query.filter(User.name.like('%'+key+'%')).all()
-    return [x.id for x in tours]
+    users = User.query.filter(User.name.like('%'+key+'%')).all()
+    return [{'login':x.login, 'name':x.name, 'pic':x.pic} for x in users]
 
 def create_user(login, password, name, bio, url, pic):
     newUser = User(login=login, password=password,

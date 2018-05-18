@@ -87,3 +87,16 @@ class ProfileFloatingButtonLayout(FloatingButtonLayout):
     def open(self):
         # subscribe
         pass
+
+class SearchFloatingButtonLayout(FloatingButtonLayout):
+    state = False
+
+    def load(self, posts, users, search):
+        self.posts = posts
+        self.users = users
+        self.search = search
+
+    def open(self):
+        self.search.remove_widget(self.posts)
+        self.search.add_widget(self.users)
+

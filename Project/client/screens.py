@@ -213,6 +213,8 @@ class Profile(Screen):
 class Search(Screen):
     galleryLayout = None
     searchField = None
+    searchLayout = None
+    postsLayout = None
 
     def get_posts(self, key):
         return server.search_post(key)
@@ -231,7 +233,9 @@ class Search(Screen):
         return galleryRoot
 
     def generate_floating_button(self):
-        return ProfileFloatingButtonLayout('-', []).layout()
+        floatingButton = SearchFloatingButtonLayout('-', [])
+        floatingButton.load(self.postsLayout, self.usersLayout, self.searchLayout)
+        return floatingButton.layout()
 
     def load(self):
         self.galleryLayout.clear_widgets()
@@ -249,31 +253,33 @@ class Search(Screen):
         super(Search, self).__init__(**kwargs)
         mainWidget = FloatLayout()
 
-        profileLayout = BoxLayout(orientation='vertical')
+        self.searchLayout = BoxLayout(orientation='vertical')
         
         self.galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
+        self.usersLayout = GridLayout(cols=1, spacing=0, size_hint_y=None)
 
         self.searchField = SearchField()
         
-        profileLayout.add_widget(GoBack())
-        profileLayout.add_widget(self.searchField)
-        profileLayout.add_widget(self.generate_gallery_root(self.galleryLayout))
+        self.searchLayout.add_widget(GoBack())
+        self.searchLayout.add_widget(self.searchField)
+        self.postsLayout = self.generate_gallery_root(self.galleryLayout)
+        self.usersLayout = self.generate_gallery_root(self.usersLayout)
+        self.searchLayout.add_widget(self.postsLayout)
 
-        mainWidget.add_widget(profileLayout)
+        mainWidget.add_widget(self.searchLayout)
 
         mainWidget.add_widget(self.generate_floating_button())
 
         self.add_widget(mainWidget)
         self.searchField.search.on_press = self.p_load
-        #self.load()
         
     
-from buttons import GotoButton, GotoProfile, GotoSearch, FeedFloatingButtonLayout, ProfileFloatingButtonLayout
+from buttons import GotoButton, GotoProfile, GotoSearch, FeedFloatingButtonLayout, ProfileFloatingButtonLayout, SearchFloatingButtonLayout
 from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField
 
-feed = Feed(name='Feed')
-openedPost = OpenedPost(name='OpenedPost')
-openedUser = Profile(name='Profile')
-screenController.opened_post = openedPost
-screenController.opened_profile = openedUser
+#feed = Feed(name='Feed')
+#openedPost = OpenedPost(name='OpenedPost')
+#openedUser = Profile(name='Profile')
+#screenController.opened_post = openedPost
+#screenController.opened_profile = openedUser
 search = Search(name='Search')

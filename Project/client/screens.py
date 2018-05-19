@@ -211,20 +211,26 @@ class Profile(Screen):
 
 
 class Search(Screen):
-    galleryLayout = None
-    searchField = None
-    searchLayout = None
-    postsLayout = None
 
     def get_posts(self, key):
         return server.search_post(key)
 
+    def get_users(self, key):
+        return server.search_user(key)
+
     def generate_posts(self, posts):
-        self.galleryLayout.bind(minimum_height=self.galleryLayout.setter('height'))
+        self.postsGalleryLayout.bind(minimum_height=self.postsGalleryLayout.setter('height'))
         for post in posts:
             loaded_post = PostMinimized()
-            self.galleryLayout.add_widget(loaded_post)
+            self.postsGalleryLayout.add_widget(loaded_post)
             loaded_post.load(post)
+
+    def generate_users(self, users):
+        self.usersGalleryLayout.bind(minimum_height=self.usersGalleryLayout.setter('height'))
+        for user in users:
+            loaded_user = UserMinimized()
+            self.usersGalleryLayout.add_widget(loaded_user)
+            loaded_user.load(user)
 
     def generate_gallery_root(self, galleryLayout):
         galleryRoot = ScrollView(size_hint=(1, None), size=(
@@ -237,17 +243,27 @@ class Search(Screen):
         floatingButton.load(self.postsLayout, self.usersLayout, self.searchLayout)
         return floatingButton.layout()
 
-    def load(self):
-        self.galleryLayout.clear_widgets()
+    def load_posts(self):
+        self.postsGalleryLayout.clear_widgets()
         print(self.searchField.search.text)
         posts = self.get_posts(
             self.searchField.text.text
         )
         self.generate_posts(posts)
 
+    def load_users(self):
+        self.usersGalleryLayout.clear_widgets()
+        print(self.searchField.search.text)
+        users = self.get_users(
+            self.searchField.text.text
+        )
+        self.generate_users(users)
+
     def p_load(self):
-        loading = Thread(target=self.load)
-        loading.start()
+        loading_posts = Thread(target=self.load_posts)
+        loading_posts.start()
+        loading_usres = Thread(target=self.load_users)
+        loading_usres.start()
 
     def __init__(self, **kwargs):
         super(Search, self).__init__(**kwargs)
@@ -255,15 +271,15 @@ class Search(Screen):
 
         self.searchLayout = BoxLayout(orientation='vertical')
         
-        self.galleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
-        self.usersLayout = GridLayout(cols=1, spacing=0, size_hint_y=None)
+        self.postsGalleryLayout = GridLayout(cols=3, spacing=0, size_hint_y=None)
+        self.usersGalleryLayout = GridLayout(cols=1, spacing=0, size_hint_y=None)
 
         self.searchField = SearchField()
         
         self.searchLayout.add_widget(GoBack())
         self.searchLayout.add_widget(self.searchField)
-        self.postsLayout = self.generate_gallery_root(self.galleryLayout)
-        self.usersLayout = self.generate_gallery_root(self.usersLayout)
+        self.postsLayout = self.generate_gallery_root(self.postsGalleryLayout)
+        self.usersLayout = self.generate_gallery_root(self.usersGalleryLayout)
         self.searchLayout.add_widget(self.postsLayout)
 
         mainWidget.add_widget(self.searchLayout)
@@ -275,11 +291,11 @@ class Search(Screen):
         
     
 from buttons import GotoButton, GotoProfile, GotoSearch, FeedFloatingButtonLayout, ProfileFloatingButtonLayout, SearchFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField
+from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField, UserMinimized
 
-#feed = Feed(name='Feed')
-#openedPost = OpenedPost(name='OpenedPost')
-#openedUser = Profile(name='Profile')
-#screenController.opened_post = openedPost
-#screenController.opened_profile = openedUser
+feed = Feed(name='Feed')
+openedPost = OpenedPost(name='OpenedPost')
+openedUser = Profile(name='Profile')
+screenController.opened_post = openedPost
+screenController.opened_profile = openedUser
 search = Search(name='Search')

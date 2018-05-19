@@ -201,3 +201,28 @@ class SearchField(BoxLayout):
 
         self.add_widget(self.text)
         self.add_widget(self.search)
+
+class UserMinimized(BoxLayout):
+
+    def load(self, user):
+        self.user = user['id']
+        self.login.text = user['login']
+        self.name.text = user['name']
+
+    def __init__(self, **kwargs):
+        super(UserMinimized, self).__init__(**kwargs)
+        self.size_hint_y = None
+        self.size = (Window.width, Window.width / 8)
+        self.orientation = 'horizontal'
+
+        self.pic = Button(text='', size_hint_x=.125)
+
+        labels = BoxLayout(orientation='vertical', size_hint_x=.875)
+        self.login = Label(text='')
+        self.name = Label(text='')
+
+        labels.add_widget(self.login)
+        labels.add_widget(self.name)
+
+        self.add_widget(self.pic)
+        self.add_widget(labels)

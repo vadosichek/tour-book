@@ -97,6 +97,11 @@ class SearchFloatingButtonLayout(FloatingButtonLayout):
         self.search = search
 
     def open(self):
-        self.search.remove_widget(self.posts)
-        self.search.add_widget(self.users)
+        if self.state:
+            self.search.remove_widget(self.users)
+            self.search.add_widget(self.posts)
+        else:
+            self.search.remove_widget(self.posts)
+            self.search.add_widget(self.users)
+        self.state = not self.state
 

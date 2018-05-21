@@ -204,8 +204,11 @@ class SearchField(BoxLayout):
 
 class UserMinimized(BoxLayout):
 
+    def open(self):
+        screenController.open_user(self.user)
+
     def load(self, user):
-        self.user = user['id']
+        self.user = int(user['id'])
         self.login.text = user['login']
         self.name.text = user['name']
 
@@ -216,6 +219,7 @@ class UserMinimized(BoxLayout):
         self.orientation = 'horizontal'
 
         self.pic = Button(text='', size_hint_x=.125)
+        self.pic.on_press = self.open
 
         labels = BoxLayout(orientation='vertical', size_hint_x=.875)
         self.login = Label(text='')

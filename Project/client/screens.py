@@ -30,7 +30,7 @@ class ScreenController():
         self.save_last('OpenedPost')
 
     def open_user(self, user):
-        self.opened_profile.load(user)
+        self.opened_profile.p_load(user)
         screenManager.current = 'Profile'
         self.save_last('Profile')
 
@@ -182,6 +182,10 @@ class Profile(Screen):
 
     def generate_floating_button(self):
         return ProfileFloatingButtonLayout('-', []).layout()
+
+    def p_load(self, user_id):
+        loading = Thread(target=self.load, args=(user_id, ))
+        loading.start()
 
     def load(self, user_id):
         self.galleryLayout.clear_widgets()

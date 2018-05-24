@@ -1,5 +1,5 @@
 from app import db
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,7 +28,7 @@ def search_user(key):
     return [{'id':x.id, 'login':x.login, 'name':x.name, 'pic':x.pic} for x in users]
 
 def create_user(login, password, name, bio, url, pic):
-    newUser = User(login=login, password=password,
+    newUser = User(login=login, password=generate_password_hash(password),
                    name=name, bio=bio, url=url, pic=pic)
     db.session.add(newUser)
     db.session.commit()

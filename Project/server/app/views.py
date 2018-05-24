@@ -2,6 +2,18 @@ from app import app, models, db
 from flask import request
 import json
 from datetime import date, datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
+def login_sys(login, password):
+    user = models.User.query.filter_by(login=login).first()
+    return check_password_hash(user.password, password)
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    reqData = request.args
+    return json.dumps(login_sys(reqData.get('login'), reqData.get('password')))
 
 
 def json_serial(obj):

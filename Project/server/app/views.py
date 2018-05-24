@@ -3,11 +3,12 @@ from flask import request
 import json
 from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from crypt import decrypt
 
 def login_sys(login, password):
+    dec_pass = decrypt(password)
     user = models.User.query.filter_by(login=login).first()
-    return check_password_hash(user.password, password)
+    return check_password_hash(user.password, dec_pass)
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -93,7 +94,7 @@ def search_post(key):
     res = models.search_post(key)
     return json.dumps(res)
 
-@app.route('/create_profile', methods=['POST', 'GET'])
+@app.route('/pul', methods=['POST', 'GET'])
 def create_profile():
     reqData = request.args
     return json.dumps(models.create_user(

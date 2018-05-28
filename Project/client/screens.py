@@ -18,6 +18,7 @@ screenManager = ScreenManager()
 class ScreenController():
     opened_post = None
     opened_profile = None
+    login = None
     screens = []
 
     def save_last(self, name):
@@ -37,6 +38,10 @@ class ScreenController():
     def open_search(self):
         screenManager.current = 'Search'
         self.save_last('Search')
+
+    def open_login(self):
+        screenManager.current = 'Login'
+        self.save_last('Login')
 
     def go_back(self):
         self.screens.pop(-1)
@@ -292,14 +297,21 @@ class Search(Screen):
 
         self.add_widget(mainWidget)
         self.searchField.search.on_press = self.p_load
+
+class Login(Screen):
+    def __init__(self, **kwargs):
+        super(Login, self).__init__(**kwargs)
+        self.add_widget(LoginMenu())
+
         
     
 from buttons import GotoButton, GotoProfile, GotoSearch, FeedFloatingButtonLayout, ProfileFloatingButtonLayout, SearchFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField, UserMinimized
+from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField, UserMinimized, LoginMenu
 
 feed = Feed(name='Feed')
 openedPost = OpenedPost(name='OpenedPost')
 openedUser = Profile(name='Profile')
+login = Login(name='Login')
+search = Search(name='Search')
 screenController.opened_post = openedPost
 screenController.opened_profile = openedUser
-search = Search(name='Search')

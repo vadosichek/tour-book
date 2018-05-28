@@ -3,12 +3,12 @@ from flask import request
 import json
 from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from crypt import decrypt
+#from crypt import decrypt
 
 def login_sys(login, password):
-    dec_pass = decrypt(password)
+    #dec_pass = decrypt(password)
     user = models.User.query.filter_by(login=login).first()
-    return check_password_hash(user.password, dec_pass)
+    return check_password_hash(user.password, password)
 
 
 @app.route('/login', methods=['POST', 'GET'])

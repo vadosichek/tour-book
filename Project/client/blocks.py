@@ -1,6 +1,7 @@
 from kivy.clock import mainthread
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -230,3 +231,27 @@ class UserMinimized(BoxLayout):
 
         self.add_widget(self.pic)
         self.add_widget(labels)
+
+class LoginMenu(GridLayout):
+
+    def __init__(self, **kwargs):
+        super(LoginMenu, self).__init__(**kwargs)
+        self.size_hint_y = None
+        self.size_hint_x = None
+        self.size = (Window.width/8 * 7, Window.height/4)
+        self.cols = 1
+        self.spacing = 20
+        self.pos_hint = {'center_y':.8, 'center_x':.5}
+        
+
+        self.add_widget(Label(text='Circum'))
+
+        self.login_field = TextInput(text='Login')
+        self.add_widget(self.login_field)
+
+        self.password_field = TextInput(text='Password')
+        self.add_widget(self.password_field)    
+
+
+        self.login_button = Button(text='Login')
+        self.add_widget(self.login_button)

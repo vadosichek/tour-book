@@ -5,7 +5,7 @@ from kivy.properties import NumericProperty
 from kivy.core.window import Window
 
 from screens import Feed, OpenedPost, Profile, screenManager, screenController
-from server import USER_ID
+from server import server
 
 block = Window.width/5
 margin = block/4
@@ -27,7 +27,7 @@ class GotoButton(HoverButton):
 class GotoProfile(GotoButton):
 
     def go(self):
-        screenController.open_user(USER_ID)
+        screenController.open_user(server.get_user_id())
     on_press = go
 
 class GotoSearch(GotoButton):

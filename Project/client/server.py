@@ -5,7 +5,6 @@ import requests
 
 import json
 
-
 class Server():
     base_url = 'https://tour-book.herokuapp.com'
 
@@ -13,6 +12,17 @@ class Server():
         content = requests.get(self.base_url + path)
         print(content.text)
         return json.loads(content.text)
+
+    def login(self, login, password):
+        return self.get('/login?login={0}&password={1}'.format(
+            login, password
+        )) 
+    
+    def update_user(self, user_id):
+        self.user_id = user_id
+
+    def get_user_id(self):
+        return self.user_id
 
     def get_profile(self, user_id):
         return self.get('/get_profile/' + str(user_id))
@@ -67,5 +77,5 @@ class Server():
             '/search_post/{0}'.format(
             key))
 
-USER_ID = 2
 server = Server()
+server.update_user(11)

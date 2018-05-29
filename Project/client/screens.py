@@ -8,7 +8,6 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from server import server
-from server import USER_ID
 
 from threading import Thread
 
@@ -18,6 +17,7 @@ screenManager = ScreenManager()
 class ScreenController():
     opened_post = None
     opened_profile = None
+    feed = None
     login = None
     screens = []
 
@@ -42,6 +42,11 @@ class ScreenController():
     def open_login(self):
         screenManager.current = 'Login'
         self.save_last('Login')
+    
+    def open_feed(self):
+        self.feed.p_load()
+        screenManager.current = 'Feed'
+        self.save_last('Feed')
 
     def go_back(self):
         self.screens.pop(-1)
@@ -109,7 +114,7 @@ class Feed(Screen):
     posts_scroll = None
 
     def get_feed(self):
-        return server.get_feed(USER_ID)
+        return server.get_feed(server.get_user_id())
 
     def generate_posts(self, feed):
         self.loaded_posts = []
@@ -140,6 +145,11 @@ class Feed(Screen):
     def load(self):
         feed = self.get_feed()
         self.generate_posts(feed)
+        self.load_posts()
+
+    def p_load(self):
+        loading = Thread(target=self.load)
+        loading.start()
 
     def __init__(self, **kwargs):
         super(Feed, self).__init__(**kwargs)
@@ -153,9 +163,6 @@ class Feed(Screen):
         mainWidget.add_widget(self.generate_floating_button())
 
         self.add_widget(mainWidget)
-        self.load()
-        loading = Thread(target=self.load_posts)
-        loading.start()
 
 
 class Profile(Screen):
@@ -313,5 +320,6 @@ openedPost = OpenedPost(name='OpenedPost')
 openedUser = Profile(name='Profile')
 login = Login(name='Login')
 search = Search(name='Search')
+screenController.feed = feed
 screenController.opened_post = openedPost
 screenController.opened_profile = openedUser

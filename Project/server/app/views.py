@@ -8,7 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def login_sys(login, password):
     #dec_pass = decrypt(password)
     user = models.User.query.filter_by(login=login).first()
-    return check_password_hash(user.password, password)
+    correct = check_password_hash(user.password, password)
+    return user.id if correct else -1
 
 
 @app.route('/login', methods=['POST', 'GET'])

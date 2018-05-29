@@ -8,7 +8,7 @@ from kivy.uix.textinput import TextInput
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 from screens import screenManager, screenController, OpenedPost, Profile
-from server import server, USER_ID
+from server import server
 
 class Post(BoxLayout):
     likes_label = None
@@ -69,7 +69,7 @@ class Post(BoxLayout):
         like = Button(
                 text='like',
                 size_hint_x=0.5)
-        like_callback = lambda:server.create_like(USER_ID, self.post)
+        like_callback = lambda:server.create_like(server.get_user_id(), self.post)
         like.on_press = like_callback
         interaction.add_widget(like)
         self.likes_label = Label(
@@ -152,7 +152,7 @@ class CommentEditor():
         send = Button(text="send", size_hint_x=.125)
 
         def refresh():
-            server.create_comment(USER_ID, post, text.text)
+            server.create_comment(server.get_user_id(), post, text.text)
 
         send.on_press = refresh
 
@@ -234,6 +234,14 @@ class UserMinimized(BoxLayout):
 
 class LoginMenu(GridLayout):
 
+    def login(self):
+        responce = server.login(self.login_field.text, self.password_field.text)
+        server.update_user(responce)
+        if not responce == -1:
+            screenController.open_feed()
+        
+        print(server.get_user_id())
+
     def __init__(self, **kwargs):
         super(LoginMenu, self).__init__(**kwargs)
         self.size_hint_y = None
@@ -243,7 +251,6 @@ class LoginMenu(GridLayout):
         self.spacing = 20
         self.pos_hint = {'center_y':.8, 'center_x':.5}
         
-
         self.add_widget(Label(text='Circum'))
 
         self.login_field = TextInput(text='Login')
@@ -252,6 +259,6 @@ class LoginMenu(GridLayout):
         self.password_field = TextInput(text='Password')
         self.add_widget(self.password_field)    
 
-
         self.login_button = Button(text='Login')
+        self.login_button.on_press = self.login
         self.add_widget(self.login_button)

@@ -42,6 +42,10 @@ class ScreenController():
     def open_login(self):
         screenManager.current = 'Login'
         self.save_last('Login')
+
+    def open_registration(self):
+        screenManager.current = 'Registrate'
+        self.save_last('Registrate')
     
     def open_feed(self):
         self.feed.p_load()
@@ -310,16 +314,22 @@ class Login(Screen):
         super(Login, self).__init__(**kwargs)
         self.add_widget(LoginMenu())
 
+class Registrate(Screen):
+    def __init__(self, **kwargs):
+        super(Registrate, self).__init__(**kwargs)
+        self.add_widget(RegistrateMenu())
+
         
     
 from buttons import GotoButton, GotoProfile, GotoSearch, FeedFloatingButtonLayout, ProfileFloatingButtonLayout, SearchFloatingButtonLayout
-from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField, UserMinimized, LoginMenu
+from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMinimized, SearchField, UserMinimized, LoginMenu, RegistrateMenu
 
 feed = Feed(name='Feed')
 openedPost = OpenedPost(name='OpenedPost')
 openedUser = Profile(name='Profile')
 login = Login(name='Login')
 search = Search(name='Search')
+registrate = Registrate(name='Registrate')
 screenController.feed = feed
 screenController.opened_post = openedPost
 screenController.opened_profile = openedUser

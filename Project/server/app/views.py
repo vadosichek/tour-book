@@ -95,7 +95,7 @@ def search_post(key):
     res = models.search_post(key)
     return json.dumps(res)
 
-@app.route('/pul', methods=['POST', 'GET'])
+@app.route('/create_profile', methods=['POST', 'GET'])
 def create_profile():
     reqData = request.args
     return json.dumps(models.create_user(

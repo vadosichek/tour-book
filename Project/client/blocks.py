@@ -242,6 +242,9 @@ class LoginMenu(GridLayout):
         
         print(server.get_user_id())
 
+    def registrate(self):
+        screenController.open_registration()
+
     def __init__(self, **kwargs):
         super(LoginMenu, self).__init__(**kwargs)
         self.size_hint_y = None
@@ -249,7 +252,7 @@ class LoginMenu(GridLayout):
         self.size = (Window.width/8 * 7, Window.height/4)
         self.cols = 1
         self.spacing = 20
-        self.pos_hint = {'center_y':.8, 'center_x':.5}
+        self.pos_hint = {'center_x':.5, 'top':.9}
         
         self.add_widget(Label(text='Circum'))
 
@@ -262,3 +265,41 @@ class LoginMenu(GridLayout):
         self.login_button = Button(text='Login')
         self.login_button.on_press = self.login
         self.add_widget(self.login_button)
+
+        self.login_button = Button(text='Registrate')
+        self.login_button.on_press = self.registrate
+        self.add_widget(self.login_button)
+
+class RegistrateMenu(GridLayout):
+
+    def registrate(self):
+        responce = server.create_profile(self.login_field.text, self.password_field.text, self.name_field.text, '', '', '')
+        server.update_user(responce)
+        if not responce == -1:
+            screenController.open_feed()
+
+        print(server.get_user_id())
+
+    def __init__(self, **kwargs):
+        super(RegistrateMenu, self).__init__(**kwargs)
+        self.size_hint_y = None
+        self.size_hint_x = None
+        self.size = (Window.width/8 * 7, Window.height/4)
+        self.cols = 1
+        self.spacing = 20
+        self.pos_hint = {'center_x':.5, 'top':.9}
+        
+        self.add_widget(Label(text='Registration'))
+
+        self.login_field = TextInput(text='Login')
+        self.add_widget(self.login_field)
+
+        self.name_field = TextInput(text='Name')
+        self.add_widget(self.name_field)
+
+        self.password_field = TextInput(text='Password')
+        self.add_widget(self.password_field)    
+
+        self.reg_button = Button(text='Registrate')
+        self.reg_button.on_press = self.registrate
+        self.add_widget(self.reg_button)

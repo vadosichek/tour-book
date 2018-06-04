@@ -60,7 +60,7 @@ screenController = ScreenController()
 
 class OpenedPost(Screen):
     base_layout = None
-    loaded_comments = None
+    loaded_comments = []
 
     def download_post(self, post):
         downloaded_post = Post()
@@ -78,25 +78,32 @@ class OpenedPost(Screen):
         self.base_layout.add_widget(GoBack())
         if type(post) is int:
             self.base_layout.add_widget(self.download_post(post))
-            self.base_layout.add_widget(self.generate_comment_editor(post))
-            comments = self.generate_comments(post)
+            self.base_layout.add_widget(self.generate_comment_editor(post, self.refresh_comments))
+            self.refresh_comments(post)
         else:
             self.base_layout.add_widget(self.generate_post(post))
-            self.base_layout.add_widget(self.generate_comment_editor(post.post))
-            comments = self.generate_comments(post.post)
+            self.base_layout.add_widget(self.generate_comment_editor(post.post, self.refresh_comments))
+            self.refresh_comments(post.post)        
+        
+    def refresh_comments(self, post):
+        comments = self.generate_comments(post)
+        for comment in self.loaded_comments:
+            self.base_layout.remove_widget(comment)
+        self.loaded_comments = []
 
         for comment in comments:
             loaded_comment = Comment()
             loaded_comment.load(comment['user_name'], comment['text'])
+            self.loaded_comments.append(loaded_comment)
             self.base_layout.add_widget(loaded_comment)
-        
+    
     def generate_post(self, post):
         opened_post = Post()
         opened_post.copy(post)
         return opened_post
 
-    def generate_comment_editor(self, post):
-        return CommentEditor().layout(post)
+    def generate_comment_editor(self, post, comments_refresher):
+        return CommentEditor().layout(post, comments_refresher)
 
     def generate_comments(self, post):
         return server.get_comments(post)
@@ -327,9 +334,9 @@ from blocks import Post, ProfileHeader, Comment, CommentEditor, GoBack, PostMini
 feed = Feed(name='Feed')
 openedPost = OpenedPost(name='OpenedPost')
 openedUser = Profile(name='Profile')
-login = Login(name='Login')
 search = Search(name='Search')
-registrate = Registrate(name='Registrate')
 screenController.feed = feed
 screenController.opened_post = openedPost
 screenController.opened_profile = openedUser
+login = Login(name='Login')
+registrate = Registrate(name='Registrate')

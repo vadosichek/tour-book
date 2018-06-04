@@ -9,6 +9,8 @@ from kivy.properties import StringProperty
 from kivy.core.window import Window
 from screens import screenManager, screenController, OpenedPost, Profile
 from server import server
+import json
+from crypt import encrypt
 
 class Post(BoxLayout):
     likes_label = None
@@ -28,6 +30,11 @@ class Post(BoxLayout):
         self.comments_label.text = post.comments_label.text
         self.name_label.text = post.name_label.text
         self.user = post.user
+
+    def refresh_likes(self):
+        server.create_like(server.get_user_id(), self.post)
+        likes = len(server.get_likes(self.post))
+        self.likes_label.text = str(likes)
 
     def load(self, post):
         self.post = post
@@ -69,8 +76,7 @@ class Post(BoxLayout):
         like = Button(
                 text='like',
                 size_hint_x=0.5)
-        like_callback = lambda:server.create_like(server.get_user_id(), self.post)
-        like.on_press = like_callback
+        like.on_press = self.refresh_likes
         interaction.add_widget(like)
         self.likes_label = Label(
                 text='',
@@ -142,7 +148,7 @@ class Comment(Label):
 
 class CommentEditor():
 
-    def layout(self, post):
+    def layout(self, post, comments_refresher):
         layout = BoxLayout()
         layout.size_hint_y = None
         layout.size = (Window.width, Window.width / 8)
@@ -153,6 +159,8 @@ class CommentEditor():
 
         def refresh():
             server.create_comment(server.get_user_id(), post, text.text)
+            comments_refresher(post)
+            text.text = ''
 
         send.on_press = refresh
 
@@ -236,10 +244,16 @@ class LoginMenu(GridLayout):
 
     def login(self):
         responce = server.login(self.login_field.text, self.password_field.text)
-        server.update_user(responce)
+
         if not responce == -1:
+            server.update_user(responce)
+            with open('data.json', 'w') as outfile:
+                json_data = {'login':self.login_field.text, 'password':self.password_field.text}
+                data = str(json.dumps(json_data))
+                outfile.write(data)
+
             screenController.open_feed()
-        
+
         print(server.get_user_id())
 
     def registrate(self):
@@ -253,7 +267,7 @@ class LoginMenu(GridLayout):
         self.cols = 1
         self.spacing = 20
         self.pos_hint = {'center_x':.5, 'top':.9}
-        
+            
         self.add_widget(Label(text='Circum'))
 
         self.login_field = TextInput(text='Login')
@@ -269,6 +283,7 @@ class LoginMenu(GridLayout):
         self.login_button = Button(text='Registrate')
         self.login_button.on_press = self.registrate
         self.add_widget(self.login_button)
+
 
 class RegistrateMenu(GridLayout):
 

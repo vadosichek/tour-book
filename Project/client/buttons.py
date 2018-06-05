@@ -4,16 +4,19 @@ from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.core.window import Window
 
-from screens import Feed, OpenedPost, Profile, screenController
+from screens import Feed, OpenedPost, Profile, screenManager, screenController
+from server import server
 
+block = Window.width/5
+margin = block/4
 
 class HoverButton(Button):
-    text = StringProperty()
     size_hint = (None, None)
-    size = (100, 100)
-    x = NumericProperty(Window.width - 125)
-    y = NumericProperty(40)
-
+    size = (block, block)
+    x = NumericProperty(Window.width - block - margin)
+    y = NumericProperty(margin)
+    right = Window.width - margin
+    top = block + margin
 
 class GotoButton(HoverButton):
 
@@ -24,7 +27,13 @@ class GotoButton(HoverButton):
 class GotoProfile(GotoButton):
 
     def go(self):
-        screenController.setCurrentScreen(Profile().layout())
+        screenController.open_user(server.get_user_id())
+    on_press = go
+
+class GotoSearch(GotoButton):
+
+    def go(self):
+        screenController.open_search()
     on_press = go
 
 
@@ -39,12 +48,13 @@ class FloatingButtonLayout():
 
     def generateActionButtonsLayout(self, actionButtons):
         actionButtonsBlockLayout = FloatLayout()
-        y = 150
+        y = (block * 3)/2
         for actionButton in actionButtons:
-            actionButton.x = Window.width - 125
+            actionButton.x = Window.width - block - margin
             actionButton.y = y
+            actionButton.top = block + y
             actionButtonsBlockLayout.add_widget(actionButton)
-            y += 110
+            y += block + margin
         return actionButtonsBlockLayout
 
     def __init__(self, floatingButtonText, actionButtons):
@@ -77,3 +87,21 @@ class ProfileFloatingButtonLayout(FloatingButtonLayout):
     def open(self):
         # subscribe
         pass
+
+class SearchFloatingButtonLayout(FloatingButtonLayout):
+    state = False
+
+    def load(self, posts, users, search):
+        self.posts = posts
+        self.users = users
+        self.search = search
+
+    def open(self):
+        if self.state:
+            self.search.remove_widget(self.users)
+            self.search.add_widget(self.posts)
+        else:
+            self.search.remove_widget(self.posts)
+            self.search.add_widget(self.users)
+        self.state = not self.state
+

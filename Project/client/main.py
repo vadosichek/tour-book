@@ -32,7 +32,7 @@ def check_auth():
 class PanoramaApp(App):
     def build(self):
         if check_auth():
-            screenManager.current = 'Login'    
+            screenManager.current = 'Login'  
         return screenManager
 
 if __name__ == '__main__':

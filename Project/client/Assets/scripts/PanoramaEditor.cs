@@ -12,6 +12,7 @@ public class PanoramaEditor : EditorScreen {
     private Transform previous_trans;
     public Transform camera;
 
+    public GameObject transition_prefab;
     public bool editing_transition;
 
     private void Update(){
@@ -31,8 +32,9 @@ public class PanoramaEditor : EditorScreen {
 
                     if (hit.rigidbody != null){
                         Debug.Log(hit.point);
-                        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                        GameObject sphere = Instantiate(transition_prefab) as GameObject;
                         sphere.transform.position = hit.point;
+                        sphere.transform.LookAt(current_photo.transform.position);
                         sphere.transform.parent = current_photo.transform;
 
                         if(editing_transition){

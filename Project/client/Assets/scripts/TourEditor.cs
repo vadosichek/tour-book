@@ -7,28 +7,23 @@ public class TourEditor : EditorScreen{
     public override event OnProceed Proceed;
     public override event OnCancel Cancel;
 
-
     public delegate void EditPhoto(Panorama photo);
     public event EditPhoto onEditPhoto;
+
+    public Tour editable_tour;
 
     public Transform scroll_content;
     public GameObject preview_prefab, panorama_prefab;
 
-
-    //public struct PanoramaWithPreview{
-    //    public Image preview;
-    //    public Panorama panorama;
-
-    //    public PanoramaWithPreview(Image new_preview, Panorama new_panorama){
-    //        preview = new_preview;
-    //        panorama = new_panorama;
-    //    }
-    //};
     public List<PanoramaWithPreview> panoramas = new List<PanoramaWithPreview>();
 
     public int count = 0;
 
     private bool deleting = false;
+
+    private void Start(){
+        editable_tour.editing = true;
+    }
 
     public void AddPhoto(){
         string new_photo_path = PickImage(-1);
@@ -46,7 +41,6 @@ public class TourEditor : EditorScreen{
 
         GameObject new_preview = Instantiate(preview_prefab, scroll_content) as GameObject;
         Image new_preview_image = new_preview.GetComponent<Image>();
-        //Button new_preview_button = new_preview.GetComponent<Button>();
 
         #region Platfotm
             #if !UNITY_EDITOR
@@ -54,15 +48,13 @@ public class TourEditor : EditorScreen{
             #endif
         #endregion
 
-        //PanoramaWithPreview new_panorama_with_preview = new PanoramaWithPreview(new_preview_image, new_panorama_panorama);
         PanoramaWithPreview new_panorama_with_preview = new_preview.GetComponent<PanoramaWithPreview>();
         new_panorama_with_preview.preview = new_preview_image;
         new_panorama_with_preview.panorama = new_panorama_panorama;
-
-        panoramas.Add(new_panorama_with_preview);
         new_panorama_with_preview.OnPressed += OnPanoramaChosen;
 
-        //new_preview_button.onClick.AddListener(() => { onEditPhoto(new_panorama_panorama); });
+        editable_tour.panoramas.Add(new_panorama_panorama);
+
         count++;
     }
 
@@ -77,6 +69,9 @@ public class TourEditor : EditorScreen{
             Destroy(pwp.panorama.gameObject);
             Destroy(pwp);
             deleting = false;
+        }
+        else{
+            onEditPhoto(pwp.panorama);
         }
     }
 

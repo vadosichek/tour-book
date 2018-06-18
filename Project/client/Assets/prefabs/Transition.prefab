@@ -37,6 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4836442875087144}
+  - component: {fileID: 114985944614452144}
   m_Layer: 0
   m_Name: Transition
   m_TagString: Untagged
@@ -127,3 +128,16 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114985944614452144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920400408173242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea5b5a7e0075e412baf0b697945d0cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  target_id: 0

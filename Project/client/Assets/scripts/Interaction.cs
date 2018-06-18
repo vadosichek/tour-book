@@ -5,11 +5,8 @@ using UnityEngine;
 public class Interaction : MonoBehaviour {
 
     public int id;
-    public int type;
-    public bool editable;
-    public string link;
 
-    private void Open(){
+    public virtual void Open(){
         
     }
 

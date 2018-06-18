@@ -68,7 +68,9 @@
     <Compile Include="Assets\scripts\PanoramaEditor.cs" />
     <Compile Include="Assets\scripts\PanoramaWithPreview.cs" />
     <Compile Include="Assets\scripts\ScreenController.cs" />
+    <Compile Include="Assets\scripts\Tour.cs" />
     <Compile Include="Assets\scripts\TourEditor.cs" />
+    <Compile Include="Assets\scripts\Transition.cs" />
     <Compile Include="Assets\scripts\Uploader.cs" />
     <None Include="Assets\shader\Pano360Shader.shader" />
     <Reference Include="UnityEditor.StandardEvents">

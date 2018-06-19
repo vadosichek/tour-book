@@ -61,12 +61,14 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\CameraTrackball.cs" />
     <Compile Include="Assets\scripts\EditorScreen.cs" />
+    <Compile Include="Assets\scripts\FilePicker.cs" />
     <Compile Include="Assets\scripts\FloatingButton.cs" />
     <Compile Include="Assets\scripts\Interaction.cs" />
     <Compile Include="Assets\scripts\Panorama.cs" />
     <Compile Include="Assets\scripts\PanoramaDownloader.cs" />
     <Compile Include="Assets\scripts\PanoramaEditor.cs" />
     <Compile Include="Assets\scripts\PanoramaWithPreview.cs" />
+    <Compile Include="Assets\scripts\Photo.cs" />
     <Compile Include="Assets\scripts\ScreenController.cs" />
     <Compile Include="Assets\scripts\Tour.cs" />
     <Compile Include="Assets\scripts\TourEditor.cs" />

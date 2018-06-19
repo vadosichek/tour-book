@@ -17,8 +17,6 @@ public class TourEditor : EditorScreen{
 
     public List<PanoramaWithPreview> panoramas = new List<PanoramaWithPreview>();
 
-    public int count = 0;
-
     private bool deleting = false;
 
     private void Start(){
@@ -26,16 +24,16 @@ public class TourEditor : EditorScreen{
     }
 
     public void AddPhoto(){
-        string new_photo_path = PickImage(-1);
+        string new_photo_path = FilePicker.PickImage(-1);
 
         Texture2D new_photo = null;
         if (new_photo_path != null)
             new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1);
 
-        Vector3 new_pos = new Vector3(count, 0, 0) * panorama_prefab.transform.localScale.x;
+        Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 0, 0) * panorama_prefab.transform.localScale.x;
         GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;
         Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
-        new_panorama_panorama.id = count;
+        new_panorama_panorama.id = editable_tour.panoramas.Count;
         new_panorama_panorama.link = new_photo_path;
         new_panorama.GetComponent<Renderer>().material.mainTexture = new_photo;
 
@@ -54,8 +52,6 @@ public class TourEditor : EditorScreen{
         new_panorama_with_preview.OnPressed += OnPanoramaChosen;
 
         editable_tour.panoramas.Add(new_panorama_panorama);
-
-        count++;
     }
 
     public void RemovePhoto(){
@@ -75,12 +71,11 @@ public class TourEditor : EditorScreen{
         }
     }
 
-    private string PickImage(int maxSize){
-        Texture2D texture = null;
-        string result = null;
-        NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) => {
-            result = path;
-        }, "Select a PNG image", "image/png", maxSize);
-        return result;
-    }
+    //private string PickImage(int maxSize){
+    //    string result = null;
+    //    NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) => {
+    //        result = path;
+    //    }, "Select a PNG image", "image/png", maxSize);
+    //    return result;
+    //}
 }

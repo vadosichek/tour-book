@@ -35,11 +35,16 @@ public class PanoramaEditor : EditorScreen {
 
                     if (hit.rigidbody != null){
                         Debug.Log(hit.point);
+
                         GameObject sphere = Instantiate(transition_prefab) as GameObject;
                         sphere.transform.position = hit.point;
                         sphere.transform.LookAt(current_photo.transform.position);
                         sphere.transform.parent = current_photo.transform;
-                        editable_tour.interactions.Add(sphere.GetComponent<Interaction>());
+
+                        Transition new_transition = sphere.GetComponent<Transition>();
+                        new_transition.tour = editable_tour;
+                        editable_tour.interactions.Add(new_transition);
+
                         if(editing_transition){
                             editing_transition = false;
 
@@ -90,11 +95,17 @@ public class PanoramaEditor : EditorScreen {
                     if (hit.rigidbody != null)
                     {
                         Debug.Log(hit.point);
+
                         GameObject sphere = Instantiate(photo_prefab) as GameObject;
                         sphere.transform.position = hit.point;
                         sphere.transform.LookAt(current_photo.transform.position);
                         sphere.transform.parent = current_photo.transform;
-                        editable_tour.interactions.Add(sphere.GetComponent<Interaction>());
+
+                        Photo new_photo = sphere.GetComponent<Photo>();
+                        new_photo.id = editable_tour.interactions.Count;
+                        editable_tour.interactions.Add(new_photo);
+                        new_photo.Load();
+
                         break;
                     }
                 }

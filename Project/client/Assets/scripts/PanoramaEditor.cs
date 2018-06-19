@@ -10,7 +10,7 @@ public class PanoramaEditor : EditorScreen {
 
     public Panorama current_photo;
     private Panorama previous_photo;
-    private Transform previous_trans;
+    private Transition previous_trans;
     public Transform camera;
 
     public GameObject transition_prefab;
@@ -43,14 +43,17 @@ public class PanoramaEditor : EditorScreen {
 
                         Transition new_transition = sphere.GetComponent<Transition>();
                         new_transition.tour = editable_tour;
+
+                        new_transition.id = editable_tour.interactions.Count;
+                        new_transition.panorama_id = current_photo.id;
                         editable_tour.interactions.Add(new_transition);
 
                         if(editing_transition){
                             editing_transition = false;
 
-                            Vector3 new_pos = new Vector3(previous_trans.position.x - previous_photo.transform.position.x,
+                            Vector3 new_pos = new Vector3(previous_trans.transform.position.x - previous_photo.transform.position.x,
                                                           0,
-                                                          previous_trans.position.z - previous_photo.transform.position.z);
+                                                          previous_trans.transform.position.z - previous_photo.transform.position.z);
                             
 
                             current_photo.transform.position = 3 * new_pos;
@@ -61,11 +64,14 @@ public class PanoramaEditor : EditorScreen {
                             float degree = Vector3.Angle(new_pos, cur_pos - 3 * new_pos);
                             current_photo.transform.Rotate(new Vector3(0, degree, 0));
 
+                            previous_trans.target_id = current_photo.id;
+                            new_transition.target_id = previous_photo.id;
+
                             Select(previous_photo);
                         }
                         else{
                             editing_transition = true;
-                            previous_trans = sphere.transform;
+                            previous_trans = new_transition;
                             previous_photo = current_photo;
                             Finish();
                         }
@@ -103,6 +109,7 @@ public class PanoramaEditor : EditorScreen {
 
                         Photo new_photo = sphere.GetComponent<Photo>();
                         new_photo.id = editable_tour.interactions.Count;
+                        new_photo.panorama_id = current_photo.id;
                         editable_tour.interactions.Add(new_photo);
                         new_photo.Load();
 

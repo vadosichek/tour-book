@@ -2,10 +2,8 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/PanoramaEditor.cs">
     <Files>
-      <File FileName="Assets/scripts/TourEditor.cs" Line="27" Column="58" />
-      <File FileName="Assets/scripts/FilePicker.cs" Line="7" Column="1" />
-      <File FileName="Assets/scripts/PanoramaEditor.cs" Line="107" Column="1" />
-      <File FileName="Assets/scripts/Photo.cs" Line="11" Column="9" />
+      <File FileName="Assets/scripts/Interaction.cs" Line="8" Column="28" />
+      <File FileName="Assets/scripts/PanoramaEditor.cs" Line="68" Column="74" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

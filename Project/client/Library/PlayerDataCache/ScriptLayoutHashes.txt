@@ -94,7 +94,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-9d1e138111d33aad3c62dab4e71ae0e6 Assembly-CSharp.dll:.Interaction
+32b6e7a13a504af9da0664c118014019 Assembly-CSharp.dll:.Interaction
 6d395b2013a39e4185a33296abdcf212 Assembly-CSharp.dll:.TourEditor
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -221,7 +221,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 76cd0983ea0ede5da92bc7e56a81e68a Assembly-CSharp.dll:.PanoramaWithPreview
 618abf628ee68371853acbcf863024b1 Assembly-CSharp.dll:.PanoramaEditor
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-06368cd8982d213a6cce872a61d70774 Assembly-CSharp.dll:.Transition
+8c89b544bee10c4f6f6cae2bf9ed1261 Assembly-CSharp.dll:.Transition
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorStageBehaviour
@@ -290,4 +290,4 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 01e6f145049f3a676df6dc247eabf176 Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
-15ccb52d68ea27d6198301abe154293c Assembly-CSharp.dll:.Photo
+ffb6915b8c93866f884a9ffb00d3b07d Assembly-CSharp.dll:.Photo

@@ -60,6 +60,7 @@ public class TourEditor : EditorScreen{
 
     private void OnPanoramaChosen(PanoramaWithPreview pwp){
         if(deleting){
+            editable_tour.panoramas.Remove(pwp.panorama);
             pwp.OnPressed -= OnPanoramaChosen;
             Destroy(pwp.preview.gameObject);
             Destroy(pwp.panorama.gameObject);
@@ -71,11 +72,7 @@ public class TourEditor : EditorScreen{
         }
     }
 
-    //private string PickImage(int maxSize){
-    //    string result = null;
-    //    NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) => {
-    //        result = path;
-    //    }, "Select a PNG image", "image/png", maxSize);
-    //    return result;
-    //}
+    public void Finish(){
+        Proceed();
+    }
 }

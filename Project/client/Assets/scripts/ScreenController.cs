@@ -10,11 +10,13 @@ public class ScreenController : MonoBehaviour {
         tour_editor.onEditPhoto += EditPhoto;
         panorama_editor.Proceed += ProceedPhotoEdit;
         panorama_editor.Cancel += ProceedPhotoEdit;
+        tour_editor.Proceed += ProceedTourEdit;
     }
     private void OnDestroy(){
         tour_editor.onEditPhoto -= EditPhoto;
         panorama_editor.Proceed -= ProceedPhotoEdit;
         panorama_editor.Cancel -= ProceedPhotoEdit;
+        tour_editor.Proceed -= ProceedTourEdit;
     }
 
     private void EditPhoto(Panorama photo){
@@ -28,4 +30,7 @@ public class ScreenController : MonoBehaviour {
         tour_editor.gameObject.SetActive(true);
     }
 
+    private void ProceedTourEdit(){
+        Debug.Log("Finished");
+    }
 }

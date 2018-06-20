@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tour : MonoBehaviour {
+public class Tour : MonoBehaviour
+{
     public int id;
 
     public List<Panorama> panoramas;
@@ -11,25 +12,31 @@ public class Tour : MonoBehaviour {
     public bool editing = false;
     public Transform camera;
 
-    public void Start(){
+    public void Start()
+    {
         panoramas = new List<Panorama>();
         interactions = new List<Interaction>();
     }
 
-    public Panorama GetPanoramaById(int id){
-        foreach(var panorama in panoramas){
+    public Panorama GetPanoramaById(int id)
+    {
+        foreach (var panorama in panoramas)
+        {
             if (panorama.id == id)
                 return panorama;
         }
         return null;
     }
 
-    public void Move(int id){
+    public void Move(int id)
+    {
         Panorama current_photo = GetPanoramaById(id);
-        if(editing){
+        if (editing)
+        {
             FindObjectOfType<PanoramaEditor>().Select(current_photo);
         }
-        else{
+        else
+        {
             camera.position = current_photo.transform.position;
         }
     }

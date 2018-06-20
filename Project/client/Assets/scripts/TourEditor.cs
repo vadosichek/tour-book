@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -73,6 +73,8 @@ public class TourEditor : EditorScreen{
     }
 
     public void Finish(){
+        string json = JsonUtility.ToJson(scroll_content.rotation);
+        Debug.Log(json);
         Proceed();
     }
 }

@@ -1697,6 +1697,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1076068155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1076068157}
+  - component: {fileID: 1076068156}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1076068156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1076068155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b11ca025c9d84f7d806ba8babf3f3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tour: {fileID: 528536485}
+  result: '{"id":0,"saved_panoramas":{"list":[{"id":0,"size":0,"link":"","position":{"x":0.0,"y":0.0,"z":0.0},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0}},{"id":1,"size":0,"link":"","position":{"x":-0.32035988569259646,"y":0.0,"z":29.95701026916504},"rotation":{"x":0.0,"y":0.9999932646751404,"z":0.0,"w":0.0036662297789007427}}]},"saved_photos":{"list":[{"id":2,"panorama_id":0,"link":"","position":{"x":0.05869515240192413,"y":3.2142715454101564,"z":9.422861099243164},"rotation":{"x":-0.0005096083041280508,"y":0.986517608165741,"z":-0.1636255979537964,"w":-0.0030724869575351478}},{"id":3,"panorama_id":1,"link":"","position":{"x":2.071939706802368,"y":-3.8630056381225588,"z":38.80714797973633},"rotation":{"x":0.026070507243275644,"y":0.9716593623161316,"z":0.19635330140590669,"w":-0.12901057302951814}},{"id":4,"panorama_id":0,"link":"","position":{"x":2.093876361846924,"y":2.0794849395751955,"z":9.504169464111329},"rotation":{"x":-0.011368628591299057,"y":0.9886263608932495,"z":-0.10444259643554688,"w":-0.1076124832034111}},{"id":5,"panorama_id":0,"link":"","position":{"x":-2.4118075370788576,"y":2.289123058319092,"z":9.388721466064454},"rotation":{"x":0.014506731182336808,"y":0.985445499420166,"z":-0.11477755010128021,"w":0.12455040961503983}}]},"saved_transitions":{"list":[{"id":0,"panorama_id":0,"target_id":1,"position":{"x":-0.10678663104772568,"y":0.09811188280582428,"z":9.98567008972168},"rotation":{"x":0.00002626424429763574,"y":0.9999736547470093,"z":-0.004912105388939381,"w":0.005346700549125671}},{"id":1,"panorama_id":1,"target_id":0,"position":{"x":-0.2868238091468811,"y":-0.18832488358020783,"z":19.975961685180665},"rotation":{"x":0.009432797320187092,"y":0.0016799059230834246,"z":0.00001584694291523192,"w":-0.999954104423523}}]}}'
+  panorama_prefab: {fileID: 1698158655022708, guid: 5e69130c001814afda1dbff869b2fa10,
+    type: 2}
+  photo_prefab: {fileID: 1920400408173242, guid: 45e8dce5569de49b8bfb34e2c0cc5d6b,
+    type: 2}
+  transition_prefab: {fileID: 1920400408173242, guid: a5b181fea726d48a7af112cd0c8596ff,
+    type: 2}
+--- !u!4 &1076068157
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1076068155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.041654807, y: 0, z: 29.921734}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1158933731
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,8 +2578,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1493107842}
-        m_MethodName: Open
+      - m_Target: {fileID: 1076068156}
+        m_MethodName: Import
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2608,7 +2656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00000069533417}
+  m_AnchoredPosition: {x: 0, y: 0.00012137498}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1677157096

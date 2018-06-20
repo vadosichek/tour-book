@@ -1,9 +1,13 @@
 ﻿<Properties StartupConfiguration="{A2859A56-AB4A-51F9-60BB-1B6FC96E8C70}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/PanoramaEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Tour.cs">
     <Files>
-      <File FileName="Assets/scripts/Interaction.cs" Line="8" Column="28" />
-      <File FileName="Assets/scripts/PanoramaEditor.cs" Line="68" Column="74" />
+      <File FileName="Assets/scripts/TourExporter.cs" Line="76" Column="51" />
+      <File FileName="Assets/scripts/TourEditor.cs" Line="35" Column="9" />
+      <File FileName="Assets/scripts/Interaction.cs" Line="8" Column="27" />
+      <File FileName="Assets/scripts/Photo.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/Transition.cs" Line="7" Column="5" />
+      <File FileName="Assets/scripts/Tour.cs" Line="30" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -4,18 +4,6 @@ using System;
 using System.Net;
 using System.IO;
 
-public class Uploader : MonoBehaviour
-{
-    private IEnumerator coroutine;
-    void Start()
-    {
-        ftp ftpClient = new ftp(@"ftp://149.154.68.156", "user6923796", "9vQgdCpF4Yrb");
-
-        coroutine = ftpClient.upload("pic2.png", @"/Users/gurtle/Documents/GitHub/tour-book/Project/client/Assets/textures/visitka.png");
-        StartCoroutine(coroutine);
-    }
-}
-
 class ftp
 {
     private string host = null;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/gurtle/Documents/GitHub/tour-book/Project/client/Temp/gradleOut/libs/NativeGallery.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="28.0.0"
+        sha1="4e456cd846457f9da7a8317e638fac9a3a6ff238">
+        <dex dex="/Users/gurtle/Documents/GitHub/tour-book/Project/client/Temp/gradleOut/build/intermediates/pre-dexed/release/NativeGallery_163aea4763c587088bacf67addc1977652e5977b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/gurtle/Documents/GitHub/tour-book/Project/client/Temp/gradleOut/libs/unity-classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="28.0.0"
+        sha1="dc864f217fb96c43cbe078fc41b4a0b9d90b8392">
+        <dex dex="/Users/gurtle/Documents/GitHub/tour-book/Project/client/Temp/gradleOut/build/intermediates/pre-dexed/debug/unity-classes_d990c7e35f86baba321b307e64783e8238cfb402.jar" />
+    </item>
+
+</items>

@@ -32,8 +32,6 @@ def get_post(tour_id):
     tourData = tour.get()
     data = {'id' : tour.user_id,
             'name': userData['name'],
-            'pic': userData['pic'],
-            'preview': tourData['pic'],
             'description': tourData['desc'],
             'tags': tourData['tags'],
             'geotag': tourData['geotag'],
@@ -65,7 +63,6 @@ def get_profile(user_id):
     tours = models.Tour.query.filter_by(user_id=user_id)
     data = {'id': userData["id"],
             'name': userData['name'],
-            'pic': userData['pic'],
             'bio': userProfile['bio'],
             'url': userProfile['url'],
             'subscriptions': subscriptions.count(),
@@ -103,22 +100,18 @@ def create_profile():
         reqData.get('password'),
         reqData.get('name'),
         reqData.get('bio'),
-        reqData.get('url'),
-        reqData.get('pic')))
+        reqData.get('url')))
 
 
 @app.route('/create_tour', methods=['POST', 'GET'])
 def create_tour():
     reqData = request.args
     return json.dumps(models.create_tour(
-        reqData.get('path'),
         reqData.get('user_id'),
         reqData.get('geotag'),
         reqData.get('desc'),
         reqData.get('tags'),
-        reqData.get('size'),
-        reqData.get('time'),
-        reqData.get('pic')))
+        reqData.get('time')))
 
 
 @app.route('/create_comment', methods=['POST', 'GET'])

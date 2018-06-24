@@ -8,7 +8,7 @@
         optimize="true"
         revision="28.0.0"
         sha1="4e456cd846457f9da7a8317e638fac9a3a6ff238">
-        <dex dex="/Users/gurtle/Documents/GitHub/tour-book/Project/client/Temp/gradleOut/build/intermediates/pre-dexed/release/NativeGallery_163aea4763c587088bacf67addc1977652e5977b.jar" />
+        <dex dex="/Users/gurtle/Documents/GitHub/tour-book/Project/client/Temp/gradleOut/build/intermediates/pre-dexed/debug/NativeGallery_163aea4763c587088bacf67addc1977652e5977b.jar" />
     </item>
     <item
         is-multidex="false"

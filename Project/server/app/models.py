@@ -8,12 +8,10 @@ class User(db.Model):
     name = db.Column(db.String(64))
     bio = db.Column(db.String(256))
     url = db.Column(db.String(128))
-    pic = db.Column(db.String(32))
 
     def get(self):
         return {'id': self.id,
-                'name': self.name,
-                'pic': self.pic}
+                'name': self.name}
 
     def profile(self):
         return {'bio': self.bio,
@@ -21,15 +19,15 @@ class User(db.Model):
 
     def posts(self):
         posts = Tour.query.filter_by(user_id=self.id)
-        return [{'id': x.id, 'pic': x.pic} for x in posts]
+        return [x.id for x in posts]
 
 def search_user(key):
     users = User.query.filter(User.name.like('%'+key+'%')).all()
-    return [{'id':x.id, 'login':x.login, 'name':x.name, 'pic':x.pic} for x in users]
+    return [{'id':x.id, 'login':x.login, 'name':x.name} for x in users]
 
-def create_user(login, password, name, bio, url, pic):
+def create_user(login, password, name, bio, url):
     newUser = User(login=login, password=generate_password_hash(password),
-                   name=name, bio=bio, url=url, pic=pic)
+                   name=name, bio=bio, url=url)
     db.session.add(newUser)
     db.session.commit()
     db.session.refresh(newUser)
@@ -38,21 +36,17 @@ def create_user(login, password, name, bio, url, pic):
 
 class Tour(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    path = db.Column(db.String(32), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     geotag = db.Column(db.String(64))
     desc = db.Column(db.Text)
     tags = db.Column(db.String(64))
-    size = db.Column(db.Integer)
     time = db.Column(db.DateTime)
-    pic = db.Column(db.String(32))
 
     def __repr__(self):
         return self.pic
 
     def get(self):
-        return {'pic': self.pic,
-                'desc': self.desc,
+        return {'desc': self.desc,
                 'tags': self.tags,
                 'time': self.time,
                 'geotag': self.geotag,
@@ -69,11 +63,11 @@ class Tour(db.Model):
 
 def search_post(key):
     tours = Tour.query.filter(Tour.desc.like('%'+key+'%')).all()
-    return [{'id':x.id, 'pic':x.pic} for x in tours]
+    return [x.id for x in tours]
 
-def create_tour(path, user_id, geotag, desc, tags, size, time, pic):
-    newTour = Tour(path=path, user_id=user_id, geotag=geotag,
-                   desc=desc, tags=tags, size=size, time=time, pic=pic)
+def create_tour(user_id, geotag, desc, tags, time):
+    newTour = Tour(user_id=user_id, geotag=geotag,
+                   desc=desc, tags=tags, time=time)
     db.session.add(newTour)
     db.session.commit()
     db.session.refresh(newTour)

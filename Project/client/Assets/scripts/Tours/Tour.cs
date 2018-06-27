@@ -12,12 +12,6 @@ public class Tour : MonoBehaviour
     public bool editing = false;
     public Transform camera;
 
-    public void Start()
-    {
-        panoramas = new List<Panorama>();
-        interactions = new List<Interaction>();
-    }
-
     public Panorama GetPanoramaById(int id)
     {
         foreach (var panorama in panoramas)

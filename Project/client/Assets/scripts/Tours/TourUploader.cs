@@ -6,10 +6,6 @@ using System.Net;
 using UnityEngine;
 
 public class TourUploader : MonoBehaviour {
-    
-    public string host = @"ftp://149.154.68.156";
-    public string user = "user6923796";
-    public string pass = "9vQgdCpF4Yrb";
 
     private FtpWebRequest ftpRequest = null;
     private FtpWebResponse ftpResponse = null;
@@ -49,15 +45,25 @@ public class TourUploader : MonoBehaviour {
         );
     }
 
+    public void DownloadFiles(){
+        string local_path = Application.temporaryCachePath + "/" + tour.id + ".json";
+        StartCoroutine(
+            Download(
+                tour.id + "/data.json",
+                local_path
+            )
+        );
+    }
+
 
     public IEnumerator Upload(string remoteFile, string localFile)
     {
         try
         {
             /* Create an FTP Request */
-            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
+            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Server.host + "/" + remoteFile);
             /* Log in to the FTP Server with the User Name and Password Provided */
-            ftpRequest.Credentials = new NetworkCredential(user, pass);
+            ftpRequest.Credentials = new NetworkCredential(Server.user, Server.pass);
             /* When in doubt, use these options */
             ftpRequest.UseBinary = true;
             ftpRequest.UsePassive = true;
@@ -95,9 +101,9 @@ public class TourUploader : MonoBehaviour {
         try
         {
             /* Create an FTP Request */
-            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
+            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Server.host + "/" + remoteFile);
             /* Log in to the FTP Server with the User Name and Password Provided */
-            ftpRequest.Credentials = new NetworkCredential(user, pass);
+            ftpRequest.Credentials = new NetworkCredential(Server.user, Server.pass);
             /* When in doubt, use these options */
             ftpRequest.UseBinary = true;
             ftpRequest.UsePassive = true;
@@ -121,14 +127,52 @@ public class TourUploader : MonoBehaviour {
         yield return null;
     }
 
+    public string GetFileSize(string fileName)
+    {
+        try
+        {
+            /* Create an FTP Request */
+            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Server.host + "/" + fileName);
+            /* Log in to the FTP Server with the User Name and Password Provided */
+            ftpRequest.Credentials = new NetworkCredential(Server.user, Server.pass);
+            /* When in doubt, use these options */
+            ftpRequest.UseBinary = true;
+            ftpRequest.UsePassive = true;
+            ftpRequest.KeepAlive = true;
+            /* Specify the Type of FTP Request */
+            ftpRequest.Method = WebRequestMethods.Ftp.GetFileSize;
+            /* Establish Return Communication with the FTP Server */
+            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+            /* Establish Return Communication with the FTP Server */
+            ftpStream = ftpResponse.GetResponseStream();
+            /* Get the FTP Server's Response Stream */
+            StreamReader ftpReader = new StreamReader(ftpStream);
+            /* Store the Raw Response */
+            string fileInfo = null;
+            /* Read the Full Response Stream */
+            try { while (ftpReader.Peek() != -1) { fileInfo = ftpReader.ReadToEnd(); } }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            /* Resource Cleanup */
+            ftpReader.Close();
+            ftpStream.Close();
+            ftpResponse.Close();
+            ftpRequest = null;
+            /* Return File Size */
+            return fileInfo;
+        }
+        catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+        /* Return an Empty string Array if an Exception Occurs */
+        return "";
+    }
+
     public IEnumerator CreateDirectory(string newDirectory)
     {
         try
         {
             /* Create an FTP Request */
-            ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + newDirectory);
+            ftpRequest = (FtpWebRequest)WebRequest.Create(Server.host + "/" + newDirectory);
             /* Log in to the FTP Server with the User Name and Password Provided */
-            ftpRequest.Credentials = new NetworkCredential(user, pass);
+            ftpRequest.Credentials = new NetworkCredential(Server.user, Server.pass);
             /* When in doubt, use these options */
             ftpRequest.UseBinary = true;
             ftpRequest.UsePassive = true;
@@ -140,6 +184,51 @@ public class TourUploader : MonoBehaviour {
             /* Resource Cleanup */
             ftpResponse.Close();
             ftpRequest = null;
+        }
+        catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+        yield return null;
+    }
+
+    public IEnumerator Download(string remoteFile, string localFile)
+    {
+        try
+        {
+            /* Create an FTP Request */
+            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Server.host + "/" + remoteFile);
+            /* Log in to the FTP Server with the User Name and Password Provided */
+            ftpRequest.Credentials = new NetworkCredential(Server.user, Server.pass);
+            /* When in doubt, use these options */
+            ftpRequest.UseBinary = true;
+            ftpRequest.UsePassive = true;
+            ftpRequest.KeepAlive = true;
+            /* Specify the Type of FTP Request */
+            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+            /* Establish Return Communication with the FTP Server */
+            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+            /* Get the FTP Server's Response Stream */
+            ftpStream = ftpResponse.GetResponseStream();
+            /* Open a File Stream to Write the Downloaded File */
+            FileStream localFileStream = new FileStream(localFile, FileMode.Create);
+            /* Buffer for the Downloaded Data */
+            byte[] byteBuffer = new byte[bufferSize];
+            int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
+            /* Download the File by Writing the Buffered Data Until the Transfer is Complete */
+            try
+            {
+                while (bytesRead > 0)
+                {
+                    localFileStream.Write(byteBuffer, 0, bytesRead);
+                    bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            /* Resource Cleanup */
+            localFileStream.Close();
+            ftpStream.Close();
+            ftpResponse.Close();
+            ftpRequest = null;
+            tour_exporter.result = System.IO.File.ReadAllText(localFile);
+            tour_exporter.Import();
         }
         catch (Exception ex) { Console.WriteLine(ex.ToString()); }
         yield return null;

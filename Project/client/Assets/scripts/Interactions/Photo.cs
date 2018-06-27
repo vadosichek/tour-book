@@ -16,4 +16,11 @@ public class Photo : Interaction {
     {
         
     }
+
+    public PictureDownloader picture_downloader;
+
+    public void Download()
+    {
+        picture_downloader.Load(link);
+    }
 }

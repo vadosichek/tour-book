@@ -27,8 +27,7 @@ public class TourEditor : EditorScreen{
         string new_photo_path = FilePicker.PickImage(-1);
 
         Texture2D new_photo = null;
-        if (new_photo_path != null)
-        {
+        if (new_photo_path != null){
             new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1);
 
             Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 0, 0) * panorama_prefab.transform.localScale.x;

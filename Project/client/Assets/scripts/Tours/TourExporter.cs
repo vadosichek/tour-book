@@ -46,8 +46,6 @@ public class TourExporter : MonoBehaviour {
     public void Import(){
         SavedTour savedTour = JsonUtility.FromJson<SavedTour>(result);
 
-        tour.id = savedTour.id;
-
         foreach(SavedPanorama saved_panorama in savedTour.saved_panoramas.list){
             GameObject new_panorama = Instantiate(panorama_prefab, saved_panorama.position, saved_panorama.rotation) as GameObject;
             Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
@@ -55,6 +53,7 @@ public class TourExporter : MonoBehaviour {
             new_panorama_panorama.size = saved_panorama.size;
             new_panorama_panorama.link = saved_panorama.link;
             tour.panoramas.Add(new_panorama_panorama);
+            new_panorama_panorama.Download();
         }
         foreach (SavedPhoto saved_photo in savedTour.saved_photos.list)
         {
@@ -64,6 +63,7 @@ public class TourExporter : MonoBehaviour {
             new_photo_photo.panorama_id = saved_photo.panorama_id;
             new_photo_photo.link = saved_photo.link;
             tour.interactions.Add(new_photo_photo);
+            new_photo_photo.Download();
         }
         foreach (SavedTransition saved_transition in savedTour.saved_transitions.list)
         {
@@ -75,6 +75,8 @@ public class TourExporter : MonoBehaviour {
             new_transition_transition.tour = tour;
             tour.interactions.Add(new_transition_transition);
         }
+
+        tour.Move(0);
     }
 }
 

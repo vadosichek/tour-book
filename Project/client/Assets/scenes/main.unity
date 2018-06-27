@@ -738,7 +738,7 @@ RectTransform:
   - {fileID: 1643585336}
   - {fileID: 1155953342}
   m_Father: {fileID: 1803302891}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1703,7 +1703,7 @@ RectTransform:
   m_Children:
   - {fileID: 1237656281}
   m_Father: {fileID: 1803302891}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2181,9 +2181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3b81d0859494429b03d9b17387342b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  host: ftp://149.154.68.156
-  user: user6923796
-  pass: 9vQgdCpF4Yrb
   tour: {fileID: 528536485}
   tour_exporter: {fileID: 1076068156}
 --- !u!1 &1099494288
@@ -2409,7 +2406,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1803302891}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2429,7 +2426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tour_editor: {fileID: 1823591904}
   panorama_editor: {fileID: 554055022}
-  tour_exporter: {fileID: 0}
   tour_uploader: {fileID: 1076068158}
   post_editor: {fileID: 211545282}
 --- !u!1 &1237656280
@@ -3726,6 +3722,53 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1730252453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1730252454}
+  - component: {fileID: 1730252455}
+  m_Layer: 5
+  m_Name: TourViewer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1730252454
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730252453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1803302891}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1730252455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730252453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8900f88ef39244188cc4f9122d494f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tour: {fileID: 528536485}
+  tour_uploader: {fileID: 1076068158}
 --- !u!1 &1743051941
 GameObject:
   m_ObjectHideFlags: 0
@@ -3888,6 +3931,7 @@ RectTransform:
   - {fileID: 904207115}
   - {fileID: 1076068157}
   - {fileID: 528536484}
+  - {fileID: 1730252454}
   - {fileID: 1823591903}
   - {fileID: 211545281}
   - {fileID: 554055021}
@@ -3929,7 +3973,7 @@ RectTransform:
   - {fileID: 1890714459}
   - {fileID: 1493107841}
   m_Father: {fileID: 1803302891}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

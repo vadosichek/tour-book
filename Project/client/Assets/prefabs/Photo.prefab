@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4836442875087144}
+  - component: {fileID: 114208354993043914}
   - component: {fileID: 114692929168885838}
   - component: {fileID: 65181694604650502}
   - component: {fileID: 54478720591792056}
@@ -142,6 +143,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 1}
+--- !u!114 &114208354993043914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920400408173242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06473bc26bef54cfb92ce90d4be5b368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 23185431481005344}
 --- !u!114 &114692929168885838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,4 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  panorama_id: 0
   link: 
+  picture_downloader: {fileID: 114208354993043914}

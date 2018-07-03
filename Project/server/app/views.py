@@ -80,7 +80,8 @@ def get_posts(user_id):
 @app.route('/get_feed/<int:user_id>')
 def get_feed(user_id):
     feed = models.generate_feed(user_id)
-    return json.dumps(feed)
+    res = {'posts':feed}
+    return json.dumps(res)
 
 @app.route('/search_user/<string:key>')
 def search_user(key):

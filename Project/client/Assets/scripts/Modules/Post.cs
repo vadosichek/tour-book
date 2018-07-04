@@ -13,10 +13,6 @@ public class Post : Module {
     public Text description;
     public Text likes, comments;
 
-    void Start(){
-        StartCoroutine(GetPost());
-    }
-
     IEnumerator GetPost(){
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_post/" + id);
         yield return www.SendWebRequest();
@@ -35,6 +31,10 @@ public class Post : Module {
             likes.text = result.likes.ToString();
             comments.text = result.comments.ToString();
         }
+    }
+
+    public void Load(){
+        StartCoroutine(GetPost());
     }
 }
 

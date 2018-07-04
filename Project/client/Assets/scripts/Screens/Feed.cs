@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 
 public class Feed : AppScreen {
     public Transform scroll_content;
+    public GameObject post;
     public int[] posts;
 
     void Start(){
@@ -23,6 +24,16 @@ public class Feed : AppScreen {
         else{
             FeedJSON result = JsonUtility.FromJson<FeedJSON>(www.downloadHandler.text);
             posts = result.posts;
+            GeneratePosts();
+        }
+    }
+
+    void GeneratePosts(){
+        foreach(int id in posts){
+            GameObject created_post = Instantiate(post, scroll_content) as GameObject;
+            Post created_post_post = created_post.GetComponent<Post>();
+            created_post_post.id = id;
+            created_post_post.Load();
         }
     }
 }

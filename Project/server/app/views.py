@@ -85,12 +85,14 @@ def get_feed(user_id):
 
 @app.route('/search_user/<string:key>')
 def search_user(key):
-    res = models.search_user(key)
+    users = models.search_user(key)
+    res = {'users':users}
     return json.dumps(res)
 
 @app.route('/search_post/<string:key>')
 def search_post(key):
-    res = models.search_post(key)
+    posts = models.search_post(key)
+    res = {'posts':posts}
     return json.dumps(res)
 
 @app.route('/create_profile', methods=['POST', 'GET'])

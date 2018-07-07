@@ -2,10 +2,7 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Screens/Search.cs">
     <Files>
-      <File FileName="Assets/scripts/Modules/Post.cs" Line="41" Column="1" />
-      <File FileName="Assets/scripts/Modules/PostMinimized.cs" Line="9" Column="19" />
-      <File FileName="Assets/scripts/Screens/Search.cs" Line="13" Column="26" />
-      <File FileName="Assets/scripts/Modules/UserMinimized.cs" Line="16" Column="19" />
+      <File FileName="Assets/scripts/Screens/Search.cs" Line="19" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

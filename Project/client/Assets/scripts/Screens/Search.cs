@@ -7,14 +7,24 @@ using UnityEngine.Networking;
 
 public class Search : AppScreen {
     public string key;
+    public Text search_bar;
     public GameObject post_minimized_prefab;
     public Transform posts_scroll_content;
     public GameObject user_minimized_prefab;
     public Transform users_scroll_content;
 
-    void Start()
-    {
+    public void StartSearch(){
+        key = search_bar.text;
+        Clear();
         StartCoroutine(GetPosts());
+        StartCoroutine(GetUsers());
+    }
+
+    void Clear(){
+        foreach (Transform child in posts_scroll_content)
+            Destroy(child.gameObject);
+        foreach (Transform child in users_scroll_content)
+            Destroy(child.gameObject);
     }
 
     IEnumerator GetPosts()
@@ -50,6 +60,10 @@ public class Search : AppScreen {
         {
             UsersJson result = JsonUtility.FromJson<UsersJson>(www.downloadHandler.text);
             Debug.Log(JsonUtility.ToJson(result));
+            foreach(UserMinimizedJSON i in result.users){
+                GameObject new_user = Instantiate(user_minimized_prefab, users_scroll_content);
+                new_user.GetComponent<UserMinimized>().Load(i);
+            }
         }
     }
 

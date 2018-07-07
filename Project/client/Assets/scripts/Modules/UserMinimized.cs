@@ -9,6 +9,11 @@ public class UserMinimized : Module {
     public Image pic;
     public Text login;
     public Text name;
+
+    public void Load(UserMinimizedJSON data){
+        login.text = data.login;
+        name.text = data.name;
+    }
 }
 
 [Serializable]

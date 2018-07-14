@@ -10,7 +10,7 @@ public class Feed : AppScreen {
     public GameObject post;
     public int[] posts;
 
-    void Start(){
+    public override void Load(){
         StartCoroutine(GetFeed());
     }
 
@@ -29,6 +29,7 @@ public class Feed : AppScreen {
     }
 
     void GeneratePosts(){
+        Clear();
         foreach(int id in posts){
             GameObject created_post = Instantiate(post, scroll_content) as GameObject;
             Post created_post_post = created_post.GetComponent<Post>();
@@ -36,12 +37,15 @@ public class Feed : AppScreen {
             created_post_post.Load();
         }
     }
+
+    void Clear(){
+        foreach (Transform child in scroll_content)
+            Destroy(child.gameObject);
+    }
+
 }
 
 [Serializable]
 public struct FeedJSON{
     public int[] posts;
-    public FeedJSON(int[] _posts){
-        posts = _posts;
-    }
 };

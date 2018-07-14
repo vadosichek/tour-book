@@ -33,8 +33,12 @@ public class Post : Module {
         }
     }
 
-    public void Load(){
+    public override void Load(){
         StartCoroutine(GetPost());
+    }
+
+    public void Open(){
+        ScreenController.instance.OpenPost(id);
     }
 }
 
@@ -48,15 +52,4 @@ public struct PostJSON{
     public string time;
     public string geotag;
     public string tags;
-
-    public PostJSON(int _id, string _description, string _name, int _comments, int _likes, string _time, string _geotag, string _tags){
-        id = _id;
-        description = _description;
-        name = _name;
-        comments = _comments;
-        likes = _likes;
-        time = _time;
-        geotag = _geotag;
-        tags = _tags;
-    }
 };

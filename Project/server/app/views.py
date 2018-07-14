@@ -44,7 +44,8 @@ def get_post(tour_id):
 @app.route('/get_comments/<int:tour_id>')
 def get_comments(tour_id):
     tour = models.Tour.query.get(tour_id)
-    return json.dumps(tour.comments())
+    res = {'comments':tour.comments()}
+    return json.dumps(res)
 
 
 @app.route('/get_likes/<int:tour_id>')

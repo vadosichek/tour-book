@@ -64,6 +64,7 @@
     <Compile Include="Assets\scripts\Interactions\Interaction.cs" />
     <Compile Include="Assets\scripts\Interactions\Photo.cs" />
     <Compile Include="Assets\scripts\Interactions\Transition.cs" />
+    <Compile Include="Assets\scripts\Modules\Comment.cs" />
     <Compile Include="Assets\scripts\Modules\Module.cs" />
     <Compile Include="Assets\scripts\Modules\Post.cs" />
     <Compile Include="Assets\scripts\Modules\PostMinimized.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\scripts\Screens\AppScreen.cs" />
     <Compile Include="Assets\scripts\Screens\EditorScreen.cs" />
     <Compile Include="Assets\scripts\Screens\Feed.cs" />
+    <Compile Include="Assets\scripts\Screens\OpenedPost.cs" />
     <Compile Include="Assets\scripts\Screens\PanoramaEditor.cs" />
     <Compile Include="Assets\scripts\Screens\PostEditor.cs" />
     <Compile Include="Assets\scripts\Screens\ScreenController.cs" />

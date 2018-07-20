@@ -14,6 +14,8 @@ public class OpenedPost : AppScreen {
 
     public Post opened_post;
 
+    public InputField input;
+
     IEnumerator GetComments()
     {
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_comments/" + id);
@@ -46,6 +48,26 @@ public class OpenedPost : AppScreen {
         foreach (Transform child in scroll_content){
             if(child.GetComponent<Comment>() != null)
                 Destroy(child.gameObject);
+        }
+    }
+
+    public void SendComment(){
+        StartCoroutine(_SendComment());
+    }
+    IEnumerator _SendComment()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_comment?user_id=" + 1 + "&tour_id=" + id + "&text=" + input.text);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+            input.text = "";
+            Load();
         }
     }
 }

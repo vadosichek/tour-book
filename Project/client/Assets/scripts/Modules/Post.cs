@@ -40,6 +40,24 @@ public class Post : Module {
     public void Open(){
         ScreenController.instance.OpenPost(id);
     }
+
+    public void CreateLike(){
+        StartCoroutine(_CreateLike());
+    }
+    IEnumerator _CreateLike(){
+        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_like?user_id=" + 1 + "&tour_id=" + id);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+            Load();
+        }
+    }
 }
 
 [Serializable]

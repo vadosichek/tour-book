@@ -130,9 +130,15 @@ def create_comment():
 @app.route('/create_like', methods=['POST', 'GET'])
 def create_like():
     reqData = request.args
+    user_id = int(reqData.get('user_id'))
+    tour_id = int(reqData.get('tour_id'))
+    likes = models.Like.query.filter_by(user_id=user_id)
+    for like in likes:
+        if like.tour_id == tour_id:
+            return '-1'
     return json.dumps(models.create_like(
-        reqData.get('user_id'),
-        reqData.get('tour_id')))
+        user_id,
+        tour_id))
 
 
 @app.route('/create_subscription', methods=['POST', 'GET'])

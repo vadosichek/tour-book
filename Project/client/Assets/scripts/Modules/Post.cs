@@ -8,12 +8,18 @@ using UnityEngine.Networking;
 public class Post : Module {
 
     public int id;
-
+    public int user_id = -1;
     public Text name;
     public Text description;
     public Text likes, comments;
 
-    IEnumerator GetPost(){
+    public Image preview, user;
+
+
+    public void LoadPost(){
+        StartCoroutine(_LoadPost());
+    }
+    IEnumerator _LoadPost(){
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_post/" + id);
         yield return www.SendWebRequest();
 
@@ -26,6 +32,7 @@ public class Post : Module {
             PostJSON result = JsonUtility.FromJson<PostJSON>(www.downloadHandler.text);
             Debug.Log(JsonUtility.ToJson(result));
 
+            user_id = result.id;
             name.text = result.name;
             description.text = result.description;
             likes.text = result.likes.ToString();
@@ -33,8 +40,38 @@ public class Post : Module {
         }
     }
 
+    private void LoadPic(){
+        StartCoroutine(_LoadPic());
+    }
+    IEnumerator _LoadPic(){
+        Texture2D tex;
+        tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        using (WWW www = new WWW(Server.base_url + "/get_panorama?id=" + id + "&name=" + 0)){
+            yield return www;
+            www.LoadImageIntoTexture(tex);
+            preview.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+        }
+    }
+
+    private void LoadUsr(){
+        StartCoroutine(_LoadUsr());
+    }
+    IEnumerator _LoadUsr(){
+        while (user_id == -1) yield return null;
+        Debug.Log(user_id);
+        Texture2D tex;
+        tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        using (WWW www = new WWW(Server.base_url + "/get_user?name=" + user_id)){
+            yield return www;
+            www.LoadImageIntoTexture(tex);
+            user.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+        }
+    }
+
     public override void Load(){
-        StartCoroutine(GetPost());
+        LoadPost();
+        LoadPic();
+        LoadUsr();
     }
 
     public void Open(){
@@ -48,14 +85,12 @@ public class Post : Module {
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_like?user_id=" + 1 + "&tour_id=" + id);
         yield return www.SendWebRequest();
 
-        if (www.isNetworkError || www.isHttpError)
-        {
+        if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }
-        else
-        {
+        else{
             Debug.Log(www.downloadHandler.text);
-            Load();
+            LoadPost();
         }
     }
 }

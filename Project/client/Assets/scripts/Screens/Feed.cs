@@ -22,6 +22,7 @@ public class Feed : AppScreen {
             Debug.Log(www.error);
         }
         else{
+            Debug.Log(www.downloadHandler.text);
             FeedJSON result = JsonUtility.FromJson<FeedJSON>(www.downloadHandler.text);
             posts = result.posts;
             GeneratePosts();

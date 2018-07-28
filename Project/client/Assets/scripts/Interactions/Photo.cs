@@ -21,6 +21,6 @@ public class Photo : Interaction {
 
     public void Download()
     {
-        picture_downloader.Load(link);
+        picture_downloader.LoadTexture(link);
     }
 }

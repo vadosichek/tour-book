@@ -9,6 +9,6 @@ public class Panorama : MonoBehaviour {
     public PictureDownloader picture_downloader;
 
     public void Download(){
-        picture_downloader.Load(link);
+        picture_downloader.LoadTexture(link);
     }
 }

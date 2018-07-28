@@ -1,9 +1,112 @@
 from app import app, models, db
-from flask import request
+from flask import request, send_from_directory, redirect, url_for
 import json
 from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+import fnmatch
 #from crypt import decrypt
+
+
+
+@app.route('/get_panorama', methods=['GET', 'POST'])
+def get_panorama():
+    post = request.args.get('id')
+    name = request.args.get('name')
+
+    for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], 'posts', str(post), 'panoramas')):
+        if fnmatch.fnmatch(file, str(name)+'*'):
+            return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], 'posts', str(post), 'panoramas'),
+                               file)
+
+    return 'err'
+
+@app.route('/get_photo', methods=['GET', 'POST'])
+def get_photo():
+    post = request.args.get('id')
+    name = request.args.get('name')
+
+    for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], 'posts', str(post), 'photos')):
+        if fnmatch.fnmatch(file, str(name)+'*'):
+            return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], 'posts', str(post), 'photos'),
+                               file)
+
+    return 'err'
+
+@app.route('/get_user', methods=['GET', 'POST'])
+def get_user():
+    name = request.args.get('name')
+
+    for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], 'users')):
+        if fnmatch.fnmatch(file, str(name)+'*'):
+            return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], 'users'),
+                               file)
+
+    return 'err'
+
+
+html_form = '''
+            <!doctype html>
+            <title>Upload new File</title>
+            <h1>Upload new File</h1>
+            <form method=post enctype=multipart/form-data>
+              <input type=file name=file>
+              <input type=text name=tour>
+              <input type=submit value=Upload>
+            </form>
+            '''
+
+@app.route('/upload_panorama', methods=['GET', 'POST'])
+def upload_panorama():
+    if request.method == 'POST':
+        file = request.files['file']
+        return upload_for_posts(file, 'panoramas', request.form.get('tour'))
+    return html_form
+
+@app.route('/upload_photo', methods=['GET', 'POST'])
+def upload_photo():
+    if request.method == 'POST':
+        file = request.files['file']
+        return upload_for_posts(file, 'photos', request.form.get('tour'))
+    return html_form
+
+def upload_for_posts(file, opt, id):
+    filename = secure_filename(file.filename)
+    path_base = os.path.join(app.config['UPLOAD_FOLDER'], 'posts')
+    path_id = os.path.join(path_base, id)
+    path_photo = os.path.join(path_id, opt)
+
+    try:
+        os.mkdir(path_id)
+    except OSError:
+        pass
+    try:
+        os.mkdir(path_photo)
+    except OSError:
+        pass
+
+    file.save(os.path.join(path_photo, filename))
+    return 'ok'
+
+
+@app.route('/upload_user', methods=['GET', 'POST'])
+def upload_user():
+    if request.method == 'POST':
+        file = request.files['file']
+        return upload_for_users(file)
+    return html_form
+
+def upload_for_users(file):
+    filename = secure_filename(file.filename)
+    path_base = os.path.join(app.config['UPLOAD_FOLDER'], 'users')
+
+    file.save(os.path.join(path_base, filename))
+    return redirect(url_for('uploaded_file',
+                            filename=filename))
+
+
+
+
 
 def login_sys(login, password):
     #dec_pass = decrypt(password)

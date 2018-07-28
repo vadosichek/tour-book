@@ -37,6 +37,12 @@ public class OpenedPost : AppScreen {
         }
     }
 
+    private void UpdatePost(){
+        Clear();
+        opened_post.LoadPost();
+        StartCoroutine(GetComments());
+    }
+
     public override void Load(){
         Clear();
         opened_post.id = id;
@@ -67,7 +73,7 @@ public class OpenedPost : AppScreen {
         {
             Debug.Log(www.downloadHandler.text);
             input.text = "";
-            Load();
+            UpdatePost();
         }
     }
 }

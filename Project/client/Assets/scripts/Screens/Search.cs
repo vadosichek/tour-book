@@ -43,6 +43,7 @@ public class Search : AppScreen {
             foreach(int i in result.posts){
                 GameObject new_post = Instantiate(post_minimized_prefab, posts_scroll_content);
                 new_post.GetComponent<PostMinimized>().id = i;
+                new_post.GetComponent<PostMinimized>().Load();
             }
         }
     }
@@ -62,7 +63,8 @@ public class Search : AppScreen {
             Debug.Log(JsonUtility.ToJson(result));
             foreach(UserMinimizedJSON i in result.users){
                 GameObject new_user = Instantiate(user_minimized_prefab, users_scroll_content);
-                new_user.GetComponent<UserMinimized>().Load(i);
+                new_user.GetComponent<UserMinimized>().data = i;
+                new_user.GetComponent<UserMinimized>().Load();
             }
         }
     }

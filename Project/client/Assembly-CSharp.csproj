@@ -81,6 +81,7 @@
     <Compile Include="Assets\scripts\Screens\Search.cs" />
     <Compile Include="Assets\scripts\Screens\TourEditor.cs" />
     <Compile Include="Assets\scripts\Screens\TourViewer.cs" />
+    <Compile Include="Assets\scripts\Screens\User.cs" />
     <Compile Include="Assets\scripts\Tours\Tour.cs" />
     <Compile Include="Assets\scripts\Tours\TourExporter.cs" />
     <Compile Include="Assets\scripts\Tours\TourUploader.cs" />

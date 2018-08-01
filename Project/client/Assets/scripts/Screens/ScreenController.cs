@@ -13,6 +13,7 @@ public class ScreenController : MonoBehaviour {
     public Feed feed;
     public Search search;
     public OpenedPost opened_post;
+    public User opened_user;
 
     public AppScreen current_screen;
     public AppScreen previous_screen;
@@ -86,6 +87,14 @@ public class ScreenController : MonoBehaviour {
         current_screen = opened_post;
         opened_post.id = id;
         opened_post.Load();
+    }
+
+    public void OpenUser(int id){
+        SwitchScreens(current_screen, opened_user);
+        previous_screen = current_screen;
+        current_screen = opened_user;
+        opened_user.id = id;
+        opened_user.Load();
     }
 
     private void Start(){

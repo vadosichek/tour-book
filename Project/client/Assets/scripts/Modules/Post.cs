@@ -77,6 +77,9 @@ public class Post : Module {
     public void Open(){
         ScreenController.instance.OpenPost(id);
     }
+    public void OpenUser(){
+        ScreenController.instance.OpenUser(id);
+    }
 
     public void CreateLike(){
         StartCoroutine(_CreateLike());

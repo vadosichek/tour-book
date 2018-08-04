@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 222410997171411492}
   - component: {fileID: 114006892569292542}
   - component: {fileID: 114401222804022112}
-  - component: {fileID: 114904164377903986}
   m_Layer: 5
   m_Name: tour_pic
   m_TagString: Untagged
@@ -675,18 +674,6 @@ MonoBehaviour:
   comments: {fileID: 114591965540294092}
   preview: {fileID: 114006892569292542}
   user: {fileID: 114117922188366746}
---- !u!114 &114904164377903986
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1574813220830730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06473bc26bef54cfb92ce90d4be5b368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderer: {fileID: 0}
 --- !u!114 &114929158280350210
 MonoBehaviour:
   m_ObjectHideFlags: 1

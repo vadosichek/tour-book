@@ -14,6 +14,7 @@ public class ScreenController : MonoBehaviour {
     public Search search;
     public OpenedPost opened_post;
     public User opened_user;
+    public OpenedTour opened_tour;
 
     public AppScreen current_screen;
     public AppScreen previous_screen;
@@ -95,6 +96,14 @@ public class ScreenController : MonoBehaviour {
         current_screen = opened_user;
         opened_user.id = id;
         opened_user.Load();
+    }
+
+    public void ViewTour(int id){
+        SwitchScreens(current_screen, opened_tour);
+        previous_screen = current_screen;
+        current_screen = opened_tour;
+        opened_tour.id = id;
+        opened_tour.Load();
     }
 
     private void Start(){

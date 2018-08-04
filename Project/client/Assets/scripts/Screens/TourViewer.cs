@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class TourViewer : EditorScreen {
 
     public Tour tour;
-    public TourUploader tour_uploader;
+    public TourExporter tour_exporter;
 
     public void View(int id){
         foreach (Panorama panorama in tour.panoramas)
@@ -14,6 +14,24 @@ public class TourViewer : EditorScreen {
             Destroy(interaction.gameObject);
         
         tour.id = id;
-        tour_uploader.DownloadFiles();
+        DownloadFiles();
+    }
+
+    public void DownloadFiles(){
+        StartCoroutine(DownloadTour());
+    }
+
+    IEnumerator DownloadTour(){
+        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_tour?tour=" + tour.id);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }
+        else{
+            Debug.Log(www.downloadHandler.text);
+            tour_exporter.result = www.downloadHandler.text;
+            tour_exporter.Import();
+        }
     }
 }

@@ -78,7 +78,10 @@ public class Post : Module {
         ScreenController.instance.OpenPost(id);
     }
     public void OpenUser(){
-        ScreenController.instance.OpenUser(id);
+        ScreenController.instance.OpenUser(user_id);
+    }
+    public void View(){
+        ScreenController.instance.ViewTour(id);
     }
 
     public void CreateLike(){

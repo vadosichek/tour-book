@@ -23,6 +23,7 @@ public class TourViewer : EditorScreen {
 
     IEnumerator DownloadTour(){
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_tour?tour=" + tour.id);
+        Debug.Log(Server.base_url + "/get_tour?tour=" + tour.id);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){

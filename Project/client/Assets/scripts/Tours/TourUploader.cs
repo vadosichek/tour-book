@@ -37,7 +37,7 @@ public class TourUploader : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", localFile.bytes);
         
-        form.AddField("tour", 0);
+        form.AddField("tour", tour.id);
 
         UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/upload_panorama", form);
         yield return www.SendWebRequest();
@@ -58,7 +58,7 @@ public class TourUploader : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", localFile.bytes);
         
-        form.AddField("tour", 0);
+        form.AddField("tour", tour.id);
 
         UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/upload_photo", form);
         yield return www.SendWebRequest();
@@ -74,9 +74,9 @@ public class TourUploader : MonoBehaviour {
     IEnumerator UploadTour(string text) {
         
         WWWForm form = new WWWForm();
-        //form.AddBinaryData("file", text); // binary?
         
-        form.AddField("tour", 0);
+        form.AddField("text", text);
+        form.AddField("tour", tour.id);
 
         UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/upload_tour", form);
         yield return www.SendWebRequest();

@@ -9,9 +9,11 @@ public class UserMinimized : Module {
     public Image pic;
     public Text login;
     public Text name;
+    public int id;
     public UserMinimizedJSON data;
 
     public override void Load(){
+        id = data.id;
         login.text = data.login;
         name.text = data.name;
         LoadUsr();
@@ -28,6 +30,10 @@ public class UserMinimized : Module {
             www.LoadImageIntoTexture(tex);
             pic.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
         }
+    }
+
+    public void Open(){
+        ScreenController.instance.OpenUser(id);
     }
 }
 

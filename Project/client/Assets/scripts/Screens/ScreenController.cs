@@ -79,6 +79,13 @@ public class ScreenController : MonoBehaviour {
         login.Load(); 
     }
 
+    public void GoToRegistration(){
+        SwitchScreens(current_screen, registrate);
+        previous_screen = current_screen;
+        current_screen = registrate;
+        registrate.Load();
+    }
+
     public void GoToFeed(){
         SwitchScreens(current_screen, feed);
         previous_screen = current_screen;

@@ -82,6 +82,21 @@ public class User : AppScreen {
         foreach (Transform child in scroll_content)
             if(child.gameObject.GetComponent<PostMinimized>() != null) Destroy(child.gameObject);
     }
+
+    public void Subscribe(){
+        StartCoroutine(_Subscribe());
+    }
+    IEnumerator _Subscribe(){
+        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_subscription?user_id=" + id + "&subscriber_id=" + Server.user_id);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }
+        else{
+            Debug.Log(www.downloadHandler.text);
+        }
+    }
 }
 
 [Serializable]

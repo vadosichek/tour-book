@@ -62,7 +62,7 @@ public class OpenedPost : AppScreen {
     }
     IEnumerator _SendComment()
     {
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_comment?user_id=" + 1 + "&tour_id=" + id + "&text=" + input.text);
+        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_comment?user_id=" + Server.user_id + "&tour_id=" + id + "&text=" + input.text);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)

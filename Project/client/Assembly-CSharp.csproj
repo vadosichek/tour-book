@@ -74,10 +74,12 @@
     <Compile Include="Assets\scripts\Screens\AppScreen.cs" />
     <Compile Include="Assets\scripts\Screens\EditorScreen.cs" />
     <Compile Include="Assets\scripts\Screens\Feed.cs" />
+    <Compile Include="Assets\scripts\Screens\Login.cs" />
     <Compile Include="Assets\scripts\Screens\OpenedPost.cs" />
     <Compile Include="Assets\scripts\Screens\OpenedTour.cs" />
     <Compile Include="Assets\scripts\Screens\PanoramaEditor.cs" />
     <Compile Include="Assets\scripts\Screens\PostEditor.cs" />
+    <Compile Include="Assets\scripts\Screens\Registrate.cs" />
     <Compile Include="Assets\scripts\Screens\ScreenController.cs" />
     <Compile Include="Assets\scripts\Screens\Search.cs" />
     <Compile Include="Assets\scripts\Screens\TourEditor.cs" />

@@ -26,7 +26,7 @@ public class PostEditor : EditorScreen {
 
     private void Upload()
     {
-        string new_path = Server.base_url + string.Format(path, 1, location, description, tags, System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+        string new_path = Server.base_url + string.Format(path, Server.user_id, location, description, tags, System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
         StartCoroutine(GetRequest(new_path));
     }
 

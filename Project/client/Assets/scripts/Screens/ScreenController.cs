@@ -16,6 +16,9 @@ public class ScreenController : MonoBehaviour {
     public User opened_user;
     public OpenedTour opened_tour;
 
+    public Login login;
+    public Registrate registrate;
+
     public AppScreen current_screen;
     public AppScreen previous_screen;
 
@@ -69,6 +72,13 @@ public class ScreenController : MonoBehaviour {
         if (b != null) b.gameObject.SetActive(true);
     }
 
+    public void GoToLogin(){
+        SwitchScreens(current_screen, login);
+        previous_screen = current_screen;
+        current_screen = login;
+        login.Load(); 
+    }
+
     public void GoToFeed(){
         SwitchScreens(current_screen, feed);
         previous_screen = current_screen;
@@ -94,7 +104,8 @@ public class ScreenController : MonoBehaviour {
         SwitchScreens(current_screen, opened_user);
         previous_screen = current_screen;
         current_screen = opened_user;
-        opened_user.id = id;
+        if (id == -1) opened_user.id = Server.user_id;
+        else opened_user.id = id;
         opened_user.Load();
     }
 
@@ -107,7 +118,7 @@ public class ScreenController : MonoBehaviour {
     }
 
     private void Start(){
-        GoToFeed();
+        GoToLogin();
     }
 
     private void Update(){

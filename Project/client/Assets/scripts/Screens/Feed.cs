@@ -15,7 +15,7 @@ public class Feed : AppScreen {
     }
 
     IEnumerator GetFeed(){
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_feed/" + "2");
+        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_feed/" + Server.user_id);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){

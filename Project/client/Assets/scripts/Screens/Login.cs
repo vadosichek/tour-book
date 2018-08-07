@@ -29,6 +29,8 @@ public class Login : AppScreen {
                 error_text.SetActive(true);
             }
             else{
+                PlayerPrefs.SetString("login", _login);
+                PlayerPrefs.SetString("password", _password);
                 Server.user_id = id;
                 error_text.SetActive(false);
                 Debug.Log(Server.user_id);
@@ -38,7 +40,10 @@ public class Login : AppScreen {
     }
 
     public override void Load(){
-        //check if logged in
+        if (PlayerPrefs.HasKey("login") && PlayerPrefs.HasKey("password"))
+            StartCoroutine(
+                _DoLogin(PlayerPrefs.GetString("login", ""), PlayerPrefs.GetString("password", ""))
+            );
     }
 
 }

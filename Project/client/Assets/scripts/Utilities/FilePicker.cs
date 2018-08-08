@@ -7,7 +7,7 @@ public static class FilePicker {
         string result = null;
         NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) => {
             result = path;
-        }, "Select a PNG image", "image/png", maxSize);
+        }, "Select a PNG image", "image/jpg", maxSize);
         return result;
     }
 }

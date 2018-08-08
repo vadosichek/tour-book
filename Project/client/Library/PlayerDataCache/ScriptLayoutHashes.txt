@@ -4,6 +4,8 @@ PlayerPath?
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?
+2ed8812bc03c2379b1e454c03bac113c Assembly-CSharp.dll:.Comment
+a043b046b8659adda13c0956e347922a Assembly-CSharp.dll:.PostMinimized
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 13bdb7c23815c33a33b37b0ba8dd39be UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -16,8 +18,11 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-da1f48b93fa23273d23b71e15feae444 Assembly-CSharp.dll:.TourUploader
+d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourUploader
+1d541a746f1abe3ffa54a2f475952b98 Assembly-CSharp.dll:.SearchSwitch
 fcbe7006f005e854d97c4627ef9f3019 Assembly-CSharp.dll:.Panorama
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppScreen
+f4b1dcd65d98b6835ff949e2ec010af4 Assembly-CSharp.dll:.PostEditor
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -83,7 +88,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-748f4f060b7ce4c72583ef905caa1576 Assembly-CSharp.dll:.PanoramaDownloader
+5c929f6757411f5e87c89e5987f5193d Assembly-CSharp.dll:.User
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 13bdb7c23815c33a33b37b0ba8dd39be UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -153,6 +158,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 01e6f145049f3a676df6dc247eabf176 Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
+234a552f3b9e6d4df429e7626feddfc8 Assembly-CSharp.dll:.OpenedPost
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorStageBehaviour
@@ -186,8 +192,11 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 01e6f145049f3a676df6dc247eabf176 Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
-e1e79228ba6f8ed216ed4e5507f13ea7 Assembly-CSharp.dll:.ScreenController
+730b269d228dc8c848cab1d7e69e8692 Assembly-CSharp.dll:.ScreenController
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Module
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EditorScreen
+481d2acb2a020bfa8e58745601e17cd5 Assembly-CSharp.dll:.Feed
+d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourViewer
 646ba73c344ce78c545f0fcda3ed20b9 Assembly-CSharp.dll:.FloatingButton
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -214,6 +223,7 @@ e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
+1b19ae8eae87aa14b90addc3e5b63b88 Assembly-CSharp.dll:.UserMinimized
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
@@ -222,7 +232,9 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 76cd0983ea0ede5da92bc7e56a81e68a Assembly-CSharp.dll:.PanoramaWithPreview
 ffb6915b8c93866f884a9ffb00d3b07d Assembly-CSharp.dll:.Photo
 618abf628ee68371853acbcf863024b1 Assembly-CSharp.dll:.PanoramaEditor
+63f386134a239e7672429509838f4849 Assembly-CSharp.dll:.Post
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
+30d1fc7e430512e94fa45cd4cbff5ffd Assembly-CSharp.dll:.Search
 8c89b544bee10c4f6f6cae2bf9ed1261 Assembly-CSharp.dll:.Transition
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
@@ -292,4 +304,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 01e6f145049f3a676df6dc247eabf176 Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
-f4b1dcd65d98b6835ff949e2ec010af4 Assembly-CSharp.dll:.PostEditor
+de36cbbe5241c9fd1c9ce69a8d96bae7 Assembly-CSharp.dll:.OpenedTour
+c690daac581f04ce9cc61f9c47611e3f Assembly-CSharp.dll:.Login
+826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
+a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor

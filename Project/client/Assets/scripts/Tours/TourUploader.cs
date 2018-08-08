@@ -75,7 +75,9 @@ public class TourUploader : MonoBehaviour {
     IEnumerator UploadTour(string text) {
         
         WWWForm form = new WWWForm();
-        
+
+        Debug.Log(text);
+
         form.AddField("text", text);
         form.AddField("tour", tour.id);
 

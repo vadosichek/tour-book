@@ -11,6 +11,9 @@ public class User : AppScreen {
     public int[] posts;
     public int id;
 
+    public string login;
+    public string url;
+
     public Text name;
     public Text bio;
     public Text subscriptions;
@@ -18,7 +21,17 @@ public class User : AppScreen {
     public Text tours;
     public Image pic;
 
+    private void HeaderReset(){
+        name.text = "";
+        bio.text = "";
+        subscriptions.text = "";
+        subscribers.text = "";
+        tours.text = "";
+        pic.sprite = null;
+    }
+
     public override void Load(){
+        HeaderReset();
         StartCoroutine(GetUser());
         StartCoroutine(GetPosts());
         StartCoroutine(LoadPic());
@@ -40,6 +53,8 @@ public class User : AppScreen {
             subscribers.text = result.subscribers.ToString();
             subscriptions.text = result.subscriptions.ToString();
             tours.text = result.tours.ToString();
+            login = result.login;
+            url = result.url;
         }
     }
 
@@ -84,7 +99,10 @@ public class User : AppScreen {
     }
 
     public void Subscribe(){
-        StartCoroutine(_Subscribe());
+        if(id != Server.user_id)
+            StartCoroutine(_Subscribe());
+        else
+            ScreenController.instance.OpenUserEditor();
     }
     IEnumerator _Subscribe(){
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_subscription?user_id=" + id + "&subscriber_id=" + Server.user_id);
@@ -102,6 +120,7 @@ public class User : AppScreen {
 [Serializable]
 public struct UserJSON{
     public int id;
+    public string login;
     public string name;
     public string bio;
     public string url;

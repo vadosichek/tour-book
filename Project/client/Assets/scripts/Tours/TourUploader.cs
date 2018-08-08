@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,7 +11,7 @@ public class TourUploader : MonoBehaviour {
         foreach(Panorama panorama in tour.panoramas){
             string new_name = "get_panorama?name=" + panorama.id + "&id=" +  tour.id;
             StartCoroutine(
-                UploadPanorama(panorama.link)
+                UploadPanorama(panorama.link, panorama.id)
             );
             panorama.link = new_name;
         }
@@ -19,7 +20,7 @@ public class TourUploader : MonoBehaviour {
             if(interaction is Photo){
                 string new_name = "get_photo?name=" + interaction.id + "&id=" + tour.id;
                 StartCoroutine(
-                    UploadPhoto(((Photo)interaction).link)
+                    UploadPhoto(((Photo)interaction).link, interaction.id)
                 );
                 ((Photo)interaction).link = new_name;
             }
@@ -29,13 +30,13 @@ public class TourUploader : MonoBehaviour {
         );
     }
 
-    IEnumerator UploadPanorama(string local_file_name) {
+    IEnumerator UploadPanorama(string local_file_name, int id) {
         
         WWW localFile = new WWW("file:///" + local_file_name);
         yield return localFile;
 
         WWWForm form = new WWWForm();
-        form.AddBinaryData("file", localFile.bytes);
+        form.AddBinaryData("file", localFile.bytes, id.ToString() + Path.GetExtension(local_file_name));
         
         form.AddField("tour", tour.id);
 
@@ -50,13 +51,13 @@ public class TourUploader : MonoBehaviour {
         }
     }
 
-    IEnumerator UploadPhoto(string local_file_name) {
+    IEnumerator UploadPhoto(string local_file_name, int id) {
         
         WWW localFile = new WWW("file:///" + local_file_name);
         yield return localFile;
 
         WWWForm form = new WWWForm();
-        form.AddBinaryData("file", localFile.bytes);
+        form.AddBinaryData("file", localFile.bytes, id.ToString() + Path.GetExtension(local_file_name));
         
         form.AddField("tour", tour.id);
 

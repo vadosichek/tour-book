@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EditorScreen : MonoBehaviour {
+public class EditorScreen : AppScreen {
     public delegate void OnProceed();
     public virtual event OnProceed Proceed;
 

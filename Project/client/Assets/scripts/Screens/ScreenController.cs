@@ -14,13 +14,13 @@ public class ScreenController : MonoBehaviour {
     public Search search;
     public OpenedPost opened_post;
     public User opened_user;
+    public UserEditor user_editor;
     public OpenedTour opened_tour;
 
     public Login login;
     public Registrate registrate;
 
-    public AppScreen current_screen;
-    public AppScreen previous_screen;
+    public List<AppScreen> previous_screens;
 
     private void Awake(){
         instance = this;
@@ -63,65 +63,69 @@ public class ScreenController : MonoBehaviour {
     }
 
     public void GoBack(){
-        current_screen.gameObject.SetActive(false);
-        previous_screen.gameObject.SetActive(true);
-        current_screen = previous_screen;
+        previous_screens[previous_screens.Count - 1].gameObject.SetActive(false);
+        previous_screens.RemoveAt(previous_screens.Count - 1);
+        previous_screens[previous_screens.Count - 1].gameObject.SetActive(true);
     }
     public void SwitchScreens(AppScreen a, AppScreen b){
         if (a != null) a.gameObject.SetActive(false);
         if (b != null) b.gameObject.SetActive(true);
     }
 
+    public void GoTo(AppScreen to){
+        if (previous_screens.Count > 0)
+            SwitchScreens(previous_screens[previous_screens.Count - 1], to);
+        else
+            SwitchScreens(null, to);
+        previous_screens.Add(to);
+    }
+
     public void GoToLogin(){
-        SwitchScreens(current_screen, login);
-        previous_screen = current_screen;
-        current_screen = login;
+        GoTo(login);
         login.Load(); 
     }
 
     public void GoToRegistration(){
-        SwitchScreens(current_screen, registrate);
-        previous_screen = current_screen;
-        current_screen = registrate;
+        GoTo(registrate);
         registrate.Load();
     }
 
     public void GoToFeed(){
-        SwitchScreens(current_screen, feed);
-        previous_screen = current_screen;
-        current_screen = feed;
+        GoTo(feed);
         feed.Load();
     }
 
     public void GoToSearch(){
-        SwitchScreens(current_screen, search);
-        previous_screen = current_screen;
-        current_screen = search;
+        GoTo(search);
     }
 
     public void OpenPost(int id){
-        SwitchScreens(current_screen, opened_post);
-        previous_screen = current_screen;
-        current_screen = opened_post;
+        GoTo(opened_post);
         opened_post.id = id;
         opened_post.Load();
     }
 
     public void OpenUser(int id){
-        SwitchScreens(current_screen, opened_user);
-        previous_screen = current_screen;
-        current_screen = opened_user;
+        GoTo(opened_user);
         if (id == -1) opened_user.id = Server.user_id;
         else opened_user.id = id;
         opened_user.Load();
     }
 
+    public void OpenUserEditor(){
+        GoTo(user_editor);
+        user_editor.id = Server.user_id;
+        user_editor.Load();
+    }
+
     public void ViewTour(int id){
-        SwitchScreens(current_screen, opened_tour);
-        previous_screen = current_screen;
-        current_screen = opened_tour;
+        GoTo(opened_tour);
         opened_tour.id = id;
         opened_tour.Load();
+    }
+
+    public void GoToTourEditor(){
+        GoTo(tour_editor);
     }
 
     private void Start(){

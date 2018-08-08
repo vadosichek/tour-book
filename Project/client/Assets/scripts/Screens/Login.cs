@@ -40,10 +40,13 @@ public class Login : AppScreen {
     }
 
     public override void Load(){
-        if (PlayerPrefs.HasKey("login") && PlayerPrefs.HasKey("password"))
+        if (PlayerPrefs.HasKey("login") && PlayerPrefs.HasKey("password")){
+            login.text = PlayerPrefs.GetString("login", "");
+            password.text = PlayerPrefs.GetString("password", "");
             StartCoroutine(
-                _DoLogin(PlayerPrefs.GetString("login", ""), PlayerPrefs.GetString("password", ""))
+                _DoLogin(login.text, password.text)
             );
+        }
     }
 
 }

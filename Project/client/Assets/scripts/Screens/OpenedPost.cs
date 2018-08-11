@@ -60,22 +60,26 @@ public class OpenedPost : AppScreen {
     public void SendComment(){
         StartCoroutine(_SendComment());
     }
-    IEnumerator _SendComment()
-    {
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_comment?user_id=" + Server.user_id + "&tour_id=" + id + "&text=" + input.text);
+    IEnumerator _SendComment(){
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", Server.user_id);
+        form.AddField("tour_id", id);
+        form.AddField("text", input.text);
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/create_comment", form);
         yield return www.SendWebRequest();
 
-        if (www.isNetworkError || www.isHttpError)
-        {
+        if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }
-        else
-        {
+        else{
             Debug.Log(www.downloadHandler.text);
             input.text = "";
             UpdatePost();
         }
-    }
+   }
 }
 
 [Serializable]

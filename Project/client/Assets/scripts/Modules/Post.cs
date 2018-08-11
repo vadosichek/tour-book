@@ -88,7 +88,13 @@ public class Post : Module {
         StartCoroutine(_CreateLike());
     }
     IEnumerator _CreateLike(){
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_like?user_id=" + 1 + "&tour_id=" + id);
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", Server.user_id);
+        form.AddField("tour_id", id);
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/create_like", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){

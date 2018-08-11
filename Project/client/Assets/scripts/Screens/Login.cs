@@ -16,7 +16,12 @@ public class Login : AppScreen {
     }
 
     IEnumerator _DoLogin(string _login, string _password){
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/login?login=" + _login + "&password=" + _password);
+        WWWForm form = new WWWForm();
+
+        form.AddField("login", _login);
+        form.AddField("password", _password);
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/login", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){

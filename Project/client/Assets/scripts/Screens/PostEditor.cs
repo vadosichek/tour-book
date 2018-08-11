@@ -15,8 +15,6 @@ public class PostEditor : EditorScreen {
     public string description, tags, location;
     public Text description_text, tags_text, location_text;
 
-    private string path = "/create_tour?user_id={0}&geotag={1}&desc={2}&tags={3}&time={4}";
-
     public void Finish(){
         description = description_text.text;
         tags = tags_text.text;
@@ -24,23 +22,27 @@ public class PostEditor : EditorScreen {
         Upload();
     }
 
-    private void Upload()
-    {
-        string new_path = Server.base_url + string.Format(path, Server.user_id, location, description, tags, System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
-        StartCoroutine(GetRequest(new_path));
+    private void Upload(){
+        StartCoroutine(_Upload());
     }
 
-    IEnumerator GetRequest(string uri)
-    {
-        UnityWebRequest uwr = UnityWebRequest.Get(uri);
+    IEnumerator _Upload(){
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", Server.user_id);
+        form.AddField("geotag", location);
+        form.AddField("desc", description);
+        form.AddField("tags", tags);
+        form.AddField("time", System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest uwr = UnityWebRequest.Post(Server.base_url + "/create_tour", form);
         yield return uwr.SendWebRequest();
 
-        if (uwr.isNetworkError)
-        {
+        if (uwr.isNetworkError){
             Debug.Log("Error While Sending: " + uwr.error);
         }
-        else
-        {
+        else{
             Debug.Log("Received: " + uwr.downloadHandler.text);
 
             if(int.TryParse(uwr.downloadHandler.text, out tour.id)){

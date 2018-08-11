@@ -53,10 +53,16 @@ public class UserEditor : AppScreen {
     }
 
     IEnumerator _Send(){
-        string path = "/update_user?id={0}&login={1}&name={2}&bio={3}&url={4}";
-        string res = string.Format(path, id, login.text, name.text, desc.text, email.text);
+        WWWForm form = new WWWForm();
 
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + res);
+        form.AddField("id", id);
+        form.AddField("login", login.text);
+        form.AddField("name", name.text);
+        form.AddField("bio", desc.text);
+        form.AddField("url", email.text);
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/update_user", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){

@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1788137011251764}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4836442875087144}
   m_RootOrder: 0
@@ -154,5 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  panorama_id: 0
   target_id: 0
   tour: {fileID: 0}

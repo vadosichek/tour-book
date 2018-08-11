@@ -105,7 +105,13 @@ public class User : AppScreen {
             ScreenController.instance.OpenUserEditor();
     }
     IEnumerator _Subscribe(){
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/create_subscription?user_id=" + id + "&subscriber_id=" + Server.user_id);
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", id);
+        form.AddField("subscriber_id", Server.user_id);
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/create_subscription", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){

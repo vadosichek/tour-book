@@ -196,7 +196,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Module
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EditorScreen
-481d2acb2a020bfa8e58745601e17cd5 Assembly-CSharp.dll:.Feed
+1e5f0dae3b070e58d61e7e19e8fff18b Assembly-CSharp.dll:.Feed
 826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
 d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourViewer
 646ba73c344ce78c545f0fcda3ed20b9 Assembly-CSharp.dll:.FloatingButton

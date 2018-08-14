@@ -53,7 +53,7 @@ public class Feed : AppScreen {
     }
 
     public void ScrollListener(Vector2 value){
-        if (value.y > 1 && Time.time - lTime > 3){
+        if (value.y > 1.05f && Time.time - lTime > 3){
             Load();
             lTime = Time.time;
         }

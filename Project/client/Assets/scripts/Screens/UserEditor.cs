@@ -71,7 +71,7 @@ public class UserEditor : AppScreen {
         }
         else{
             Debug.Log(www.downloadHandler.text);
-            ScreenController.instance.OpenUser(-1);
+            ScreenController.instance.GoBack();
         }
     }
 

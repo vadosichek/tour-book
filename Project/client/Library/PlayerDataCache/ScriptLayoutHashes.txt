@@ -193,11 +193,14 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 730b269d228dc8c848cab1d7e69e8692 Assembly-CSharp.dll:.ScreenController
+a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Module
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EditorScreen
 481d2acb2a020bfa8e58745601e17cd5 Assembly-CSharp.dll:.Feed
+826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
 d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourViewer
 646ba73c344ce78c545f0fcda3ed20b9 Assembly-CSharp.dll:.FloatingButton
+c690daac581f04ce9cc61f9c47611e3f Assembly-CSharp.dll:.Login
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -270,6 +273,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 844efca4542eaa990722fa5941f546ea Assembly-CSharp.dll:.Tour
+de36cbbe5241c9fd1c9ce69a8d96bae7 Assembly-CSharp.dll:.OpenedTour
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.CameraTrackball
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
@@ -304,7 +308,3 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 01e6f145049f3a676df6dc247eabf176 Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
-de36cbbe5241c9fd1c9ce69a8d96bae7 Assembly-CSharp.dll:.OpenedTour
-c690daac581f04ce9cc61f9c47611e3f Assembly-CSharp.dll:.Login
-826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
-a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor

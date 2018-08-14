@@ -105,6 +105,15 @@ public class Post : Module {
             LoadPost();
         }
     }
+
+    public void Clear(){
+        preview.sprite = null;
+        user.sprite = null;
+        name.text = "";
+        description.text = "";
+        comments.text = "0";
+        likes.text = "0";
+    }
 }
 
 [Serializable]

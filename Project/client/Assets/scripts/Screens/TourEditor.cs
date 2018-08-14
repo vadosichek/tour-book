@@ -27,6 +27,7 @@ public class TourEditor : EditorScreen{
         string new_photo_path = FilePicker.PickImage(-1);
 
         Texture2D new_photo = null;
+        #if !UNITY_EDITOR
         if (new_photo_path != null){
             new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1);
 
@@ -40,19 +41,40 @@ public class TourEditor : EditorScreen{
             GameObject new_preview = Instantiate(preview_prefab, scroll_content) as GameObject;
             Image new_preview_image = new_preview.GetComponent<Image>();
 
-            #region Platfotm
-            #if !UNITY_EDITOR
-                new_preview_image.sprite = Sprite.Create(new_photo, new Rect(0.0f, 0.0f, new_photo.height, new_photo.height), new Vector2(0.5f, 0.5f));
-            #endif
-            #endregion
+            int axis = Math.Min(new_photo.height, new_photo.width);
+
+            new_preview_image.sprite = Sprite.Create(new_photo, new Rect(0.0f, 0.0f, axis, axis), new Vector2(0.5f, 0.5f));
+       
 
             PanoramaWithPreview new_panorama_with_preview = new_preview.GetComponent<PanoramaWithPreview>();
+            panoramas.Add(new_panorama_with_preview);
             new_panorama_with_preview.preview = new_preview_image;
             new_panorama_with_preview.panorama = new_panorama_panorama;
             new_panorama_with_preview.OnPressed += OnPanoramaChosen;
 
             editable_tour.panoramas.Add(new_panorama_panorama);
         }
+        #endif
+        #if UNITY_EDITOR
+        if (true){
+            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 0, 0) * panorama_prefab.transform.localScale.x;
+            GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;
+            Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
+            new_panorama_panorama.id = editable_tour.panoramas.Count;
+            new_panorama_panorama.link = new_photo_path;
+
+            GameObject new_preview = Instantiate(preview_prefab, scroll_content) as GameObject;
+            Image new_preview_image = new_preview.GetComponent<Image>();
+
+            PanoramaWithPreview new_panorama_with_preview = new_preview.GetComponent<PanoramaWithPreview>();
+            panoramas.Add(new_panorama_with_preview);
+            new_panorama_with_preview.preview = new_preview_image;
+            new_panorama_with_preview.panorama = new_panorama_panorama;
+            new_panorama_with_preview.OnPressed += OnPanoramaChosen;
+
+            editable_tour.panoramas.Add(new_panorama_panorama);
+        }
+        #endif
     }
 
     public void RemovePhoto(){
@@ -75,5 +97,15 @@ public class TourEditor : EditorScreen{
 
     public void Finish(){
         Proceed();
+    }
+
+    public void Clear(){
+        editable_tour.panoramas.Clear();
+        foreach(var pwp in panoramas){
+            pwp.OnPressed -= OnPanoramaChosen;
+            Destroy(pwp.preview.gameObject);
+            Destroy(pwp.panorama.gameObject);
+            Destroy(pwp);
+        }
     }
 }

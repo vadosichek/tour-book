@@ -45,6 +45,7 @@ public class OpenedPost : AppScreen {
 
     public override void Load(){
         Clear();
+        opened_post.Clear();
         opened_post.id = id;
         opened_post.Load();
         StartCoroutine(GetComments());

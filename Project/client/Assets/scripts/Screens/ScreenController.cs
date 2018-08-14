@@ -127,6 +127,8 @@ public class ScreenController : MonoBehaviour {
     }
 
     public void GoToTourEditor(){
+        tour_editor.Clear();
+        post_editor.gameObject.SetActive(false);
         GoTo(tour_editor);
     }
 

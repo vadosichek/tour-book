@@ -10,8 +10,10 @@ public class TourViewer : EditorScreen {
     public void View(int id){
         foreach (Panorama panorama in tour.panoramas)
             Destroy(panorama.gameObject);
+        tour.panoramas.Clear();
         foreach (Interaction interaction in tour.interactions)
             Destroy(interaction.gameObject);
+        tour.interactions.Clear();
         
         tour.id = id;
         DownloadFiles();

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,7 +56,8 @@ public class PostEditor : EditorScreen {
         Texture2D photo = NativeGallery.LoadImageAtPath(
             tour.panoramas[0].link
             , -1);
-        preview = Sprite.Create(photo, new Rect(0.0f, 0.0f, photo.height, photo.height), new Vector2(0.5f, 0.5f));
+        int axis = Math.Min(photo.height, photo.width);
+        preview = Sprite.Create(photo, new Rect(0.0f, 0.0f, axis, axis), new Vector2(0.5f, 0.5f));
         preview_image.sprite = preview;
     }
 }

@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
 public class Feed : AppScreen {
+    public ScrollRect scroll;
     public Transform scroll_content;
     public GameObject post;
     public int[] posts;
+
+    float lTime;
 
     public override void Load(){
         StartCoroutine(GetFeed());
@@ -42,6 +46,17 @@ public class Feed : AppScreen {
     void Clear(){
         foreach (Transform child in scroll_content)
             Destroy(child.gameObject);
+    }
+
+    void Start(){
+        scroll.onValueChanged.AddListener(ScrollListener);
+    }
+
+    public void ScrollListener(Vector2 value){
+        if (value.y > 1 && Time.time - lTime > 3){
+            Load();
+            lTime = Time.time;
+        }
     }
 
 }

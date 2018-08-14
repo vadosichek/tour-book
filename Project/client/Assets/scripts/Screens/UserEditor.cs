@@ -25,7 +25,8 @@ public class UserEditor : AppScreen {
         new_pic = null;
         if (new_photo_path != null){
             new_pic = NativeGallery.LoadImageAtPath(new_photo_path, -1);
-            pic.sprite = Sprite.Create(new_pic, new Rect(0.0f, 0.0f, new_pic.height, new_pic.height), new Vector2(0.5f, 0.5f));
+            int axis = Math.Min(new_pic.height, new_pic.width);
+            pic.sprite = Sprite.Create(new_pic, new Rect(0.0f, 0.0f, axis, axis), new Vector2(0.5f, 0.5f));
         }
     }
 

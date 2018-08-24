@@ -25,10 +25,10 @@ public class UserMinimized : Module {
     IEnumerator _LoadUsr(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        using (WWW www = new WWW(Server.base_url + "/get_user?name=" + data.id)){
+        using (WWW www = new WWW(Server.base_url + "/get_user?name=thumb_" + data.id)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            pic.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+            pic.sprite = Sprite.Create(tex, new Rect(0, 0, tex.height, tex.height), new Vector2(0.5f, 0.5f));
         }
     }
 

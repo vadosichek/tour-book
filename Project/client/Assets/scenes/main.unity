@@ -4004,7 +4004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &687102976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4043,6 +4043,7 @@ MonoBehaviour:
   login: {fileID: 1864165241}
   password: {fileID: 995228212}
   error_text: {fileID: 227478170}
+  login_button: {fileID: 316723021}
 --- !u!1 &690092020
 GameObject:
   m_ObjectHideFlags: 0

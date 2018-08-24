@@ -46,10 +46,10 @@ public class Post : Module {
     IEnumerator _LoadPic(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        using (WWW www = new WWW(Server.base_url + "/get_panorama?id=" + id + "&name=" + 0)){
+        using (WWW www = new WWW(Server.base_url + "/get_panorama?id=" + id + "&name=thumb_" + 0)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            preview.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+            preview.sprite = Sprite.Create(tex, new Rect(0, 0, tex.height, tex.height), new Vector2(0.5f, 0.5f));
         }
     }
 
@@ -61,10 +61,10 @@ public class Post : Module {
         Debug.Log(user_id);
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        using (WWW www = new WWW(Server.base_url + "/get_user?name=" + user_id)){
+        using (WWW www = new WWW(Server.base_url + "/get_user?name=thumb_" + user_id)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            user.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+            user.sprite = Sprite.Create(tex, new Rect(0, 0, tex.height, tex.height), new Vector2(0.5f, 0.5f));
         }
     }
 

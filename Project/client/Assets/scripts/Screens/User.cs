@@ -79,7 +79,8 @@ public class User : AppScreen {
         using (WWW www = new WWW(Server.base_url + "/get_user?name=" + id)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            pic.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+            int axis = Math.Min(tex.height, tex.width);
+            pic.sprite = Sprite.Create(tex, new Rect(tex.width/2 - axis/2, tex.height/2 - axis/2, axis, axis), new Vector2(0.5f, 0.5f));
         }
     }
 

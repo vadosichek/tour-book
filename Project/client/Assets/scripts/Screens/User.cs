@@ -14,12 +14,16 @@ public class User : AppScreen {
     public string login;
     public string url;
 
+    public bool subbed;
+
     public Text name;
     public Text bio;
     public Text subscriptions;
     public Text subscribers;
     public Text tours;
     public Image pic;
+
+    public GameObject sub, desub, edit;
 
     private void HeaderReset(){
         name.text = "";
@@ -38,7 +42,12 @@ public class User : AppScreen {
     }
 
     IEnumerator GetUser(){
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_profile/" + id);
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", id);
+        form.AddField("viewer_id", Server.user_id);
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/get_profile", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError){
@@ -55,6 +64,18 @@ public class User : AppScreen {
             tours.text = result.tours.ToString();
             login = result.login;
             url = result.url;
+
+            if(id != Server.user_id){
+                subbed = result.subbed;
+                sub.SetActive(!subbed);
+                desub.SetActive(subbed);
+                edit.SetActive(false);
+            }
+            else{
+                edit.SetActive(true);
+                sub.SetActive(false);
+                desub.SetActive(false);
+            }
         }
     }
 
@@ -100,10 +121,7 @@ public class User : AppScreen {
     }
 
     public void Subscribe(){
-        if(id != Server.user_id)
-            StartCoroutine(_Subscribe());
-        else
-            ScreenController.instance.OpenUserEditor();
+        if(!subbed) StartCoroutine(_Subscribe());
     }
     IEnumerator _Subscribe(){
         WWWForm form = new WWWForm();
@@ -120,7 +138,38 @@ public class User : AppScreen {
         }
         else{
             Debug.Log(www.downloadHandler.text);
+            subbed = true;
+            sub.SetActive(!subbed);
+            desub.SetActive(subbed);
         }
+    }
+
+    public void Unsubscribe(){
+        if (subbed) StartCoroutine(_Unsubscribe());
+    }
+    IEnumerator _Unsubscribe(){
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", id);
+        form.AddField("subscriber_id", Server.user_id);
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/delete_subscription", form);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }
+        else{
+            Debug.Log(www.downloadHandler.text);
+            subbed = false;
+            sub.SetActive(!subbed);
+            desub.SetActive(subbed);
+        }
+    }
+
+    public void Edit(){
+        ScreenController.instance.OpenUserEditor();
     }
 }
 
@@ -134,6 +183,7 @@ public struct UserJSON{
     public int subscriptions;
     public int subscribers;
     public int tours;
+    public bool subbed;
 };
 
 [Serializable]

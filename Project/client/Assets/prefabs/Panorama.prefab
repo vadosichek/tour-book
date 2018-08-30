@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4503722593334844}
-  - component: {fileID: 114170328753373398}
   - component: {fileID: 33625211586880908}
   - component: {fileID: 23057892109462512}
   - component: {fileID: 114764701374812898}
@@ -145,18 +144,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d5eec3ed7d18446fd969a52c2129ebff, type: 3}
---- !u!114 &114170328753373398
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1698158655022708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06473bc26bef54cfb92ce90d4be5b368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderer: {fileID: 23057892109462512}
 --- !u!114 &114764701374812898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -171,4 +158,3 @@ MonoBehaviour:
   id: 0
   size: 0
   link: 
-  picture_downloader: {fileID: 114170328753373398}

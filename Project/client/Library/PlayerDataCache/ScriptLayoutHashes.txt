@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.0.apk
+/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.1.apk
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?
@@ -200,7 +200,7 @@ a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor
 826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
 d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourViewer
 646ba73c344ce78c545f0fcda3ed20b9 Assembly-CSharp.dll:.FloatingButton
-c690daac581f04ce9cc61f9c47611e3f Assembly-CSharp.dll:.Login
+bf4f7d84af2c3fba24198535c2f4eec3 Assembly-CSharp.dll:.Login
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery

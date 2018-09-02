@@ -65,6 +65,10 @@ public class ScreenController : MonoBehaviour {
     }
 
     public void GoBack(){
+        if (previous_screens[previous_screens.Count - 1] == login){
+            Application.Quit();
+            Debug.Log("exit");
+        }
         previous_screens[previous_screens.Count - 1].gameObject.SetActive(false);
         previous_screens.RemoveAt(previous_screens.Count - 1);
         previous_screens[previous_screens.Count - 1].gameObject.SetActive(true);

@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.0.apk
+/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.3.apk
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?
@@ -19,7 +19,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourUploader
-1d541a746f1abe3ffa54a2f475952b98 Assembly-CSharp.dll:.SearchSwitch
+557ccd812d889a7501854141b53cd1dc Assembly-CSharp.dll:.SearchSwitch
 fcbe7006f005e854d97c4627ef9f3019 Assembly-CSharp.dll:.Panorama
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppScreen
 f4b1dcd65d98b6835ff949e2ec010af4 Assembly-CSharp.dll:.PostEditor
@@ -88,7 +88,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-5c929f6757411f5e87c89e5987f5193d Assembly-CSharp.dll:.User
+ed53fb82bc8d7adf4c202605fed092a2 Assembly-CSharp.dll:.User
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 13bdb7c23815c33a33b37b0ba8dd39be UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -200,7 +200,7 @@ a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor
 826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
 d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourViewer
 646ba73c344ce78c545f0fcda3ed20b9 Assembly-CSharp.dll:.FloatingButton
-c690daac581f04ce9cc61f9c47611e3f Assembly-CSharp.dll:.Login
+bf4f7d84af2c3fba24198535c2f4eec3 Assembly-CSharp.dll:.Login
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -235,7 +235,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 76cd0983ea0ede5da92bc7e56a81e68a Assembly-CSharp.dll:.PanoramaWithPreview
 ffb6915b8c93866f884a9ffb00d3b07d Assembly-CSharp.dll:.Photo
 618abf628ee68371853acbcf863024b1 Assembly-CSharp.dll:.PanoramaEditor
-63f386134a239e7672429509838f4849 Assembly-CSharp.dll:.Post
+46e116ffb7053ad1b02b9962e375040c Assembly-CSharp.dll:.Post
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 30d1fc7e430512e94fa45cd4cbff5ffd Assembly-CSharp.dll:.Search
 8c89b544bee10c4f6f6cae2bf9ed1261 Assembly-CSharp.dll:.Transition

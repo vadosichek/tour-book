@@ -9,34 +9,44 @@ public class Post : Module {
 
     public int id;
     public int user_id = -1;
+    public bool liked;
     public Text name;
     public Text description;
     public Text likes, comments;
 
     public Image preview, user;
+    public GameObject filled_like;
 
 
     public void LoadPost(){
         StartCoroutine(_LoadPost());
     }
+
     IEnumerator _LoadPost(){
-        UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_post/" + id);
+        WWWForm form = new WWWForm();
+
+        form.AddField("tour_id", id);
+        form.AddField("user_id", Server.user_id);
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/get_post", form);
         yield return www.SendWebRequest();
 
-        if (www.isNetworkError || www.isHttpError)
-        {
+        if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }
-        else
-        {
+        else{
+            Debug.Log(www.downloadHandler.text);
             PostJSON result = JsonUtility.FromJson<PostJSON>(www.downloadHandler.text);
             Debug.Log(JsonUtility.ToJson(result));
 
             user_id = result.id;
             name.text = result.name;
-            description.text = result.description;
+            description.text = result.description.Substring(0, Math.Min(40, result.description.Length));
             likes.text = result.likes.ToString();
             comments.text = result.comments.ToString();
+
+            filled_like.SetActive(result.liked);
+            liked = result.liked;
         }
     }
 
@@ -46,10 +56,10 @@ public class Post : Module {
     IEnumerator _LoadPic(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        using (WWW www = new WWW(Server.base_url + "/get_panorama?id=" + id + "&name=" + 0)){
+        using (WWW www = new WWW(Server.base_url + "/get_panorama?id=" + id + "&name=thumb_" + 0)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            preview.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+            preview.sprite = Sprite.Create(tex, new Rect(0, 0, tex.height, tex.height), new Vector2(0.5f, 0.5f));
         }
     }
 
@@ -61,10 +71,10 @@ public class Post : Module {
         Debug.Log(user_id);
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        using (WWW www = new WWW(Server.base_url + "/get_user?name=" + user_id)){
+        using (WWW www = new WWW(Server.base_url + "/get_user?name=thumb_" + user_id)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            user.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.height, tex.height), new Vector2(0.5f, 0.5f));
+            user.sprite = Sprite.Create(tex, new Rect(0, 0, tex.height, tex.height), new Vector2(0.5f, 0.5f));
         }
     }
 
@@ -85,7 +95,7 @@ public class Post : Module {
     }
 
     public void CreateLike(){
-        StartCoroutine(_CreateLike());
+        if(!liked) StartCoroutine(_CreateLike());
     }
     IEnumerator _CreateLike(){
         WWWForm form = new WWWForm();
@@ -126,4 +136,5 @@ public struct PostJSON{
     public string time;
     public string geotag;
     public string tags;
+    public bool liked;
 };

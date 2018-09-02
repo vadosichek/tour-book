@@ -8,11 +8,17 @@ public class Login : AppScreen {
     public InputField login;
     public InputField password;
     public GameObject error_text;
+    public Button login_button;
 
     public void DoLogin(){
         StartCoroutine(
             _DoLogin(login.text, password.text)
         );
+    }
+
+    void Update(){
+        if (login.text.Length == 0 || password.text.Length == 0) login_button.interactable = false;
+        else login_button.interactable = true;
     }
 
     IEnumerator _DoLogin(string _login, string _password){
@@ -30,7 +36,7 @@ public class Login : AppScreen {
         else{
             Debug.Log(www.downloadHandler.text);
             int id = int.Parse(www.downloadHandler.text);
-            if(id == -1){
+            if(id == -1 || id == -2){
                 error_text.SetActive(true);
             }
             else{

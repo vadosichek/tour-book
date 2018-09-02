@@ -59,7 +59,7 @@ public class OpenedPost : AppScreen {
     }
 
     public void SendComment(){
-        StartCoroutine(_SendComment());
+        if(input.text.Length > 0) StartCoroutine(_SendComment());
     }
     IEnumerator _SendComment(){
         WWWForm form = new WWWForm();

@@ -3476,6 +3476,7 @@ MonoBehaviour:
   interactions: []
   editing: 0
   camera: {fileID: 302175477}
+  trackball: {fileID: 302175478}
 --- !u!1 &554043890
 GameObject:
   m_ObjectHideFlags: 0

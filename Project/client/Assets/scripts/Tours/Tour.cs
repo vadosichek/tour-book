@@ -11,6 +11,7 @@ public class Tour : MonoBehaviour
 
     public bool editing = false;
     public Transform camera;
+    public CameraTrackball trackball;
 
     public Panorama GetPanoramaById(int id)
     {
@@ -25,6 +26,7 @@ public class Tour : MonoBehaviour
     public void Move(int id)
     {
         Panorama current_photo = GetPanoramaById(id);
+        if (id == 0) trackball.ToDefault();
         if (editing)
         {
             FindObjectOfType<PanoramaEditor>().Select(current_photo);

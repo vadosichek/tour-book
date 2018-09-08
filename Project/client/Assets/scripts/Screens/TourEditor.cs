@@ -99,7 +99,7 @@ public class TourEditor : EditorScreen{
         Texture2D new_photo = null;
         #if !UNITY_EDITOR
         if (new_photo_path != null){
-            new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1);
+            new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1, false);
 
             Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 0, 0) * panorama_prefab.transform.localScale.x;
             GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;

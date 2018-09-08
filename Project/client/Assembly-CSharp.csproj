@@ -92,6 +92,7 @@
     <Compile Include="Assets\scripts\Utilities\CameraTrackball.cs" />
     <Compile Include="Assets\scripts\Utilities\FilePicker.cs" />
     <Compile Include="Assets\scripts\Utilities\Server.cs" />
+    <Compile Include="Assets\scripts\Utilities\TextureScale.cs" />
     <None Include="Assets\shader\Pano360Shader.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/gurtle/Documents/GitHub/tour-book/Project/client/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

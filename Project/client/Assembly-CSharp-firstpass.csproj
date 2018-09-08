@@ -64,6 +64,7 @@
     <Compile Include="Assets\Plugins\NativeGallery\iOS\NGMediaReceiveCallbackiOS.cs" />
     <Compile Include="Assets\Plugins\NativeGallery\iOS\NGMediaSaveCallbackiOS.cs" />
     <Compile Include="Assets\Plugins\NativeGallery\NativeGallery.cs" />
+    <Compile Include="Assets\Standard Assets\DebugConsole.cs" />
     <None Include="Assets\Plugins\NativeGallery\README.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/gurtle/Documents/GitHub/tour-book/Project/client/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

@@ -598,18 +598,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: Open
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -2314,6 +2303,7 @@ MonoBehaviour:
   email: {fileID: 2108531777}
   desc: {fileID: 420788049}
   user_screen: {fileID: 1220138251}
+  loading_screen: {fileID: 0}
 --- !u!1 &357782292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,8 +3359,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2001315546}
-        m_MethodName: Open
+      - m_Target: {fileID: 1158933733}
+        m_MethodName: GoToTourEditor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3380,8 +3370,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1158933733}
-        m_MethodName: GoToTourEditor
+      - m_Target: {fileID: 2001315546}
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11282,6 +11272,7 @@ MonoBehaviour:
   panorama_prefab: {fileID: 1698158655022708, guid: 5e69130c001814afda1dbff869b2fa10,
     type: 2}
   panoramas: []
+  loading_screen: {fileID: 0}
 --- !u!1 &1839864068
 GameObject:
   m_ObjectHideFlags: 0

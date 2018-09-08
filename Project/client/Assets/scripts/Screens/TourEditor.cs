@@ -20,6 +20,8 @@ public class TourEditor : EditorScreen{
 
     private bool deleting = false;
 
+    public GameObject loading_screen;
+
     private void Start(){
         editable_tour.editing = true;
     }
@@ -94,7 +96,10 @@ public class TourEditor : EditorScreen{
     }
 
     public void AddPhoto(){
-        string new_photo_path = FilePicker.PickImage(-1);
+        while (loading_screen.active != true){}
+
+        string new_photo_path = null;
+        if(loading_screen.active == true) new_photo_path = FilePicker.PickImage(-1);
 
         Texture2D new_photo = null;
         #if !UNITY_EDITOR
@@ -124,8 +129,6 @@ public class TourEditor : EditorScreen{
             new_panorama_with_preview.OnPressed += OnPanoramaChosen;
 
             editable_tour.panoramas.Add(new_panorama_panorama);
-
-            
         }
         #endif
         #if UNITY_EDITOR
@@ -134,7 +137,7 @@ public class TourEditor : EditorScreen{
             GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;
             Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
             new_panorama_panorama.id = editable_tour.panoramas.Count;
-            new_panorama_panorama.link = new_photo_path;
+            new_panorama_panorama.link = "";
 
             GameObject new_preview = Instantiate(preview_prefab, scroll_content) as GameObject;
             Image new_preview_image = new_preview.GetComponent<Image>();
@@ -175,10 +178,13 @@ public class TourEditor : EditorScreen{
     public void Clear(){
         editable_tour.panoramas.Clear();
         foreach(var pwp in panoramas){
-            pwp.OnPressed -= OnPanoramaChosen;
-            Destroy(pwp.preview.gameObject);
-            Destroy(pwp.panorama.gameObject);
-            Destroy(pwp);
+            try{
+                pwp.OnPressed -= OnPanoramaChosen;
+                if (pwp.preview != null) Destroy(pwp.preview.gameObject);
+                if (pwp.panorama != null) Destroy(pwp.panorama.gameObject);
+                if (pwp != null) Destroy(pwp);
+            }
+            catch (NullReferenceException e){}
         }
     }
 }

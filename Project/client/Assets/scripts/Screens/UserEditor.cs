@@ -19,6 +19,8 @@ public class UserEditor : AppScreen {
 
     public User user_screen;
 
+    public GameObject loading_screen;
+
     public void LoadNewPic(){
         new_photo_path = FilePicker.PickImage(-1);
 

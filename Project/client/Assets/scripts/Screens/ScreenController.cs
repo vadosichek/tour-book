@@ -60,8 +60,11 @@ public class ScreenController : MonoBehaviour {
     {
         Debug.Log("Finished");
         tour_uploader.UploadFiles();
+    }
+
+    public void FinishPostLoad(){
         post_editor.gameObject.SetActive(false);
-        GoToFeed();
+        OpenUser(-1);
     }
 
     public void GoBack(){

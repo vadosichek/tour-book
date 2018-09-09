@@ -20,8 +20,6 @@ public class TourEditor : EditorScreen{
 
     private bool deleting = false;
 
-    public GameObject loading_screen;
-
     private void Start(){
         editable_tour.editing = true;
     }
@@ -96,10 +94,9 @@ public class TourEditor : EditorScreen{
     }
 
     public void AddPhoto(){
-        while (loading_screen.active != true){}
 
         string new_photo_path = null;
-        if(loading_screen.active == true) new_photo_path = FilePicker.PickImage(-1);
+        new_photo_path = FilePicker.PickImage(-1);
 
         Texture2D new_photo = null;
         #if !UNITY_EDITOR

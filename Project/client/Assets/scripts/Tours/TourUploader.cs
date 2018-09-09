@@ -7,7 +7,14 @@ public class TourUploader : MonoBehaviour {
     public Tour tour;
     public TourExporter tour_exporter;
 
+    public int counter, _counter;
+
+    public GameObject load_screen;
+
     public void UploadFiles(){
+        counter = 0;
+        _counter = tour.panoramas.Count + tour.interactions.Count + 1;
+        StartCoroutine(WaitToLoad());
         foreach(Panorama panorama in tour.panoramas){
             string new_name = "get_panorama?name=" + panorama.id + "&id=" +  tour.id;
             StartCoroutine(
@@ -30,6 +37,13 @@ public class TourUploader : MonoBehaviour {
         );
     }
 
+    IEnumerator WaitToLoad(){
+        load_screen.SetActive(true);
+        while (counter < _counter) yield return null;
+        load_screen.SetActive(false);
+        ScreenController.instance.FinishPostLoad();
+    }
+
     IEnumerator UploadPanorama(string local_file_name, int id) {
         
         WWW localFile = new WWW("file:///" + local_file_name);
@@ -43,6 +57,7 @@ public class TourUploader : MonoBehaviour {
         UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/upload_panorama", form);
         yield return www.SendWebRequest();
 
+        counter++;
         if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }
@@ -64,6 +79,7 @@ public class TourUploader : MonoBehaviour {
         UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/upload_photo", form);
         yield return www.SendWebRequest();
 
+        counter++;
         if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }
@@ -84,6 +100,7 @@ public class TourUploader : MonoBehaviour {
         UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/upload_tour", form);
         yield return www.SendWebRequest();
 
+        counter++;
         if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }

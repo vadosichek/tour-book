@@ -18,11 +18,11 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourUploader
+97df169f0cdece93b27ddb51f6214480 Assembly-CSharp.dll:.TourUploader
 557ccd812d889a7501854141b53cd1dc Assembly-CSharp.dll:.SearchSwitch
 fcbe7006f005e854d97c4627ef9f3019 Assembly-CSharp.dll:.Panorama
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppScreen
-f4b1dcd65d98b6835ff949e2ec010af4 Assembly-CSharp.dll:.PostEditor
+6fb933eda4927cc4d94f4874ec9f2c28 Assembly-CSharp.dll:.PostEditor
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -102,7 +102,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 32b6e7a13a504af9da0664c118014019 Assembly-CSharp.dll:.Interaction
-7aa5b841a45f2c94af0051d028309b65 Assembly-CSharp.dll:.TourEditor
+6d395b2013a39e4185a33296abdcf212 Assembly-CSharp.dll:.TourEditor
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -193,7 +193,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 730b269d228dc8c848cab1d7e69e8692 Assembly-CSharp.dll:.ScreenController
-51cd16a1b432386a85719bc5ce4293f8 Assembly-CSharp.dll:.UserEditor
+a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Module
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EditorScreen
 7a5bbf983df94a6d58f62c96ca3e03e4 Assembly-CSharp-firstpass.dll:.DebugConsole

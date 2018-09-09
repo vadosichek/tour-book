@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{A2859A56-AB4A-51F9-60BB-1B6FC96E8C70}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Modules/Post.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Screens/ScreenController.cs">
     <Files>
-      <File FileName="Assets/scripts/Screens/PostEditor.cs" Line="30" Column="16" />
-      <File FileName="Assets/scripts/Screens/TourEditor.cs" Line="102" Column="37" />
-      <File FileName="Assets/scripts/Modules/Post.cs" Line="70" Column="9" />
+      <File FileName="Assets/scripts/Screens/PostEditor.cs" Line="57" Column="6" />
+      <File FileName="Assets/scripts/Tours/TourUploader.cs" Line="92" Column="19" />
+      <File FileName="Assets/scripts/Screens/ScreenController.cs" Line="64" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

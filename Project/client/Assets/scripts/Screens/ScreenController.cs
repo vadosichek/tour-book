@@ -75,6 +75,9 @@ public class ScreenController : MonoBehaviour {
         previous_screens[previous_screens.Count - 1].gameObject.SetActive(false);
         previous_screens.RemoveAt(previous_screens.Count - 1);
         previous_screens[previous_screens.Count - 1].gameObject.SetActive(true);
+        if (previous_screens[previous_screens.Count - 1] == feed){
+            feed.Load();
+        }
     }
     public void SwitchScreens(AppScreen a, AppScreen b){
         if (a != null) a.gameObject.SetActive(false);

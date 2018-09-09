@@ -31,6 +31,9 @@ public class TourUploader : MonoBehaviour {
                 );
                 ((Photo)interaction).link = new_name;
             }
+            else{
+                counter++;
+            }
         }
         StartCoroutine(
             UploadTour(tour_exporter.Export())

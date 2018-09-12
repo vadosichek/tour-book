@@ -32,6 +32,8 @@ public class Login : AppScreen {
 
         if (www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
+            error_text.SetActive(true);
+            error_text.GetComponent<Text>().text = www.error;
         }
         else{
             Debug.Log(www.downloadHandler.text);

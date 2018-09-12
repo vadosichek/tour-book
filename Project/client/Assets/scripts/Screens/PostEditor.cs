@@ -16,6 +16,8 @@ public class PostEditor : EditorScreen {
     public string description, tags, location;
     public Text description_text, tags_text, location_text;
 
+    public Text err;
+
     public void Finish(){
         description = description_text.text;
         tags = tags_text.text;
@@ -42,10 +44,12 @@ public class PostEditor : EditorScreen {
 
         if (uwr.isNetworkError){
             Debug.Log("Error While Sending: " + uwr.error);
+            err.gameObject.SetActive(true);
+            err.text = uwr.error;
         }
         else{
             Debug.Log("Received: " + uwr.downloadHandler.text);
-
+            err.gameObject.SetActive(false);
             if(int.TryParse(uwr.downloadHandler.text, out tour.id)){
                 Proceed();
             }

@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.3.apk
+/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.5.apk
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?
@@ -18,11 +18,11 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourUploader
+97df169f0cdece93b27ddb51f6214480 Assembly-CSharp.dll:.TourUploader
 557ccd812d889a7501854141b53cd1dc Assembly-CSharp.dll:.SearchSwitch
 fcbe7006f005e854d97c4627ef9f3019 Assembly-CSharp.dll:.Panorama
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppScreen
-f4b1dcd65d98b6835ff949e2ec010af4 Assembly-CSharp.dll:.PostEditor
+6fb933eda4927cc4d94f4874ec9f2c28 Assembly-CSharp.dll:.PostEditor
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -196,6 +196,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 a8f4546278cfeaff65e9b62e5d907102 Assembly-CSharp.dll:.UserEditor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Module
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EditorScreen
+7a5bbf983df94a6d58f62c96ca3e03e4 Assembly-CSharp-firstpass.dll:.DebugConsole
 1e5f0dae3b070e58d61e7e19e8fff18b Assembly-CSharp.dll:.Feed
 826019bc200ea831aca2184466e459f0 Assembly-CSharp.dll:.Registrate
 d71180622af46cf86cd86105df2b3618 Assembly-CSharp.dll:.TourViewer
@@ -272,7 +273,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 01e6f145049f3a676df6dc247eabf176 Vuforia.UnityExtensions.dll:Vuforia.VuMarkBehaviour
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
-844efca4542eaa990722fa5941f546ea Assembly-CSharp.dll:.Tour
+a2156e055971baddfdb409d063df7b25 Assembly-CSharp.dll:.Tour
 de36cbbe5241c9fd1c9ce69a8d96bae7 Assembly-CSharp.dll:.OpenedTour
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.CameraTrackball
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour

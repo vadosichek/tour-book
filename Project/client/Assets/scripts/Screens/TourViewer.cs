@@ -6,15 +6,23 @@ public class TourViewer : EditorScreen {
 
     public Tour tour;
     public TourExporter tour_exporter;
+    public static TourViewer instance;
 
-    public void View(int id){
+    void Awake(){
+        instance = this;
+    }
+
+    public void Clear(){
         foreach (Panorama panorama in tour.panoramas)
             Destroy(panorama.gameObject);
         tour.panoramas.Clear();
         foreach (Interaction interaction in tour.interactions)
             Destroy(interaction.gameObject);
         tour.interactions.Clear();
-        
+    }
+
+    public void View(int id){
+        Clear();
         tour.id = id;
         DownloadFiles();
     }

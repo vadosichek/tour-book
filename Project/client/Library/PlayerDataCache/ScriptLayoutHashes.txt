@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.5.apk
+/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.6.apk
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraTrackball : MonoBehaviour {
-    
+    /// <summary>
+    /// rotates camera on draf
+    /// </summary>
+
     public float speed;
 
     Vector3 FirstPoint;
@@ -17,6 +20,7 @@ public class CameraTrackball : MonoBehaviour {
         ToDefault();
     }
 
+    //reset position
     public void ToDefault(){
         xAngle = 0;
         yAngle = 0;

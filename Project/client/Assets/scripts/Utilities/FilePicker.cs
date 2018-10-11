@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class FilePicker {
+    /// <summary>
+    /// opens file choosing dialog
+    /// </summary>
+
     public static string PickImage(int maxSize){
         string result = null;
         NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) => {

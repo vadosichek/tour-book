@@ -7,17 +7,25 @@ using UnityEngine.Networking;
 
 
 public class Feed : AppScreen {
+    /// <summary>
+    /// appScreen vatiation
+    /// feed screen (main screen)
+    /// </summary>
+
+    //scroll ui-object
     public ScrollRect scroll;
+    //all posts' parent object
     public Transform scroll_content;
+    //post prefab
     public GameObject post;
+    //feed (posts' ids)
     public int[] posts;
 
-    float lTime;
-
+    //load override -- download feed
     public override void Load(){
         StartCoroutine(GetFeed());
     }
-
+    //downloading coroutine
     IEnumerator GetFeed(){
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_feed/" + Server.user_id);
         yield return www.SendWebRequest();
@@ -33,6 +41,7 @@ public class Feed : AppScreen {
         }
     }
 
+    //instantiate post objects for all posts in feed
     void GeneratePosts(){
         Clear();
         foreach(int id in posts){
@@ -43,24 +52,16 @@ public class Feed : AppScreen {
         }
     }
 
+    //remove old posts
     void Clear(){
         foreach (Transform child in scroll_content)
             Destroy(child.gameObject);
     }
 
-    void Start(){
-        scroll.onValueChanged.AddListener(ScrollListener);
-    }
-
-    public void ScrollListener(Vector2 value){
-        if (value.y > 1.05f && Time.time - lTime > 3){
-            Load();
-            lTime = Time.time;
-        }
-    }
-
 }
 
+
+//struct for feed data
 [Serializable]
 public struct FeedJSON{
     public int[] posts;

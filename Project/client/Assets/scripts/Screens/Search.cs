@@ -6,8 +6,15 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Search : AppScreen {
+    /// <summary>
+    /// appScreen variation
+    /// search for users/tours
+    /// </summary>
+
+    //search for
     public string key;
     public Text search_bar;
+
     public GameObject post_minimized_prefab;
     public Transform posts_scroll_content;
     public GameObject user_minimized_prefab;
@@ -20,13 +27,14 @@ public class Search : AppScreen {
         StartCoroutine(GetUsers());
     }
 
+    //remove all old results
     void Clear(){
         foreach (Transform child in posts_scroll_content)
             Destroy(child.gameObject);
         foreach (Transform child in users_scroll_content)
             Destroy(child.gameObject);
     }
-
+    //download search results from server (posts)
     IEnumerator GetPosts()
     {
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/search_post/" + key);
@@ -47,7 +55,7 @@ public class Search : AppScreen {
             }
         }
     }
-
+    //download search results from server (users)
     IEnumerator GetUsers()
     {
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/search_user/" + key);
@@ -71,11 +79,13 @@ public class Search : AppScreen {
 
 }
 
+//struct for posts list
 [Serializable]
 public struct PostsJson{
     public int[] posts;
 };
 
+//struct for users list
 [Serializable]
 public struct UsersJson{
     public UserMinimizedJSON[] users;

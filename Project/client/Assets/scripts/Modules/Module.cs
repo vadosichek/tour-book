@@ -3,5 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Module : MonoBehaviour {
-    public virtual void Load(){}
+    /// <summary>
+    /// base UI-module
+    /// </summary>
+
+    //base load action
+    public virtual void Load(){} 
 }

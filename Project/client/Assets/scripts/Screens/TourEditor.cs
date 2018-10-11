@@ -5,9 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TourEditor : EditorScreen{
+    /// <summary>
+    /// editor variation
+    /// tour editor -- create panoramas
+    /// </summary>
     public override event OnProceed Proceed;
     public override event OnCancel Cancel;
 
+    //event to open panorama editor
     public delegate void EditPhoto(Panorama photo);
     public event EditPhoto onEditPhoto;
 
@@ -24,6 +29,7 @@ public class TourEditor : EditorScreen{
         editable_tour.editing = true;
     }
 
+    //bilinear resize to make textures fit into format
     private Texture2D ScaleTexture(Texture2D source,int targetWidth,int targetHeight) {
         float warpFactor = 1.0F;
         Color[] destPix = new Color[targetWidth * targetHeight];
@@ -62,11 +68,13 @@ public class TourEditor : EditorScreen{
         photo = ScaleTexture(photo, ifit_to, iprop);
         Debug.Log(photo.width + "" + photo.height);
 
+        //cut if bigger
         if(photo.height > iheight_to){
             photo.SetPixels(
                 photo.GetPixels(0,0, ifit_to, iheight_to)
             );
         }
+        //create white stripes if smaller
         else if(photo.height < iheight_to){
             Texture2D new_photo = new Texture2D(ifit_to, iheight_to);
             Color32 resetColor = new Color32(255, 255, 255, 0);
@@ -93,12 +101,15 @@ public class TourEditor : EditorScreen{
         return photo;
     }
 
+    //add new panorama to tour
     public void AddPhoto(){
 
         string new_photo_path = null;
         new_photo_path = FilePicker.PickImage(-1);
 
         Texture2D new_photo = null;
+
+        //just create empty panorama if in unity editor
         #if !UNITY_EDITOR
         if (new_photo_path != null){
             new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1, false);
@@ -154,6 +165,7 @@ public class TourEditor : EditorScreen{
         deleting = true;
     }
 
+    //switch to panorama editor
     private void OnPanoramaChosen(PanoramaWithPreview pwp){
         if(deleting){
             editable_tour.panoramas.Remove(pwp.panorama);
@@ -172,6 +184,7 @@ public class TourEditor : EditorScreen{
         Proceed();
     }
 
+    //remove old panoramas
     public void Clear(){
         editable_tour.panoramas.Clear();
         foreach(var pwp in panoramas){

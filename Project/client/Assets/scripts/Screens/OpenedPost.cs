@@ -6,16 +6,22 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class OpenedPost : AppScreen {
+    /// <summary>
+    /// appScreen variation
+    /// opened post screen - post & comments
+    /// </summary>
 
+    //post id
     public int id;
-
     public Transform scroll_content;
     public GameObject comment_prefab;
 
+    //opened post object
     public Post opened_post;
-
+    //comment text input field
     public InputField input;
 
+    //download data coroutine
     IEnumerator GetComments()
     {
         UnityWebRequest www = UnityWebRequest.Get(Server.base_url + "/get_comments/" + id);
@@ -37,12 +43,14 @@ public class OpenedPost : AppScreen {
         }
     }
 
+    //reset screen
     private void UpdatePost(){
         Clear();
         opened_post.LoadPost();
         StartCoroutine(GetComments());
     }
 
+    //load override -- download data from server
     public override void Load(){
         Clear();
         opened_post.Clear();
@@ -51,6 +59,7 @@ public class OpenedPost : AppScreen {
         StartCoroutine(GetComments());
     }
 
+    //delete comments
     void Clear(){
         foreach (Transform child in scroll_content){
             if(child.GetComponent<Comment>() != null)
@@ -58,9 +67,11 @@ public class OpenedPost : AppScreen {
         }
     }
 
+    //upload comment
     public void SendComment(){
         if(input.text.Length > 0) StartCoroutine(_SendComment());
     }
+    //upload coroutine
     IEnumerator _SendComment(){
         WWWForm form = new WWWForm();
 
@@ -83,15 +94,15 @@ public class OpenedPost : AppScreen {
    }
 }
 
+//struct to save comments
 [Serializable]
-public struct CommentsJSON
-{
+public struct CommentsJSON{
     public CommentJSON[] comments;
 };
 
+//struct to save comment data
 [Serializable]
-public struct CommentJSON
-{
+public struct CommentJSON{
     public string user_name;
     public string text;
 };

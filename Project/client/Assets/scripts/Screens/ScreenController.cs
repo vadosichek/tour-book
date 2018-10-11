@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenController : MonoBehaviour {
-    public static ScreenController instance;
+    /// <summary>
+    /// screen transition controller
+    /// </summary>
 
+    public static ScreenController instance;
+    //all screens
     public TourEditor tour_editor;
     public PanoramaEditor panorama_editor;
     public TourUploader tour_uploader;
@@ -20,6 +24,7 @@ public class ScreenController : MonoBehaviour {
     public Login login;
     public Registrate registrate;
 
+    //screens buffer
     public List<AppScreen> previous_screens;
 
     private void Awake(){

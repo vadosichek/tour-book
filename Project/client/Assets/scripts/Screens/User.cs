@@ -6,7 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class User : AppScreen {
+    /// <summary>
+    /// appScreen variation
+    /// user profile screen
+    /// </summary>
+
     public Transform scroll_content;
+    //post prefab
     public GameObject post;
     public int[] posts;
     public int id;
@@ -14,8 +20,10 @@ public class User : AppScreen {
     public string login;
     public string url;
 
+    //if user subbed
     public bool subbed;
 
+    //user data text objects
     public Text name;
     public Text bio;
     public Text subscriptions;
@@ -23,8 +31,10 @@ public class User : AppScreen {
     public Text tours;
     public Image pic;
 
+    //buttons to interact with profile
     public GameObject sub, desub, edit;
 
+    //clear old data
     private void HeaderReset(){
         name.text = "";
         bio.text = "";
@@ -34,13 +44,14 @@ public class User : AppScreen {
         pic.sprite = null;
     }
 
+    //load user data from server
     public override void Load(){
         HeaderReset();
         StartCoroutine(GetUser());
         StartCoroutine(GetPosts());
         StartCoroutine(LoadPic());
     }
-
+    //download coroutines
     IEnumerator GetUser(){
         WWWForm form = new WWWForm();
 
@@ -105,6 +116,7 @@ public class User : AppScreen {
         }
     }
 
+    //instantiate post objects
     void GeneratePosts(){
         Clear();
         foreach(int id in posts){
@@ -115,6 +127,7 @@ public class User : AppScreen {
         }
     }
 
+    //remove old posts
     void Clear(){
         foreach (Transform child in scroll_content)
             if(child.gameObject.GetComponent<PostMinimized>() != null) Destroy(child.gameObject);
@@ -173,6 +186,7 @@ public class User : AppScreen {
     }
 }
 
+//struct for user data
 [Serializable]
 public struct UserJSON{
     public int id;
@@ -186,6 +200,7 @@ public struct UserJSON{
     public bool subbed;
 };
 
+//struct for posts
 [Serializable]
 public struct UserPostsJSON{
     public int[] posts;

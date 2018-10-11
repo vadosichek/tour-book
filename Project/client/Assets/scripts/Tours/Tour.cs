@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tour : MonoBehaviour
-{
+public class Tour : MonoBehaviour{
+    /// <summary>
+    /// tour data holder
+    /// </summary>
+
     public int id;
 
     public List<Panorama> panoramas;
@@ -13,26 +16,22 @@ public class Tour : MonoBehaviour
     public Transform camera;
     public CameraTrackball trackball;
 
-    public Panorama GetPanoramaById(int id)
-    {
-        foreach (var panorama in panoramas)
-        {
+    public Panorama GetPanoramaById(int id){
+        foreach (var panorama in panoramas){
             if (panorama.id == id)
                 return panorama;
         }
         return null;
     }
 
-    public void Move(int id)
-    {
+    //transit from one panorama to another
+    public void Move(int id){
         Panorama current_photo = GetPanoramaById(id);
         if (id == 0) trackball.ToDefault();
-        if (editing)
-        {
+        if (editing){
             FindObjectOfType<PanoramaEditor>().Select(current_photo);
         }
-        else
-        {
+        else{
             camera.position = current_photo.transform.position;
         }
     }

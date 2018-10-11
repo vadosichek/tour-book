@@ -7,15 +7,25 @@ using UnityEngine.Networking;
 
 
 public class PostEditor : EditorScreen {
+    /// <summary>
+    /// editor variation
+    /// post editor -- create description, tags, gtags
+    /// </summary>
+
     public override event OnProceed Proceed;
     public override event OnCancel Cancel;
 
+    //tour to edit
     public Tour tour;
+    //tour preview
     public Sprite preview;
     public Image preview_image;
+    //store new tour data
     public string description, tags, location;
+    //ui-elements for tour data
     public Text description_text, tags_text, location_text;
 
+    //upload error object
     public Text err;
 
     public void Finish(){
@@ -25,10 +35,11 @@ public class PostEditor : EditorScreen {
         Upload();
     }
 
+    //upload new tour data to server
     private void Upload(){
         StartCoroutine(_Upload());
     }
-
+    //uploading coroutine
     IEnumerator _Upload(){
         WWWForm form = new WWWForm();
 
@@ -56,6 +67,7 @@ public class PostEditor : EditorScreen {
         }
     }
 
+    //create tour preview to upload later
     public void CreatePreview(){
         Texture2D photo = NativeGallery.LoadImageAtPath(
             tour.panoramas[0].link

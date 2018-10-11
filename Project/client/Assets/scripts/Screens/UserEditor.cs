@@ -7,7 +7,14 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class UserEditor : AppScreen {
+    /// <summary>
+    /// appScreen variation
+    /// edit user data screen
+    /// </summary>
+
+    //user id
     public int id;
+    //user data ui-objects
     public Image pic;
     public InputField login;
     public InputField name;
@@ -19,6 +26,7 @@ public class UserEditor : AppScreen {
 
     public User user_screen;
 
+    //choose new profile pic
     public void LoadNewPic(){
         new_photo_path = FilePicker.PickImage(-1);
 
@@ -30,7 +38,7 @@ public class UserEditor : AppScreen {
 
         }
     }
-
+    //upload coroutine
     IEnumerator UploadPic() {
         WWW localFile = new WWW("file:///" + new_photo_path);
         yield return localFile;
@@ -49,11 +57,12 @@ public class UserEditor : AppScreen {
         }
     }
 
+    //finish editing
     public void Send(){
         if (new_pic != null) StartCoroutine(UploadPic());
         StartCoroutine(_Send());
     }
-
+    //upload new data coroutine
     IEnumerator _Send(){
         WWWForm form = new WWWForm();
 
@@ -76,6 +85,7 @@ public class UserEditor : AppScreen {
         }
     }
 
+    //load user data into fields
     public override void Load(){
         login.text = user_screen.login;
         name.text = user_screen.name.text;

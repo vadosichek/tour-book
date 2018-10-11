@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenedTour : AppScreen {
-    public int id;
-    public TourViewer tour_viewer;
+    /// <summary>
+    /// appScreen variation
+    /// screen to view opened tour (panorams)
+    /// </summary>
 
+    //tour id
+    public int id;
+
+    //load override -- download tour
     public override void Load(){
-        tour_viewer.View(id);
+        TourViewer.instance.View(id);
     }
 }

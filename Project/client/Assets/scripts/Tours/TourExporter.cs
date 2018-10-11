@@ -11,12 +11,12 @@ public class TourExporter : MonoBehaviour {
     public GameObject photo_prefab;
     public GameObject transition_prefab;
 
-
+    //conver post data to json
     public string Export(){
         List<SavedPanorama> saved_panoramas_list = new List<SavedPanorama>();
         foreach(Panorama panorama in tour.panoramas){
             saved_panoramas_list.Add(
-                new SavedPanorama(panorama.id, panorama.size, panorama.link, panorama.transform.position, panorama.transform.rotation)
+                new SavedPanorama(panorama.id, panorama.link, panorama.transform.position, panorama.transform.rotation)
             );
         }
 
@@ -43,6 +43,8 @@ public class TourExporter : MonoBehaviour {
         return JsonUtility.ToJson(savedTour);
     }
 
+
+    //recreate tour from json
     public void Import(){
         SavedTour savedTour = JsonUtility.FromJson<SavedTour>(result);
 
@@ -50,7 +52,6 @@ public class TourExporter : MonoBehaviour {
             GameObject new_panorama = Instantiate(panorama_prefab, saved_panorama.position, saved_panorama.rotation) as GameObject;
             Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
             new_panorama_panorama.id = saved_panorama.id;
-            new_panorama_panorama.size = saved_panorama.size;
             new_panorama_panorama.link = saved_panorama.link;
             tour.panoramas.Add(new_panorama_panorama);
             new_panorama_panorama.Download();
@@ -80,17 +81,16 @@ public class TourExporter : MonoBehaviour {
     }
 }
 
+//structs for panoramas & interactions
 [Serializable]
 public struct SavedPanorama{
     public int id;
-    public int size;
     public string link;
     public Vector3 position;
     public Quaternion rotation;
 
-    public SavedPanorama(int _id, int _size, string _link, Vector3 _position, Quaternion _rotation){
+    public SavedPanorama(int _id, string _link, Vector3 _position, Quaternion _rotation){
         id = _id;
-        size = _size;
         link = _link;
         position = _position;
         rotation = _rotation;

@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenController : MonoBehaviour {
-    public static ScreenController instance;
+    /// <summary>
+    /// screen transition controller
+    /// </summary>
 
+    public static ScreenController instance;
+    //all screens
     public TourEditor tour_editor;
     public PanoramaEditor panorama_editor;
     public TourUploader tour_uploader;
@@ -20,6 +24,7 @@ public class ScreenController : MonoBehaviour {
     public Login login;
     public Registrate registrate;
 
+    //screens buffer
     public List<AppScreen> previous_screens;
 
     private void Awake(){
@@ -68,16 +73,24 @@ public class ScreenController : MonoBehaviour {
     }
 
     public void GoBack(){
+        if (previous_screens[previous_screens.Count - 1] == opened_tour)
+            TourViewer.instance.Clear();
+        
         if (previous_screens[previous_screens.Count - 1] == login){
             Application.Quit();
             Debug.Log("exit");
+            return;
         }
+
         previous_screens[previous_screens.Count - 1].gameObject.SetActive(false);
         previous_screens.RemoveAt(previous_screens.Count - 1);
         previous_screens[previous_screens.Count - 1].gameObject.SetActive(true);
-        if (previous_screens[previous_screens.Count - 1] == feed){
+
+        if (previous_screens[previous_screens.Count - 1] == opened_user)
+            opened_user.Load();
+        
+        if (previous_screens[previous_screens.Count - 1] == feed)
             feed.Load();
-        }
     }
     public void SwitchScreens(AppScreen a, AppScreen b){
         if (a != null) a.gameObject.SetActive(false);

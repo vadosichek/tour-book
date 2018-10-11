@@ -6,22 +6,34 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Post : Module {
+    /// <summary>
+    /// module variation
+    /// post UI-block
+    /// </summary>
 
+    //post id
     public int id;
+    //post author id
     public int user_id = -1;
+    //if was liked by user
     public bool liked;
+    //user name text object
     public Text name;
+    //post description object
     public Text description;
+    //likes, comments counter objects
     public Text likes, comments;
 
+    //post preview, user pic image objects
     public Image preview, user;
+    //black like icon object
     public GameObject filled_like;
 
-
+    //download data from server
     public void LoadPost(){
         StartCoroutine(_LoadPost());
     }
-
+    //downloading coroutine
     IEnumerator _LoadPost(){
         WWWForm form = new WWWForm();
 
@@ -50,9 +62,11 @@ public class Post : Module {
         }
     }
 
+    //download preview pic from server
     private void LoadPic(){
         StartCoroutine(_LoadPic());
     }
+    //downloading coroutine
     IEnumerator _LoadPic(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
@@ -63,9 +77,11 @@ public class Post : Module {
         }
     }
 
+    //download user pic from server
     private void LoadUsr(){
         StartCoroutine(_LoadUsr());
     }
+    //downloading coroutine
     IEnumerator _LoadUsr(){
         while (user_id == -1) yield return null;
         Debug.Log(user_id);
@@ -78,25 +94,31 @@ public class Post : Module {
         }
     }
 
+    //load override -- start all downloading processes
     public override void Load(){
         LoadPost();
         LoadPic();
         LoadUsr();
     }
 
+    //do when user clicks on preview pic
     public void Open(){
         ScreenController.instance.OpenPost(id);
     }
+    //do when user clicks on user pic
     public void OpenUser(){
         ScreenController.instance.OpenUser(user_id);
     }
+    //do when user clicks on preview pic after post was opened
     public void View(){
         ScreenController.instance.ViewTour(id);
     }
 
+    //like post
     public void CreateLike(){
         if(!liked) StartCoroutine(_CreateLike());
     }
+    //upload data coroutine
     IEnumerator _CreateLike(){
         WWWForm form = new WWWForm();
 
@@ -116,6 +138,7 @@ public class Post : Module {
         }
     }
 
+    //reset all ui-objects
     public void Clear(){
         preview.sprite = null;
         user.sprite = null;
@@ -126,6 +149,7 @@ public class Post : Module {
     }
 }
 
+//strcut for post data
 [Serializable]
 public struct PostJSON{
     public int id;

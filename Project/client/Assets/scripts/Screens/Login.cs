@@ -5,22 +5,34 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Login : AppScreen {
+    /// <summary>
+    /// appScreen vatiation
+    /// login screen
+    /// </summary>
+
+    //login input field object
     public InputField login;
+    //password input field object
     public InputField password;
+    //error text object
     public GameObject error_text;
+    //login button object
     public Button login_button;
 
+    //enable login only when some data is written
+    void Update(){
+        if (login.text.Length == 0 || password.text.Length == 0) login_button.interactable = false;
+        else login_button.interactable = true;
+    }
+
+    //login action
     public void DoLogin(){
         StartCoroutine(
             _DoLogin(login.text, password.text)
         );
     }
 
-    void Update(){
-        if (login.text.Length == 0 || password.text.Length == 0) login_button.interactable = false;
-        else login_button.interactable = true;
-    }
-
+    //server interaction coroutine
     IEnumerator _DoLogin(string _login, string _password){
         WWWForm form = new WWWForm();
 
@@ -52,6 +64,7 @@ public class Login : AppScreen {
         }
     }
 
+    //load override -- check if credits saved & login
     public override void Load(){
         if (PlayerPrefs.HasKey("login") && PlayerPrefs.HasKey("password")){
             login.text = PlayerPrefs.GetString("login", "");

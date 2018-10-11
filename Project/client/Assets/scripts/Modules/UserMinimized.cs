@@ -6,12 +6,23 @@ using UnityEngine.UI;
 
 
 public class UserMinimized : Module {
+    /// <summary>
+    /// module variation
+    /// </summary>
+
+    //user pic object
     public Image pic;
+    //user login text object
     public Text login;
+    //user name text object
     public Text name;
+    //user id
     public int id;
+    //struct to store user data
     public UserMinimizedJSON data;
 
+
+    //load override -- load user data
     public override void Load(){
         id = data.id;
         login.text = data.login;
@@ -19,9 +30,11 @@ public class UserMinimized : Module {
         LoadUsr();
     }
 
+    //download user data from server
     private void LoadUsr(){
         StartCoroutine(_LoadUsr());
     }
+    //downloading coroutine
     IEnumerator _LoadUsr(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
@@ -32,11 +45,13 @@ public class UserMinimized : Module {
         }
     }
 
+    //do when user clicks on user pic
     public void Open(){
         ScreenController.instance.OpenUser(id);
     }
 }
 
+//struct for minimized user data
 [Serializable]
 public struct UserMinimizedJSON{
     public int id;

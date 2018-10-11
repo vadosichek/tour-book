@@ -6,13 +6,21 @@ using UnityEngine.UI;
 
 
 public class PostMinimized : Module {
+    /// <summary>
+    /// module variation
+    /// button with preview pic
+    /// </summary>
+
+    ///preview image object
     public Image image;
+    //post id
     public int id;
 
+    //load override -- load preview pic from server
     public override void Load(){
         StartCoroutine(LoadPic());
     }
-
+    //downloading coroutine
     IEnumerator LoadPic(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
@@ -23,6 +31,7 @@ public class PostMinimized : Module {
         }
     }
 
+    //do when user clicks
     public void Open(){
         ScreenController.instance.OpenPost(id);
     }

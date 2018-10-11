@@ -5,14 +5,20 @@ using UnityEngine.Networking;
 
 [Serializable]
 public class Panorama : MonoBehaviour {
+    /// <summary>
+    /// panorama class
+    /// </summary>
+
+    //panorama id in tour
     public int id;
-    public int size;
+    //link to photo
     public string link;
 
+    //download photo from server
     public void Download(){
         StartCoroutine(_Download());
     }
-
+    //downloading coroutine
     IEnumerator _Download(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);

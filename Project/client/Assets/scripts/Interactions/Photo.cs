@@ -5,9 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Photo : Interaction {
+    /// <summary>
+    /// interaction variation
+    /// small picture in the panorama
+    /// </summary>
 
+    //path to photo
     public string link;
 
+    //load photo to texture
     public void Load(){
         link = FilePicker.PickImage(-1);
 
@@ -16,14 +22,15 @@ public class Photo : Interaction {
                 NativeGallery.LoadImageAtPath(link, -1);
     }
 
-    public override void Open(){
-        
-    }
+    //do nothing on open
+    public override void Open(){}
 
+    //download photo from server
     public void Download(){
         StartCoroutine(_Download());
     }
 
+    //coroutine for download
     IEnumerator _Download(){
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);

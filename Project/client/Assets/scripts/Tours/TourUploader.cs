@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class TourUploader : MonoBehaviour {
+    /// <summary>
+    /// upload tour parts to server
+    /// </summary>
+
     public Tour tour;
     public TourExporter tour_exporter;
 
@@ -40,6 +44,7 @@ public class TourUploader : MonoBehaviour {
         );
     }
 
+    //coroutine to show black screen while uploading
     IEnumerator WaitToLoad(){
         load_screen.SetActive(true);
         while (counter < _counter) yield return null;
@@ -47,6 +52,7 @@ public class TourUploader : MonoBehaviour {
         ScreenController.instance.FinishPostLoad();
     }
 
+    //upload to server coroutines
     IEnumerator UploadPanorama(string local_file_name, int id) {
         
         WWW localFile = new WWW("file:///" + local_file_name);
@@ -91,6 +97,7 @@ public class TourUploader : MonoBehaviour {
         }
     }
 
+    //upload tour json to server
     IEnumerator UploadTour(string text) {
         
         WWWForm form = new WWWForm();

@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.5.apk
+/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.8.apk
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?
@@ -274,7 +274,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 a2156e055971baddfdb409d063df7b25 Assembly-CSharp.dll:.Tour
-de36cbbe5241c9fd1c9ce69a8d96bae7 Assembly-CSharp.dll:.OpenedTour
+9d1e138111d33aad3c62dab4e71ae0e6 Assembly-CSharp.dll:.OpenedTour
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.CameraTrackball
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour

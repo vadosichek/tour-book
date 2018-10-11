@@ -5,6 +5,12 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Registrate : AppScreen {
+    /// <summary>
+    /// appScreen variation
+    /// registraion screen
+    /// </summary>
+
+    //user data input fields
     public InputField login;
     public InputField name;
     public InputField email;
@@ -12,6 +18,7 @@ public class Registrate : AppScreen {
     public InputField password_repeat;
     public GameObject error_text;
 
+    //upload new user data to server
     public void DoRegistrate(){
         if(password.text.Equals(password_repeat.text)){
             error_text.SetActive(false);
@@ -23,7 +30,7 @@ public class Registrate : AppScreen {
             error_text.SetActive(true);
         }
     }
-
+    //uploading coroutine
     IEnumerator _DoRegistrate(string _login, string _password, string _name, string _bio, string _url){
         string path = "/create_profile?login={0}&password={1}&name={2}&bio={3}&url={4}";
         string res = string.Format(path, _login, _password, _name, _bio, _url);

@@ -13,6 +13,8 @@ public class Photo : Interaction {
     //path to photo
     public string link;
 
+    public bool opened = false;
+
     //load photo to texture
     public void Load(){
         link = FilePicker.PickImage(-1);
@@ -22,8 +24,12 @@ public class Photo : Interaction {
                 NativeGallery.LoadImageAtPath(link, -1);
     }
 
-    //do nothing on open
-    public override void Open(){}
+    //resize image on open
+    public override void Open(){
+        if(opened) transform.localScale = new Vector3(1, 1, 1);
+        else transform.localScale = new Vector3(5, 5, 5);
+        opened = !opened;
+    }
 
     //download photo from server
     public void Download(){

@@ -155,6 +155,11 @@ public class ScreenController : MonoBehaviour {
         GoTo(tour_editor);
     }
 
+    public void DeletedPost(){
+        if (previous_screens[previous_screens.Count - 1] == feed) previous_screens[previous_screens.Count - 1].Load();
+        else GoBack();
+    }
+
     private void Start(){
         GoToLogin();
     }

@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_1.8.apk
+/Users/gurtle/Documents/GitHub/tour-book/Project/client/builds/Circum_2.0.apk
 SceneListBegin?
 Assets/scenes/main.unity
 SceneListEnd?
@@ -20,7 +20,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 97df169f0cdece93b27ddb51f6214480 Assembly-CSharp.dll:.TourUploader
 557ccd812d889a7501854141b53cd1dc Assembly-CSharp.dll:.SearchSwitch
-fcbe7006f005e854d97c4627ef9f3019 Assembly-CSharp.dll:.Panorama
+15ccb52d68ea27d6198301abe154293c Assembly-CSharp.dll:.Panorama
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppScreen
 6fb933eda4927cc4d94f4874ec9f2c28 Assembly-CSharp.dll:.PostEditor
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -234,9 +234,9 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 76cd0983ea0ede5da92bc7e56a81e68a Assembly-CSharp.dll:.PanoramaWithPreview
-ffb6915b8c93866f884a9ffb00d3b07d Assembly-CSharp.dll:.Photo
+207957b614410ee0d01e1d37e0835bf9 Assembly-CSharp.dll:.Photo
 618abf628ee68371853acbcf863024b1 Assembly-CSharp.dll:.PanoramaEditor
-46e116ffb7053ad1b02b9962e375040c Assembly-CSharp.dll:.Post
+d27560e1704a4bf88d51b844cc4fa897 Assembly-CSharp.dll:.Post
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 30d1fc7e430512e94fa45cd4cbff5ffd Assembly-CSharp.dll:.Search
 8c89b544bee10c4f6f6cae2bf9ed1261 Assembly-CSharp.dll:.Transition

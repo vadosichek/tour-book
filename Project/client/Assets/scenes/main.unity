@@ -1036,9 +1036,9 @@ MonoBehaviour:
   description: 
   tags: 
   location: 
-  description_text: {fileID: 365891384}
-  tags_text: {fileID: 1042293367}
-  location_text: {fileID: 2105803597}
+  description_text: {fileID: 1329480848}
+  tags_text: {fileID: 1493083319}
+  location_text: {fileID: 1643585337}
   err: {fileID: 407824619}
 --- !u!1 &227478170
 GameObject:

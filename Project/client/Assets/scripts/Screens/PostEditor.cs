@@ -23,15 +23,23 @@ public class PostEditor : EditorScreen {
     //store new tour data
     public string description, tags, location;
     //ui-elements for tour data
-    public Text description_text, tags_text, location_text;
+    public InputField description_text, tags_text, location_text;
 
     //upload error object
     public Text err;
+
+    private void Clear(){
+        description_text.text = "";
+        tags_text.text = "";
+        location_text.text = "";
+    }
 
     public void Finish(){
         description = description_text.text;
         tags = tags_text.text;
         location = location_text.text;
+        Clear();
+
         Upload();
     }
 
@@ -60,9 +68,15 @@ public class PostEditor : EditorScreen {
         }
         else{
             Debug.Log("Received: " + uwr.downloadHandler.text);
-            err.gameObject.SetActive(false);
-            if(int.TryParse(uwr.downloadHandler.text, out tour.id)){
-                Proceed();
+            if(uwr.downloadHandler.text.Equals("-1")){
+                err.gameObject.SetActive(true);
+                err.text = "Password error";
+            }
+            else{
+                err.gameObject.SetActive(false);
+                if(int.TryParse(uwr.downloadHandler.text, out tour.id)){
+                    Proceed();
+                }
             }
         }
     }

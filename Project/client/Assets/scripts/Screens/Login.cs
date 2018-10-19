@@ -19,10 +19,14 @@ public class Login : AppScreen {
     //login button object
     public Button login_button;
 
+    bool onScreen = false;
+
     //enable login only when some data is written
     void Update(){
-        if (login.text.Length == 0 || password.text.Length == 0) login_button.interactable = false;
-        else login_button.interactable = true;
+        if(onScreen){
+            if (login.text.Length == 0 || password.text.Length == 0) login_button.interactable = false;
+            else login_button.interactable = true;
+        }
     }
 
     //login action
@@ -54,6 +58,7 @@ public class Login : AppScreen {
                 error_text.SetActive(true);
             }
             else{
+                onScreen = false;
                 PlayerPrefs.SetString("login", _login);
                 PlayerPrefs.SetString("password", _password);
                 Server.user_id = id;
@@ -66,6 +71,7 @@ public class Login : AppScreen {
 
     //load override -- check if credits saved & login
     public override void Load(){
+        onScreen = true;
         if (PlayerPrefs.HasKey("login") && PlayerPrefs.HasKey("password")){
             login.text = PlayerPrefs.GetString("login", "");
             password.text = PlayerPrefs.GetString("password", "");

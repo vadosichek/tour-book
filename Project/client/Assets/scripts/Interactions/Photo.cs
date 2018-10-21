@@ -26,8 +26,8 @@ public class Photo : Interaction {
 
     //resize image on open
     public override void Open(){
-        if(opened) transform.localScale = new Vector3(1, 1, 1);
-        else transform.localScale = new Vector3(5, 5, 5);
+        if(opened) transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+        else transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
         opened = !opened;
     }
 

@@ -55,7 +55,7 @@ public class TourEditor : EditorScreen{
     }
 
     private Texture2D LoadPanorama(Texture2D photo, string path){
-        float fit_to = 2000;
+        float fit_to = 4000;
         float height_to = fit_to / 2;
 
         float prop = fit_to / photo.width;

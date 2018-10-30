@@ -2,13 +2,12 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Interactions/Photo.cs">
     <Files>
-      <File FileName="Assets/scripts/Screens/TourEditor.cs" Line="63" Column="59" />
-      <File FileName="Assets/scripts/Screens/PanoramaEditor.cs" Line="65" Column="1" />
-      <File FileName="Assets/scripts/Screens/PostEditor.cs" Line="31" Column="26" />
-      <File FileName="Assets/scripts/Tours/TourUploader.cs" Line="102" Column="9" />
-      <File FileName="Assets/Plugins/NativeGallery/NativeGallery.cs" Line="470" Column="1" />
-      <File FileName="Assets/scripts/Screens/Login.cs" Line="61" Column="34" />
-      <File FileName="Assets/scripts/Interactions/Photo.cs" Line="30" Column="50" />
+      <File FileName="Assets/scripts/Screens/TourViewer.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/Tours/Tour.cs" Line="31" Column="22" />
+      <File FileName="Assets/scripts/Tours/TourExporter.cs" Line="22" Column="1" />
+      <File FileName="Assets/scripts/Screens/TourEditor.cs" Line="187" Column="38" />
+      <File FileName="Assets/scripts/Screens/PanoramaEditor.cs" Line="55" Column="1" />
+      <File FileName="Assets/scripts/Interactions/Photo.cs" Line="46" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

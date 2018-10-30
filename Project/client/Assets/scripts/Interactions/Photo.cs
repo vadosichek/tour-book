@@ -43,7 +43,7 @@ public class Photo : Interaction {
         using (WWW www = new WWW(Server.base_url + "/" + link)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            transform.GetComponentInChildren<Renderer>().material.mainTexture = tex;
         }
     }
      

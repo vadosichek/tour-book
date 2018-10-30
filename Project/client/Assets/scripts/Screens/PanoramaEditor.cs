@@ -61,7 +61,7 @@ public class PanoramaEditor : EditorScreen {
                                                           previous_trans.transform.position.z - previous_photo.transform.position.z);
                             
 
-                            current_photo.transform.position = 3 * new_pos; //move connected panorama
+                            current_photo.transform.position = new Vector3(3 * new_pos.x, current_photo.transform.position.y, 3 * new_pos.z); //move connected panorama
 
                             Vector3 cur_pos = new Vector3(sphere.transform.position.x - current_photo.transform.position.x,
                                                           0,

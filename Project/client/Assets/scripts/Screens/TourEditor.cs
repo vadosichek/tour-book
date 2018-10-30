@@ -144,7 +144,7 @@ public class TourEditor : EditorScreen{
             new_photo_path = Application.dataPath+"/360_0051_stitched_injected.JPG";
             //new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1, false);
 
-            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, editable_tour.panoramas.Count, 0) * panorama_prefab.transform.localScale.x;
+            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 2*editable_tour.panoramas.Count, 0) * panorama_prefab.transform.localScale.x;
             GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;
             Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
             new_panorama_panorama.id = editable_tour.panoramas.Count;
@@ -184,6 +184,7 @@ public class TourEditor : EditorScreen{
     }
 
     public void Finish(){
+        editable_tour.editing = false;
         Proceed();
     }
 

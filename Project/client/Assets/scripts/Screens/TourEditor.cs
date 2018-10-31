@@ -55,7 +55,7 @@ public class TourEditor : EditorScreen{
     }
 
     private Texture2D LoadPanorama(Texture2D photo, string path){
-        float fit_to = 2000;
+        float fit_to = 4000;
         float height_to = fit_to / 2;
 
         float prop = fit_to / photo.width;
@@ -114,7 +114,7 @@ public class TourEditor : EditorScreen{
         if (new_photo_path != null){
             new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1, false);
 
-            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 0, 0) * panorama_prefab.transform.localScale.x;
+            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, editable_tour.panoramas.Count, 0) * panorama_prefab.transform.localScale.x;
             GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;
             Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
             new_panorama_panorama.id = editable_tour.panoramas.Count;
@@ -141,11 +141,14 @@ public class TourEditor : EditorScreen{
         #endif
         #if UNITY_EDITOR
         if (true){
-            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 0, 0) * panorama_prefab.transform.localScale.x;
+            new_photo_path = Application.dataPath+"/360_0051_stitched_injected.JPG";
+            //new_photo = NativeGallery.LoadImageAtPath(new_photo_path, -1, false);
+
+            Vector3 new_pos = new Vector3(editable_tour.panoramas.Count, 2*editable_tour.panoramas.Count, 0) * panorama_prefab.transform.localScale.x;
             GameObject new_panorama = Instantiate(panorama_prefab, new_pos, Quaternion.identity) as GameObject;
             Panorama new_panorama_panorama = new_panorama.GetComponent<Panorama>();
             new_panorama_panorama.id = editable_tour.panoramas.Count;
-            new_panorama_panorama.link = "";
+            new_panorama_panorama.link = new_photo_path;
 
             GameObject new_preview = Instantiate(preview_prefab, scroll_content) as GameObject;
             Image new_preview_image = new_preview.GetComponent<Image>();
@@ -181,6 +184,7 @@ public class TourEditor : EditorScreen{
     }
 
     public void Finish(){
+        editable_tour.editing = false;
         Proceed();
     }
 

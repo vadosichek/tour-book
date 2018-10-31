@@ -29,6 +29,9 @@ public class Post : Module {
     //black like icon object
     public GameObject filled_like;
 
+    //button to delete post
+    public GameObject delete_button;
+
     //download data from server
     public void LoadPost(){
         StartCoroutine(_LoadPost());
@@ -59,6 +62,8 @@ public class Post : Module {
 
             filled_like.SetActive(result.liked);
             liked = result.liked;
+
+            delete_button.SetActive(user_id == Server.user_id);
         }
     }
 
@@ -135,6 +140,31 @@ public class Post : Module {
         else{
             Debug.Log(www.downloadHandler.text);
             LoadPost();
+        }
+    }
+
+    //delete current post
+    public void DeleteTour(){
+        StartCoroutine(_DeleteTour());
+    }
+    //upload data coroutine
+    IEnumerator _DeleteTour(){
+        Debug.Log("delete");
+        WWWForm form = new WWWForm();
+
+        form.AddField("user_id", Server.user_id);
+        form.AddField("id", id);
+        form.AddField("password", PlayerPrefs.GetString("password", ""));
+
+        UnityWebRequest www = UnityWebRequest.Post(Server.base_url + "/delete_tour", form);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }
+        else{
+            Debug.Log(www.downloadHandler.text);
+            ScreenController.instance.DeletedPost();
         }
     }
 

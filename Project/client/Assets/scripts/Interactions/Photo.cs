@@ -13,6 +13,8 @@ public class Photo : Interaction {
     //path to photo
     public string link;
 
+    public bool opened = false;
+
     //load photo to texture
     public void Load(){
         link = FilePicker.PickImage(-1);
@@ -22,8 +24,12 @@ public class Photo : Interaction {
                 NativeGallery.LoadImageAtPath(link, -1);
     }
 
-    //do nothing on open
-    public override void Open(){}
+    //resize image on open
+    public override void Open(){
+        if(opened) transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+        else transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+        opened = !opened;
+    }
 
     //download photo from server
     public void Download(){
@@ -37,7 +43,7 @@ public class Photo : Interaction {
         using (WWW www = new WWW(Server.base_url + "/" + link)){
             yield return www;
             www.LoadImageIntoTexture(tex);
-            GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            transform.GetComponentInChildren<Renderer>().material.mainTexture = tex;
         }
     }
      

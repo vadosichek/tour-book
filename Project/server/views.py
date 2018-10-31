@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 import os
 import fnmatch
 from PIL import Image
-#from crypt import decrypt
 
 def check_password(user_id, password):
     user = models.User.query.get(user_id)
@@ -18,7 +17,7 @@ def check_password(user_id, password):
     return -1
 
 @app.route('/get_panorama', methods=['GET', 'POST'])
-def get_panorama():
+def get_panorama(): #get panorama photo
     post = request.args.get('id')
     name = request.args.get('name')
 
@@ -30,7 +29,7 @@ def get_panorama():
     return 'err'
 
 @app.route('/get_photo', methods=['GET', 'POST'])
-def get_photo():
+def get_photo(): #get interaction photo
     post = request.args.get('id')
     name = request.args.get('name')
 
@@ -42,7 +41,7 @@ def get_photo():
     return 'err'
 
 @app.route('/get_user', methods=['GET', 'POST'])
-def get_user():
+def get_user(): #get user profile pic
     name = request.args.get('name')
 
     for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], 'users')):
@@ -53,7 +52,7 @@ def get_user():
     return 'err'
 
 @app.route('/get_tour', methods=['GET', 'POST'])
-def get_tour():
+def get_tour(): #get tour .json description
     id = request.args.get('tour')
 
     path_base = os.path.join(app.config['UPLOAD_FOLDER'], 'posts', id, 'tour.json')
@@ -76,20 +75,20 @@ html_form = '''
             '''
 
 @app.route('/upload_panorama', methods=['GET', 'POST'])
-def upload_panorama():
+def upload_panorama(): #upload panorama photo
     if request.method == 'POST':
         file = request.files['file']
         return upload_for_posts(file, 'panoramas', request.form.get('tour'))
     return html_form
 
 @app.route('/upload_photo', methods=['GET', 'POST'])
-def upload_photo():
+def upload_photo(): #upload interaction photo
     if request.method == 'POST':
         file = request.files['file']
         return upload_for_posts(file, 'photos', request.form.get('tour'))
     return html_form
 
-def create_thumb(path_photo, filename, size=500):
+def create_thumb(path_photo, filename, size=500): #create square image from original - standart 500x500px
     image = Image.open(os.path.join(path_photo, filename))
 
     x = image.size[0]
@@ -103,25 +102,7 @@ def create_thumb(path_photo, filename, size=500):
 
     image.save(os.path.join(path_photo, 'thumb_'+filename))
 
-
-@app.route('/create_thumb_panorama', methods=['GET', 'POST'])
-def create_thumb_panorama():
-    post = request.args.get('id')
-
-    for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], 'posts', str(post), 'panoramas')):
-        create_thumb(os.path.join(app.config['UPLOAD_FOLDER'], 'posts', str(post), 'panoramas'), file)
-
-    return 'done'
-
-@app.route('/create_thumb_user', methods=['GET', 'POST'])
-def create_thumb_user():
-
-    for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], 'users')):
-        create_thumb(os.path.join(app.config['UPLOAD_FOLDER'], 'users'), file, 200)
-
-    return 'done'
-
-def upload_for_posts(file, opt, id):
+def upload_for_posts(file, opt, id): #get file from form, create thumbnail, save all
     filename = secure_filename(file.filename)
     path_base = os.path.join(app.config['UPLOAD_FOLDER'], 'posts')
     path_id = os.path.join(path_base, id)
@@ -144,13 +125,13 @@ def upload_for_posts(file, opt, id):
 
 
 @app.route('/upload_user', methods=['GET', 'POST'])
-def upload_user():
+def upload_user(): #upload user profile pic
     if request.method == 'POST':
         file = request.files['file']
         return upload_for_users(file)
     return html_form
 
-def upload_for_users(file):
+def upload_for_users(file): #get photo from form, create thumb, replace old one
     filename = secure_filename(file.filename)
 
     name = filename[0:filename.index('.')]
@@ -174,7 +155,7 @@ def upload_for_users(file):
     return 'ok'
 
 @app.route('/upload_tour', methods=['GET', 'POST'])
-def upload_tour():
+def upload_tour(): #upload tour .json description
     if request.method == 'POST':
         text = request.form.get('text')
         id = request.form.get('tour')
@@ -205,8 +186,7 @@ def upload_tour():
 
 
 
-def login_sys(_login, _password):
-    #dec_pass = decrypt(password)
+def login_sys(_login, _password): #db call to check password
     _login = str(_login)
     _password = str(_password)
     user = models.User.query.filter_by(login=_login).first()
@@ -217,12 +197,12 @@ def login_sys(_login, _password):
 
 
 @app.route('/login', methods=['POST', 'GET'])
-def login():
+def login(): #web router to login
     reqData = request.form
     return json.dumps(login_sys(reqData.get('login'), reqData.get('password')))
 
 
-def json_serial(obj):
+def json_serial(obj): #used to properly serialize date-time type
     if isinstance(obj, (datetime, date)):
         return obj.isoformat()
     raise TypeError("Type %s is not JSON serializable" % type(obj))
@@ -337,7 +317,7 @@ def create_tour():
             reqData.get('time')))
     return '-1'
 
-@app.route('/delete_tour', methods=['POST', 'GET'])
+@app.route('/delete_tour', methods=['POST', 'GET']) #delete db line, all panorama photos, interaction photos & .json description
 def delete_tour():
     reqData = request.form
     if not check_password(reqData.get('user_id', '0'), reqData.get('password', '')) == -1:
@@ -426,7 +406,7 @@ def delete_subscription():
         subscriber_id))
     return '-1'
 
-@app.route('/validate_email', methods=['POST', 'GET'])
+@app.route('/validate_email', methods=['POST', 'GET']) #called then user clicks on link in email
 def validate_email():
     reqData = request.args
     return str(models.validate_email(reqData.get('id')))

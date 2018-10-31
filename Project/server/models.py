@@ -24,15 +24,15 @@ class User(db.Model):
         posts = Tour.query.filter_by(user_id=self.id)
         return [x.id for x in posts[::-1]]
 
-def search_user(key):
+def search_user(key): #search key - username
     users = User.query.filter(User.name.like('%'+key+'%')).all()
     return [{'id':x.id, 'login':x.login, 'name':x.name} for x in users]
 
-def send_mail(to, name, id):
+def send_mail(to, name, id): #send validation email
     try:
         msg = Message(subject="Successful Circum registration",
             sender=app.config["MAIL_USERNAME"],
-            recipients=[to], # replace with your email for testing
+            recipients=[to],
             body="Dear {0},\nThanks for signing up for Circum!\nClick on this link to validate your email:\ngurtle.pythonanywhere.com/validate_email?id={1}".format(name, id))
         mail.send(msg)
         return 0
@@ -48,7 +48,7 @@ def create_user(login, password, name, bio, url):
     send_mail(url, login, newUser.id)
     return newUser.id
 
-def validate_email(id):
+def validate_email(id): #called when user click on link in email
     _id = int(id)
     user = User.query.get(_id)
     if user == None:
@@ -105,7 +105,7 @@ class Tour(db.Model):
         likes = Like.query.filter_by(tour_id=self.id)
         return [like.user_id for like in likes]
 
-def search_post(key):
+def search_post(key): #search key - description
     tours = Tour.query.filter(Tour.desc.like('%'+key+'%')).all()
     return [x.id for x in tours]
 
@@ -182,7 +182,7 @@ def delete_subscription(user_id, subscriber_id):
     return '-1'
 
 
-def generate_feed(user_id):
+def generate_feed(user_id): #feed: user's own posts, posts from his subscriptions, last 20 posts from all users
     postsList = []
 
     posts = Tour.query.filter_by(user_id=user_id)
